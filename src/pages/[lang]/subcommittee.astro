@@ -1,0 +1,47 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+import { executiveData } from "../../data/executives";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 임원진 정보만 필터링
+const executives = executiveData.find((group: any) => group.title.includes("임원진") || group.title.includes("Executives"));
+---
+
+<BaseLayout lang={currentLang} title={getTranslation('subcommittee.title', currentLang)}>
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+    <div class="container mx-auto px-4 pt-header">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+          {getTranslation('subcommittee.title', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          {getTranslation('subcommittee.subtitle', currentLang)}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Executives -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {executives?.executives.map((member: any) => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
+              <h3 class="text-xl font-semibold mb-1">{member.position}</h3>
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-semibold text-gray-800 mb-2">{member.name}</h4>
+              <p class="text-sm text-gray-500 mb-3">{member.program}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout> 

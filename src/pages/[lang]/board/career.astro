@@ -1,0 +1,176 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 채용 정보 (실제 데이터로 교체 필요)
+const jobListings = [
+  {
+    company: "Samsung Electronics",
+    position: currentLang === 'ko' ? '소프트웨어 엔지니어' : 'Software Engineer',
+    location: "Seoul, Korea",
+    type: currentLang === 'ko' ? '정규직' : 'Full-time',
+    deadline: "2024-12-31",
+    description: currentLang === 'ko' 
+      ? '모바일 애플리케이션 개발 및 유지보수를 담당합니다.'
+      : 'Responsible for mobile application development and maintenance.',
+    requirements: currentLang === 'ko' 
+      ? ['컴퓨터 과학 또는 관련 분야 학사 학위', 'Java/Kotlin 경험', 'Android 개발 경험']
+      : ['Bachelor\'s degree in Computer Science or related field', 'Experience with Java/Kotlin', 'Android development experience']
+  },
+  {
+    company: "LG Electronics",
+    position: currentLang === 'ko' ? '하드웨어 엔지니어' : 'Hardware Engineer',
+    location: "Seoul, Korea",
+    type: currentLang === 'ko' ? '인턴십' : 'Internship',
+    deadline: "2024-11-30",
+    description: currentLang === 'ko'
+      ? '전자 제품 설계 및 테스트를 담당합니다.'
+      : 'Responsible for electronic product design and testing.',
+    requirements: currentLang === 'ko'
+      ? ['전자공학 또는 관련 분야 학사 학위', 'PCB 설계 경험', '회로 설계 지식']
+      : ['Bachelor\'s degree in Electrical Engineering or related field', 'PCB design experience', 'Circuit design knowledge']
+  },
+  {
+    company: "Hyundai Motor Company",
+    position: currentLang === 'ko' ? '자동차 엔지니어' : 'Automotive Engineer',
+    location: "Ulsan, Korea",
+    type: currentLang === 'ko' ? '정규직' : 'Full-time',
+    deadline: "2024-12-15",
+    description: currentLang === 'ko'
+      ? '자동차 엔진 및 변속기 설계를 담당합니다.'
+      : 'Responsible for automotive engine and transmission design.',
+    requirements: currentLang === 'ko'
+      ? ['기계공학 또는 관련 분야 학사 학위', 'CAD 소프트웨어 경험', '자동차 산업 지식']
+      : ['Bachelor\'s degree in Mechanical Engineering or related field', 'CAD software experience', 'Automotive industry knowledge']
+  }
+];
+---
+
+<BaseLayout lang={currentLang} title={getTranslation('board.career.title', currentLang)}>
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+    <div class="container mx-auto px-4 pt-header">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+          {getTranslation('board.career.title', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          {getTranslation('board.career.subtitle', currentLang)}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Job Listings -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {jobListings.map((job) => (
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+              <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
+                <h3 class="text-xl font-semibold mb-2">{job.company}</h3>
+                <p class="text-lg opacity-90">{job.position}</p>
+              </div>
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                  <span class="text-sm text-gray-500">{job.location}</span>
+                  <span class="text-sm text-teal-600 font-medium">{job.type}</span>
+                </div>
+                <p class="text-gray-600 mb-4 leading-relaxed">{job.description}</p>
+                
+                <div class="mb-4">
+                  <h4 class="text-sm font-semibold text-gray-800 mb-2">
+                    {currentLang === 'ko' ? '요구사항' : 'Requirements'}
+                  </h4>
+                  <ul class="text-sm text-gray-600 space-y-1">
+                    {job.requirements.map((req) => (
+                      <li class="flex items-start">
+                        <span class="text-teal-600 mr-2">•</span>
+                        {req}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-500">
+                    {currentLang === 'ko' ? '마감일' : 'Deadline'}: {job.deadline}
+                  </span>
+                  <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors">
+                    {currentLang === 'ko' ? '지원하기' : 'Apply'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Career Resources -->
+    <!-- <section class="py-20 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            {currentLang === 'ko' ? '커리어 리소스' : 'Career Resources'}
+          </h2>
+          <p class="text-lg text-gray-600">
+            {currentLang === 'ko' 
+              ? '커리어 개발에 도움이 되는 다양한 리소스를 제공합니다.' 
+              : 'We provide various resources to help with career development.'}
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {currentLang === 'ko' ? '이력서 템플릿' : 'Resume Templates'}
+            </h3>
+            <p class="text-gray-600">
+              {currentLang === 'ko' ? '다양한 이력서 템플릿을 제공합니다.' : 'We provide various resume templates.'}
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {currentLang === 'ko' ? '네트워킹' : 'Networking'}
+            </h3>
+            <p class="text-gray-600">
+              {currentLang === 'ko' ? '졸업생들과의 네트워킹 기회를 제공합니다.' : 'We provide networking opportunities with alumni.'}
+            </p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {currentLang === 'ko' ? '면접 준비' : 'Interview Prep'}
+            </h3>
+            <p class="text-gray-600">
+              {currentLang === 'ko' ? '면접 준비를 위한 가이드를 제공합니다.' : 'We provide guides for interview preparation.'}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+
+</BaseLayout> 

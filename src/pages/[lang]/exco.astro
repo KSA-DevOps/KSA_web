@@ -1,0 +1,69 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+import { executiveData } from "../../data/executives";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 회장단 정보만 필터링
+const presidents = executiveData.find((group: any) => group.title.includes("회장단") || group.title.includes("Presidents"));
+---
+
+<BaseLayout lang={currentLang} title={getTranslation('exco.title', currentLang)}>
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+    <div class="container mx-auto px-4 pt-header">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+          {getTranslation('exco.title', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          {getTranslation('exco.subtitle', currentLang)}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Presidents -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {presidents?.executives.map((member: any) => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
+              <h3 class="text-xl font-semibold mb-1">{member.position}</h3>
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-semibold text-gray-800 mb-2">{member.name}</h4>
+              <p class="text-sm text-gray-500 mb-3">{member.program}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <!-- <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">
+          {getTranslation('contact.get.involved.title', currentLang)}
+        </h2>
+        <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+          {getTranslation('contact.get.involved.desc', currentLang)}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`/${currentLang}/contact`} class="bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+            {getTranslation('contact.contact.button', currentLang)}
+          </a>
+          <a href={`/${currentLang}/events`} class="border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-teal-600 hover:text-white transition-colors">
+            {getTranslation('about.events.button', currentLang)}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section> -->
+</BaseLayout> 

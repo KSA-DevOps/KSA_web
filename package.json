@@ -7,7 +7,8 @@
     "start": "astro dev",
     "build": "astro check && astro build --remote",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "optimize-images": "node scripts/optimize-images.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -19,6 +20,7 @@
     "@keystatic/astro": "^5.0.4",
     "@keystatic/core": "^0.5.47",
     "@tailwindcss/vite": "^4.1.11",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "astro": "^5.12.1",
@@ -26,11 +28,13 @@
     "astro-seo": "^0.8.4",
     "astro-seo-schema": "^5.0.0",
     "mdast-util-to-string": "^4.0.0",
+    "nodemailer": "^7.0.5",
     "preline": "^3.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.1.0",
     "reading-time": "^1.5.0",
     "schema-dts": "^1.1.2",
+    "sharp": "^0.34.3",
     "svelte": "^5.36.12",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.11",

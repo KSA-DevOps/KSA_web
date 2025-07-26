@@ -1,0 +1,75 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  url?: string;
+  type?: 'website' | 'article' | 'organization';
+  lang?: 'ko' | 'en';
+}
+
+const {
+  title,
+  description,
+  image = '/images/social.png',
+  url,
+  type = 'website',
+  lang = 'ko'
+} = Astro.props;
+
+const canonicalURL = url ? new URL(url, Astro.site) : Astro.url;
+const ogImage = new URL(image, Astro.site);
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<meta name="language" content={lang} />
+
+<!-- Canonical URL -->
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={lang === 'ko' ? 'ko_KR' : 'en_US'} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={ogImage} />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="HKUST KSA" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "HKUST Korean Students' Association",
+  "alternateName": "HKUST KSA",
+  "url": "https://ksa.ust.hk",
+  "logo": "https://ksa.ust.hk/images/logo.png",
+  "description": "Hong Kong University of Science and Technology Korean Students' Association",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Hong Kong",
+    "addressCountry": "HK"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer service",
+    "email": "ksa@connect.ust.hk"
+  },
+  "sameAs": [
+    "https://www.facebook.com/groups/hkustksa"
+  ]
+})} /> 

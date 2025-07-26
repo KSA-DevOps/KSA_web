@@ -26,17 +26,18 @@
   --color-slate-900: oklch(0.208 0.042 265.755);
   --color-slate-950: oklch(0.129 0.042 264.695);
 
-  --color-teal-50: oklch(99.48% 0.0032 197.11);
-  --color-teal-100: oklch(98.28% 0.0074 197.04);
-  --color-teal-200: oklch(96.36% 0.0179 196.86);
-  --color-teal-300: oklch(93.55% 0.0283 196.68);
-  --color-teal-400: oklch(89.79% 0.0396 196.47);
-  --color-teal-500: oklch(84.99% 0.0526 196.2);
-  --color-teal-600: oklch(78.05% 0.0652 195.9);
-  --color-teal-700: oklch(69.85% 0.0817 195.44);
-  --color-teal-800: oklch(59.53% 0.1 194.8);
-  --color-teal-900: oklch(54.08% 0.0908 194.8);
-  --color-teal-950: oklch(32.68% 0.047 195.1);
+  /* Updated Teal Palette based on RGB(163, 29, 29) - OKLCH(0.42 0.129 21.3) */
+  --color-teal-50: oklch(0.985 0.005 21.3);
+  --color-teal-100: oklch(0.97 0.01 21.3);
+  --color-teal-200: oklch(0.94 0.02 21.3);
+  --color-teal-300: oklch(0.88 0.04 21.3);
+  --color-teal-400: oklch(0.79 0.07 21.3);
+  --color-teal-500: oklch(0.67 0.1 21.3);
+  --color-teal-600: oklch(0.55 0.12 21.3);
+  --color-teal-700: oklch(0.42 0.129 21.3); /* Target RGB(163, 29, 29) converted to OKLCH */
+  --color-teal-800: oklch(0.35 0.12 21.3);
+  --color-teal-900: oklch(0.25 0.09 21.3);
+  --color-teal-950: oklch(0.15 0.06 21.3);
 
   /* https://tailwindcss.com/docs/font-family#customizing-your-theme */
   --font-dm-sans: "DM Sans", sans-serif;
@@ -45,7 +46,7 @@
 
 @theme inline {
   --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
-  
+
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
@@ -86,9 +87,18 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
+
+  /* Fix header overlap issue */
+  html {
+    scroll-padding-top: 120px;
+  }
+
+  /* Ensure proper spacing for fixed header */
+  .pt-header {
+    padding-top: 120px;
+  }
 }
 
 @utility card {
   @apply relative z-10 flex h-full flex-col border-dashed border-slate-300 p-4 before:absolute before:inset-0 before:-z-1 before:bg-linear-to-b/oklch before:via-80% before:opacity-0 hover:before:from-transparent hover:before:via-transparent hover:before:to-teal-500/20 hover:before:opacity-100 focus:outline-hidden focus:before:from-transparent focus:before:via-transparent focus:before:to-teal-500/20 focus:before:opacity-100 md:p-6;
 }
-

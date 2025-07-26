@@ -1,0 +1,219 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Button from "@ui/Button.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 갤러리 이미지 데이터 (최적화된 이미지 사용)
+const galleryImages = [
+  {
+    id: 1,
+    title: "Welcome Party 2023",
+    description: "New students welcome event",
+    category: "events",
+    image: "/images/optimized/events/Events_welcome.webp"
+  },
+  {
+    id: 2,
+    title: "Career Talk 2023",
+    description: "Professional development seminar",
+    category: "events",
+    image: "/images/optimized/events/Events_GT.webp"
+  },
+  {
+    id: 3,
+    title: "MT 2023",
+    description: "Team building retreat",
+    category: "events",
+    image: "/images/optimized/events/Events_MT.webp"
+  },
+  {
+    id: 4,
+    title: "Executive Committee",
+    description: "KSA leadership team",
+    category: "team",
+    image: "/images/optimized/executives/Exco.webp"
+  },
+  {
+    id: 5,
+    title: "OGM 2023",
+    description: "Ordinary General Meeting",
+    category: "meetings",
+    image: "/images/optimized/events/Events_OGM.webp"
+  },
+  {
+    id: 6,
+    title: "Pub Night",
+    description: "Social gathering",
+    category: "events",
+    image: "/images/optimized/events/Events_pubnight.webp"
+  },
+  {
+    id: 7,
+    title: "KAIST Visit 1",
+    description: "KAIST campus visit",
+    category: "visits",
+    image: "/images/optimized/gallery/KAIST1.webp"
+  },
+  {
+    id: 8,
+    title: "KAIST Visit 2",
+    description: "KAIST campus visit",
+    category: "visits",
+    image: "/images/optimized/gallery/KAIST2.webp"
+  },
+  {
+    id: 9,
+    title: "Redbird Fog",
+    description: "Campus scenery",
+    category: "campus",
+    image: "/images/optimized/gallery/Redbird_Fog.webp"
+  }
+];
+
+const categories = [
+  { id: "all", name: "All Photos", count: galleryImages.length },
+  { id: "events", name: "Events", count: galleryImages.filter(img => img.category === "events").length },
+  { id: "team", name: "Team", count: galleryImages.filter(img => img.category === "team").length },
+  { id: "meetings", name: "Meetings", count: galleryImages.filter(img => img.category === "meetings").length },
+  { id: "visits", name: "Visits", count: galleryImages.filter(img => img.category === "visits").length },
+  { id: "campus", name: "Campus", count: galleryImages.filter(img => img.category === "campus").length }
+];
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">Photo Gallery</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          Capture the memories and moments from our KSA events and activities
+        </p>
+      </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-8 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap justify-center gap-4">
+          {categories.map((category) => (
+            <button
+              class="px-6 py-2 rounded-full bg-gray-100 text-gray-700 hover:bg-teal-500 hover:text-white transition-colors"
+              data-category={category.id}
+            >
+              {category.name} ({category.count})
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {galleryImages.map((image) => (
+            <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+              <!-- Actual images -->
+              <div class="aspect-square bg-cover bg-center" style={`background-image: url('${image.image}')`}>
+              </div>
+              
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                <div class="text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 class="text-lg font-semibold mb-2">{image.title}</h3>
+                  <p class="text-sm opacity-90">{image.description}</p>
+                  <button class="mt-4 px-4 py-2 bg-white text-gray-800 rounded-lg hover:bg-gray-100 transition-colors">
+                    View Full Size
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Category Badge -->
+              <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 bg-white bg-opacity-90 text-gray-800 text-xs font-medium rounded-full">
+                  {image.category.charAt(0).toUpperCase() + image.category.slice(1)}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload Section -->
+    <!-- <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Share Your Photos</h2>
+        <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Have photos from our events? Share them with the KSA community!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button href="/contact" variant="primary" className="px-8 py-3">
+            Submit Photos
+          </Button>
+          <Button href="/events" variant="secondary" className="px-8 py-3">
+            View Events
+          </Button>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- Recent Highlights -->
+    <!-- <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Recent Highlights</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div class="bg-gray-100 rounded-xl p-8 text-center">
+            <div class="w-20 h-20 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">500+ Photos</h3>
+            <p class="text-gray-600">Captured moments from our events and activities</p>
+          </div>
+          
+          <div class="bg-gray-100 rounded-xl p-8 text-center">
+            <div class="w-20 h-20 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">20+ Events</h3>
+            <p class="text-gray-600">Events documented throughout the academic year</p>
+          </div>
+        </div>
+      </div>
+    </section> -->
+  </div>
+
+  <script is:inline>
+    // Simple filter functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('[data-category]');
+      const galleryItems = document.querySelectorAll('.group');
+      
+      filterButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          
+          // Update active button
+          filterButtons.forEach(function(btn) {
+            btn.classList.remove('bg-teal-500', 'text-white');
+          });
+          this.classList.add('bg-teal-500', 'text-white');
+          
+          // Filter items (for now, just show all since we don't have real images)
+          galleryItems.forEach(function(item) {
+            item.style.display = category === 'all' ? 'block' : 'block';
+          });
+        });
+      });
+    });
+  </script>
+</BaseLayout> 

@@ -1,28 +1,32 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 ---
 
-<BaseLayout>
+<BaseLayout lang={currentLang}>
   <!-- Hero Section -->
   <section class="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-teal-50 to-blue-50">
     <div class="absolute inset-0 bg-black/20 pt-header"></div>
     <div class="relative z-10 text-center px-4">
       <h1 class="text-6xl md:text-8xl font-bold text-white mb-6 drop-shadow-lg">
-        HKUST KSA
+        {getTranslation('home.title', currentLang)}
       </h1>
       <p class="text-xl md:text-2xl text-white mb-8 drop-shadow-lg max-w-3xl mx-auto">
-        Hong Kong University of Science and Technology<br>
-        Korean Students' Association
+        {getTranslation('home.subtitle', currentLang)}
       </p>
       <p class="text-lg text-white/90 mb-12 drop-shadow-lg">
-        "To best serve the interests of our members and to spread Korean culture in an international community."
+        {getTranslation('home.mission', currentLang)}
       </p>
               <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/ko/about" class="bg-white text-teal-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-            About Us
+          <a href="/{currentLang}/about" class="bg-white text-teal-800 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            {getTranslation('home.about.button', currentLang)}
           </a>
-          <a href="/ko/events" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-teal-800 transition-colors">
-            Events
+          <a href="/{currentLang}/events" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-teal-800 transition-colors">
+            {getTranslation('home.events.button', currentLang)}
           </a>
         </div>
     </div>
@@ -31,9 +35,9 @@ import BaseLayout from "@layout/BaseLayout.astro";
   <!-- Quick Links Section -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">Quick Links</h2>
+      <h2 class="text-4xl font-bold text-center mb-16 text-gray-800">{getTranslation('home.quick.links', currentLang)}</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <a href="/ko/about" class="group">
+        <a href="/{currentLang}/about" class="group">
           <div class="bg-teal-50 p-8 rounded-xl text-center hover:bg-teal-100 transition-colors">
             <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-teal-700 transition-colors">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -45,7 +49,7 @@ import BaseLayout from "@layout/BaseLayout.astro";
           </div>
         </a>
 
-        <a href="/ko/events" class="group">
+        <a href="/{currentLang}/events" class="group">
           <div class="bg-blue-50 p-8 rounded-xl text-center hover:bg-blue-100 transition-colors">
             <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +61,7 @@ import BaseLayout from "@layout/BaseLayout.astro";
           </div>
         </a>
 
-        <a href="/ko/photos" class="group">
+        <a href="/{currentLang}/photos" class="group">
           <div class="bg-purple-50 p-8 rounded-xl text-center hover:bg-purple-100 transition-colors">
             <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-purple-700 transition-colors">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -69,7 +73,7 @@ import BaseLayout from "@layout/BaseLayout.astro";
           </div>
         </a>
 
-        <a href="/ko/suggestion" class="group">
+        <a href="/{currentLang}/suggestion" class="group">
           <div class="bg-orange-50 p-8 rounded-xl text-center hover:bg-orange-100 transition-colors">
             <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-orange-700 transition-colors">
               <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">

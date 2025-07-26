@@ -1,0 +1,85 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 연례행사 정보
+const annualEvents = [
+  {
+    title: currentLang === 'ko' ? '신입생 환영회' : 'Freshman Welcome Party',
+    date: 'September 2024',
+    description: currentLang === 'ko' 
+      ? '새로운 KSA 멤버들을 위한 환영 행사입니다. 선배들과의 네트워킹과 한국 문화 체험을 제공합니다.'
+      : 'A welcome event for new KSA members. Features networking with seniors and Korean culture experiences.',
+    image: '/images/events/Events_welcome.jpg'
+  },
+  {
+    title: currentLang === 'ko' ? 'MT (Membership Training)' : 'MT (Membership Training)',
+    date: 'October 2024',
+    description: currentLang === 'ko'
+      ? 'KSA 멤버들 간의 친목을 도모하는 1박 2일의 팀 빌딩 행사입니다.'
+      : 'A 2-day team building event to foster friendship among KSA members.',
+    image: '/images/events/Events_MT.jpg'
+  },
+  {
+    title: currentLang === 'ko' ? '한국 문화 축제' : 'Korean Culture Festival',
+    date: 'November 2024',
+    description: currentLang === 'ko'
+      ? '한국 전통 문화를 홍콩과기대 학생들에게 소개하는 문화 축제입니다.'
+      : 'A cultural festival introducing Korean traditional culture to HKUST students.',
+    image: '/images/events/Events_culture.jpg'
+  },
+  {
+    title: currentLang === 'ko' ? '연말 파티' : 'Year-End Party',
+    date: 'December 2024',
+    description: currentLang === 'ko'
+      ? '한 해를 마무리하는 연말 파티입니다. 다양한 공연과 게임이 준비되어 있습니다.'
+      : 'A year-end party to wrap up the year. Features various performances and games.',
+    image: '/images/events/Events_party.jpg'
+  }
+];
+---
+
+<BaseLayout lang={currentLang} title={getTranslation('events.annual.title', currentLang)}>
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+    <div class="container mx-auto px-4 pt-header">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+          {getTranslation('events.annual.title', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          {getTranslation('events.annual.subtitle', currentLang)}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Annual Events -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {annualEvents.map((event) => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <div class="h-48 bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+              <svg class="h-16 w-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-semibold text-gray-800">{event.title}</h3>
+                <span class="text-sm text-teal-600 font-medium">{event.date}</span>
+              </div>
+              <p class="text-gray-600 leading-relaxed">{event.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout> 

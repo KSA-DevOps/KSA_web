@@ -1,0 +1,187 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Button from "@ui/Button.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 회칙 데이터
+const constitution = [
+  {
+    title: "제1장 총칙",
+    articles: [
+      {
+        number: "제1조 (명칭)",
+        content: "본 회는 홍콩과학기술대학교 한인학생회(Korean Students' Association at HKUST, 이하 'KSA')라 한다."
+      },
+      {
+        number: "제2조 (목적)",
+        content: "본 회는 홍콩과학기술대학교에 재학 중인 한국 학생들의 학업 및 생활 전반에 걸친 상호 협력과 교류를 통하여 학업 성취도 향상과 한국 문화의 전파를 목적으로 한다."
+      },
+      {
+        number: "제3조 (위치)",
+        content: "본 회의 주소는 홍콩과학기술대학교 내에 둔다."
+      }
+    ]
+  },
+  {
+    title: "제2장 회원",
+    articles: [
+      {
+        number: "제4조 (회원의 자격)",
+        content: "홍콩과학기술대학교에 재학 중인 한국 학생은 본 회의 회원이 된다."
+      },
+      {
+        number: "제5조 (회원의 권리)",
+        content: "회원은 본 회의 모든 활동에 참여할 권리를 가지며, 본 회의 운영에 관한 의견을 제시할 수 있다."
+      },
+      {
+        number: "제6조 (회원의 의무)",
+        content: "회원은 본 회의 목적 달성을 위해 노력하며, 본 회의 명예를 훼손하는 행위를 하지 않아야 한다."
+      }
+    ]
+  },
+  {
+    title: "제3장 조직",
+    articles: [
+      {
+        number: "제7조 (총회)",
+        content: "총회는 본 회의 최고 의결기관으로서 정기총회와 임시총회로 구분한다."
+      },
+      {
+        number: "제8조 (임원)",
+        content: "본 회에는 다음의 임원을 둔다. 1. 회장 1명 2. 부회장 1명 3. 총무 1명 4. 기타 필요한 임원"
+      },
+      {
+        number: "제9조 (임원의 선출)",
+        content: "임원은 총회에서 회원 중에서 선출하며, 임기는 1년으로 한다."
+      }
+    ]
+  },
+  {
+    title: "제4장 활동",
+    articles: [
+      {
+        number: "제10조 (정기활동)",
+        content: "본 회는 학기별로 정기 모임을 가지며, 회원 간의 교류를 위한 다양한 활동을 전개한다."
+      },
+      {
+        number: "제11조 (특별활동)",
+        content: "본 회는 필요에 따라 특별 활동을 계획하고 실행할 수 있다."
+      },
+      {
+        number: "제12조 (외부교류)",
+        content: "본 회는 다른 대학의 한인학생회 및 관련 단체와의 교류를 적극적으로 추진한다."
+      }
+    ]
+  },
+  {
+    title: "제5장 재정",
+    articles: [
+      {
+        number: "제13조 (재정원천)",
+        content: "본 회의 재정은 회비, 후원금, 기타 수입으로 충당한다."
+      },
+      {
+        number: "제14조 (회계감사)",
+        content: "본 회의 회계는 매 학기 말에 감사를 받아야 한다."
+      }
+    ]
+  },
+  {
+    title: "제6장 부칙",
+    articles: [
+      {
+        number: "제15조 (개정)",
+        content: "본 회칙의 개정은 총회에서 재적회원 2/3 이상의 찬성으로 의결한다."
+      },
+      {
+        number: "제16조 (시행)",
+        content: "본 회칙은 공포한 날부터 시행한다."
+      }
+    ]
+  }
+];
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">Constitution</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          홍콩과학기술대학교 한인학생회 회칙
+        </p>
+      </div>
+    </section>
+
+    <!-- Constitution Content -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="prose prose-lg mx-auto">
+            {constitution.map((chapter, chapterIndex) => (
+              <div class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2">
+                  {chapter.title}
+                </h2>
+                <div class="space-y-6">
+                  {chapter.articles.map((article, articleIndex) => (
+                    <div class="bg-gray-50 rounded-lg p-6">
+                      <h3 class="text-lg font-semibold text-teal-700 mb-3">
+                        {article.number}
+                      </h3>
+                      <p class="text-gray-700 leading-relaxed">
+                        {article.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Information -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">회칙 관련 문의</h2>
+            <p class="text-gray-600 mb-6">
+              회칙에 대한 질문이나 개정 제안이 있으시면 언제든지 연락해 주세요.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <Button href="/ko/suggestion" variant="secondary" className="px-6 py-3">
+                개정 제안
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">다른 페이지 보기</h2>
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href="/about" variant="secondary" className="px-6 py-3">
+            About Us
+          </Button>
+          <Button href="/events" variant="secondary" className="px-6 py-3">
+            Events
+          </Button>
+          <Button href="/contact" variant="secondary" className="px-6 py-3">
+            Contact
+          </Button>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout> 

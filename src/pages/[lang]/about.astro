@@ -1,0 +1,163 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Button from "@ui/Button.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 회장단 정보 (최적화된 이미지 사용)
+const executiveCommittee = [
+  {
+    name: "DongBum Kim",
+    position: "President",
+    email: "dbkim@connect.ust.hk",
+    phone: "5939-9345",
+    image: "/images/optimized/executives/AboutUs_DongBum2.webp"
+  },
+  {
+    name: "ChangWoo Lee",
+    position: "External Vice President",
+    email: "cwooo@connect.ust.hk",
+    phone: "5939-9345",
+    image: "/images/optimized/executives/AboutUs_ChangWoo.webp"
+  },
+  {
+    name: "GeunHang",
+    position: "Internal Vice President",
+    email: "",
+    phone: "",
+    image: "/images/optimized/executives/AboutUs_GeunHang.webp"
+  },
+  {
+    name: "GeunHo",
+    position: "Secretary",
+    email: "",
+    phone: "",
+    image: "/images/optimized/executives/AboutUs_GeunHo.webp"
+  },
+  {
+    name: "NamJae",
+    position: "Treasurer",
+    email: "",
+    phone: "",
+    image: "/images/optimized/executives/AboutUs_NamJae.webp"
+  },
+  {
+    name: "NamWon",
+    position: "Public Relations",
+    email: "",
+    phone: "",
+    image: "/images/optimized/executives/AboutUs_NamWon.webp"
+  }
+];
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">{getTranslation('about.title', currentLang)}</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          {getTranslation('about.mission', currentLang)}
+        </p>
+      </div>
+    </section>
+
+    <!-- Association Introduction -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">{getTranslation('about.association', currentLang)}</h2>
+          <div class="prose prose-lg mx-auto text-gray-600">
+            <p class="mb-6">
+              {getTranslation('about.greeting', currentLang)}
+            </p>
+            <p class="mb-6">
+              {getTranslation('about.intro1', currentLang)}
+            </p>
+            <p class="mb-6">
+              {getTranslation('about.intro2', currentLang)}
+            </p>
+            <p class="text-right font-semibold">
+              {getTranslation('about.signature', currentLang)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Executive Committee -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">{getTranslation('about.executive.title', currentLang)}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {executiveCommittee.map((member) => (
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div class="h-64 bg-cover bg-center" style={`background-image: url('${member.image}')`}>
+                <div class="h-full bg-black bg-opacity-30 flex items-center justify-center">
+                  <div class="text-white text-center">
+                    <h3 class="text-xl font-semibold">{member.name}</h3>
+                    <p class="text-sm opacity-90">{member.position}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="space-y-2 text-sm text-gray-600">
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                    <a href={`mailto:${member.email}`} class="hover:text-teal-600">{member.email}</a>
+                  </div>
+                  <div class="flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                    </svg>
+                    <span>{member.phone}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Constitution Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Constitution</h2>
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Article 1: Purpose</h3>
+            <p class="text-gray-600 mb-6">
+              The Korean Students' Association (KSA) at HKUST aims to promote Korean culture, 
+              facilitate networking among Korean students, and provide support for academic and social activities.
+            </p>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Article 2: Membership</h3>
+            <p class="text-gray-600 mb-6">
+              All Korean students enrolled at HKUST are automatically members of KSA. 
+              Non-Korean students interested in Korean culture are also welcome to join.
+            </p>
+            
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Article 3: Executive Committee</h3>
+            <p class="text-gray-600 mb-6">
+              The Executive Committee consists of elected members who serve for one academic year. 
+              They are responsible for organizing events, managing communications, and representing the association.
+            </p>
+            
+            <div class="text-center mt-8">
+              <Button href="/constitution" variant="secondary" className="px-6 py-2">
+                View Full Constitution
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

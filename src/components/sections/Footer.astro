@@ -3,27 +3,27 @@ import FooterForm from "@ui/forms/FooterForm.astro";
 import ContactInfo from "@common/ContactInfo.astro";
 
 // Props for customization
-const companyName = "DataNova Analytics Inc.";
+const companyName = "Korean Students' Association";
 const companyDescription =
-  "DataNova Analytics Inc. is a leading business intelligence and analytics software company founded in 2018, with offices in Boston and Seattle.";
+  "홍콩과학기술대학교 한인학생회는 홍콩과기대 내에서 한국 문화를 전파하고, 회원들에게 한국 문화에 대한 이해를 습득 및 강화하며 한국 전통 문화에 대한 대중적 인식을 높일 기회의 장을 마련하며, 회원들에게 동호 활동 및 이벤트 등을 통해 다양한 교류가 원활하게 이루어질 수 있도록 기회의 장을 마련하며, 회원들의 복지 향상에 힘쓰며 회원들의 목소리를 대변하기 위한 학생단체입니다.";
 
-// Contact information for the company
+// Contact information for KSA
 const contactDetails = {
-  address: "Seattle, WA, 98104",
-  phone: "1 (833) 328-2669",
-  email: "info@datanova.com",
-  website: "www.datanova.com",
+  address: "Mail Box #103, LG5 Student Amenities, HKUST, Clear Water Bay, Kowloon, Hong Kong",
+  phone: "+852 2358 6000",
+  email: "su_ksa@connect.ust.hk",
+  website: "www.facebook.com/ksahkustsu",
 };
 
 // Dynamic date for copyright display
 const copyrightYear = new Date().getFullYear();
 
 // Developer or team behind the website
-const craftedBy = { name: "gulamoff", url: "https://www.gulamoff.dev/" };
+const craftedBy = { name: "KSA IT Team", url: "#" };
 
 // Trademark notice
 const trademarkNotice =
-  "Microsoft&reg; and Excel&reg; are registered trademarks or trademarks of Microsoft Corporation";
+  "HKUST&reg; is a registered trademark of The Hong Kong University of Science and Technology";
 ---
 
 <footer
@@ -32,29 +32,15 @@ const trademarkNotice =
   <div class="mx-auto mt-auto w-full max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8">
     <hr class="mb-10 border-slate-200" />
 
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
-      {/* Company Information */}
-      <div class="col-span-full self-center xl:col-span-2">
-        <a
-          href="#"
-          class="flex-none text-xl font-semibold uppercase text-slate-700 focus:opacity-80 focus:outline-hidden"
-          aria-label="{companyName} Homepage"
-        >
-          {companyName}
-        </a>
-        <p class="mt-5 text-pretty text-slate-600 lg:w-5/12 xl:w-10/12">
-          {companyDescription}
-        </p>
-      </div>
-
+    <div class="flex flex-col gap-6 md:flex-row md:justify-between md:items-start">
       {/* Contact Information Section */}
-      <div class="col-span-1 md:col-span-2 xl:col-span-1 xl:col-start-3">
+      <div class="md:w-1/2 lg:w-1/3">
         <ContactInfo {...contactDetails} />
       </div>
 
       {/* Email Subscription Form */}
-      <div class="col-span-2 md:col-span-3 xl:col-span-2">
-        <h3 class="font-semibold text-slate-700">More information?</h3>
+      <div class="md:w-1/2 lg:w-2/5">
+        <h3 class="font-semibold text-slate-700">KSA 뉴스레터 구독</h3>
         <FooterForm />
       </div>
     </div>
@@ -69,20 +55,20 @@ const trademarkNotice =
       <p class="text-sm text-slate-400/50">
         &copy; 2018-{copyrightYear}
         {companyName} Crafted by
-        <a
+        <!-- <a
           href={craftedBy.url}
           target="_blank"
           rel="noopener noreferrer"
           class="font-medium underline underline-offset-2 outline-hidden ring-slate-400 transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
-        >
+        > -->
           {craftedBy.name}
-        </a>
+        <!-- </a> -->
       </p>
 
       {/* Trademark Notice */}
-      <p class="text-sm text-slate-400/50">
+      <!-- <p class="text-sm text-slate-400/50">
         <Fragment set:html={trademarkNotice} />
-      </p>
+      </p> -->
     </div>
   </div>
 </footer>

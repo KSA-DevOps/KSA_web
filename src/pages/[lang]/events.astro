@@ -1,0 +1,206 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Button from "@ui/Button.astro";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 이벤트 데이터 (기존 웹사이트에서 가져온 정보)
+const events = [
+  {
+    month: "August",
+    year: "2024",
+    title: "신입생 환영회",
+    description: "Welcome party for new students",
+    type: "welcome"
+  },
+  {
+    month: "September",
+    year: "2024",
+    title: "개강총회",
+    description: "Opening General Meeting",
+    type: "meeting"
+  },
+  {
+    month: "September",
+    year: "2024",
+    title: "Career Talk",
+    description: "Career development seminar",
+    type: "career"
+  },
+  {
+    month: "October",
+    year: "2024",
+    title: "MT (Membership Training)",
+    description: "Team building retreat",
+    type: "social"
+  },
+  {
+    month: "November",
+    year: "2024",
+    title: "OGM (Ordinary General Meeting)",
+    description: "Regular general meeting",
+    type: "meeting"
+  },
+  {
+    month: "December",
+    year: "2024",
+    title: "Christmas Party",
+    description: "Holiday celebration",
+    type: "social"
+  }
+];
+
+const eventTypes: Record<string, { color: string; icon: string }> = {
+  welcome: { color: "bg-blue-500", icon: "🎉" },
+  meeting: { color: "bg-green-500", icon: "📋" },
+  career: { color: "bg-purple-500", icon: "💼" },
+  social: { color: "bg-orange-500", icon: "🎊" }
+};
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">{getTranslation('events.title', currentLang)}</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          {getTranslation('events.subtitle', currentLang)}
+        </p>
+      </div>
+    </section>
+
+    <!-- Annual Plan Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">2024-25 Annual Plan</h2>
+          
+          <!-- Event Timeline -->
+          <div class="relative">
+            <!-- Timeline Line -->
+            <div class="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gray-200 h-full"></div>
+            
+            <div class="space-y-12">
+              {events.map((event, index) => (
+                <div class={`relative flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                  <!-- Timeline Dot -->
+                  <div class={`absolute left-1/2 transform -translate-x-1/2 w-4 h-4 ${eventTypes[event.type].color} rounded-full border-4 border-white shadow-lg z-10`}></div>
+                  
+                  <!-- Event Card -->
+                  <div class={`w-5/12 ${index % 2 === 0 ? 'pr-8' : 'pl-8'}`}>
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow border-l-4 border-teal-500">
+                      <div class="flex items-center mb-4">
+                        <span class="text-2xl mr-3">{eventTypes[event.type].icon}</span>
+                        <div>
+                          <h3 class="text-xl font-semibold text-gray-800">{event.title}</h3>
+                          <p class="text-sm text-gray-500">{event.month} {event.year}</p>
+                        </div>
+                      </div>
+                      <p class="text-gray-600 mb-4">{event.description}</p>
+                      <div class="flex justify-between items-center">
+                        <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium text-white ${eventTypes[event.type].color}`}>
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </span>
+                        <Button href="#" variant="secondary" className="text-sm px-4 py-2">
+                          Learn More
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Event Categories -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Event Categories</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+          <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🎉</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Welcome Events</h3>
+            <p class="text-gray-600">Orientation and welcome activities for new members</p>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">📋</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Meetings</h3>
+            <p class="text-gray-600">General meetings and official gatherings</p>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">💼</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Career Events</h3>
+            <p class="text-gray-600">Professional development and networking opportunities</p>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🎊</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Events</h3>
+            <p class="text-gray-600">Fun activities and cultural celebrations</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Past Events Gallery -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Past Events</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div class="bg-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="h-48 bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center">
+              <span class="text-4xl">📸</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">2023 Welcome Party</h3>
+              <p class="text-gray-600 text-sm">A successful welcome event for new students</p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="h-48 bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center">
+              <span class="text-4xl">📸</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Career Talk 2023</h3>
+              <p class="text-gray-600 text-sm">Professional development seminar</p>
+            </div>
+          </div>
+          
+          <div class="bg-gray-100 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="h-48 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center">
+              <span class="text-4xl">📸</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">MT 2023</h3>
+              <p class="text-gray-600 text-sm">Team building retreat memories</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12">
+          <Button href="/photos" variant="primary" className="px-8 py-3">
+            View More Photos
+          </Button>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout> 
