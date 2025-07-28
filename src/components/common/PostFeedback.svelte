@@ -21,56 +21,55 @@
     fetchFeedback();
   });
 
-  // Fetch the initial feedback data for the given slug
+  // Fetch the initial feedback data for the given slug (static version)
   async function fetchFeedback() {
     try {
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // Static site에서는 서버 API가 없으므로 로컬 스토리지만 사용
+      const savedFeedback = JSON.parse(localStorage.getItem("feedback") || "{}");
+      const feedbackData = JSON.parse(localStorage.getItem("feedbackData") || "{}");
+      
+      if (feedbackData[slug]) {
+        helpful = feedbackData[slug].helpful || 0;
+        notHelpful = feedbackData[slug].notHelpful || 0;
       }
-
-      const data = await response.json();
-      helpful = data.helpful || 0;
-      notHelpful = data.notHelpful || 0;
+      
       initialFetch = true;
     } catch (error) {
       console.error("Failed to fetch feedback count:", error);
     }
   }
 
-  // Handle user feedback submission for either "helpful" or "notHelpful"
+  // Handle user feedback submission for either "helpful" or "notHelpful" (static version)
   async function handleFeedback(type) {
     if (feedbackGiven) return;
 
     try {
-      const response = await fetch("/api/feedback", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ slug, type }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      // 로컬 스토리지에 피드백 저장
+      const savedFeedback = JSON.parse(localStorage.getItem("feedback") || "{}");
+      const feedbackData = JSON.parse(localStorage.getItem("feedbackData") || "{}");
+      
+      // 피드백 데이터 업데이트
+      if (!feedbackData[slug]) {
+        feedbackData[slug] = { helpful: 0, notHelpful: 0 };
       }
-
-      const updatedFeedback = await response.json();
-      helpful = updatedFeedback.helpful || 0;
-      notHelpful = updatedFeedback.notHelpful || 0;
-
-      // Save feedback locally to prevent multiple submissions for this slug
-      const savedFeedback = JSON.parse(
-        localStorage.getItem("feedback") || "{}",
-      );
+      
+      if (type === "helpful") {
+        feedbackData[slug].helpful += 1;
+      } else {
+        feedbackData[slug].notHelpful += 1;
+      }
+      
+      // 로컬 스토리지에 저장
       savedFeedback[slug] = type;
       localStorage.setItem("feedback", JSON.stringify(savedFeedback));
-
+      localStorage.setItem("feedbackData", JSON.stringify(feedbackData));
+      
+      // UI 업데이트
+      helpful = feedbackData[slug].helpful;
+      notHelpful = feedbackData[slug].notHelpful;
       feedbackGiven = true;
       userChoice = type;
+      
     } catch (error) {
       console.error("Error submitting feedback:", error);
     }

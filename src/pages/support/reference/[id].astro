@@ -4,28 +4,29 @@ import Icon from "@ui/icons/Icon.astro";
 import PostFeedback from "@common/PostFeedback.svelte";
 import { formatDate } from "@utils/utils";
 import { getReadingTime } from "@utils/reading-time";
-import { getEntry, render } from "astro:content";
+import { getEntry, render, getCollection } from "astro:content";
 
-// 1. Get the slug from the incoming server request
-const { id } = Astro.params;
-if (id === undefined) {
-  return Astro.redirect("/404");
+// Static paths for reference pages
+export async function getStaticPaths() {
+  const allReferences = await getCollection("reference");
+  return allReferences.map((reference) => ({
+    params: { id: reference.id },
+    props: { reference },
+  }));
 }
 
-// 2. Query for the entry directly using the request slug
-const post = await getEntry("reference", id);
+// Get the reference from props
+const { reference } = Astro.props;
+const post = reference;
 
-// 3. Redirect if the entry does not exist
-if (post === undefined) {
-  return Astro.redirect("/404");
-}
+// getStaticPaths에서 이미 유효한 경로만 생성하므로 post는 항상 존재함
 
 // 4. Render the entry to HTML in the template
 const { Content, headings } = await render(post);
 
 const validHeadings = headings.filter((heading) => heading.depth === 2);
 const readingTime = getReadingTime(post.body ?? "");
-const slug = id;
+const slug = post.id;
 ---
 
 <BaseLayout>

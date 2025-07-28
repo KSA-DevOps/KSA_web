@@ -4,51 +4,19 @@ import Button from "@ui/Button.astro";
 import { getTranslation } from "@utils/i18n";
 import { executiveData } from "../../data/executives";
 
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
 // URL 파라미터에서 언어 추출
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// 폼 제출 처리
-let message = "";
-let messageType = "";
-
-if (Astro.request.method === "POST") {
-  const formData = await Astro.request.formData();
-  const email = formData.get("email") as string;
-  const suggestion = formData.get("suggestion") as string;
-  const isAnonymous = formData.get("anonymous") === "on";
-  
-  // 이메일 검증 (HKUST 도메인)
-  const emailRegex = /^[^\s@]+@connect\.ust\.hk$/;
-  if (!emailRegex.test(email)) {
-    message = currentLang === 'ko' 
-      ? "HKUST 이메일 주소(@connect.ust.hk)를 사용해 주세요"
-      : "Please use your HKUST email address (@connect.ust.hk)";
-    messageType = "error";
-  } else if (!suggestion.trim()) {
-    message = currentLang === 'ko' 
-      ? "문의사항을 입력해 주세요"
-      : "Please enter your inquiry";
-    messageType = "error";
-  } else {
-    // API를 통해 이메일 발송
-    try {
-      const response = await fetch(`${Astro.url.origin}/api/send-suggestion`, {
-        method: 'POST',
-        body: formData
-      });
-      
-      const result = await response.json();
-      message = result.message;
-      messageType = result.success ? "success" : "error";
-    } catch (error) {
-      message = currentLang === 'ko' 
-        ? "오류가 발생했습니다. 나중에 다시 시도해 주세요."
-        : "An error occurred. Please try again later.";
-      messageType = "error";
-    }
-  }
-}
+// Static site에서는 서버 사이드 폼 처리가 불가능하므로 제거
 
 // FAQ 데이터
 const faqData = currentLang === 'ko' ? [
@@ -185,17 +153,7 @@ const faqData = currentLang === 'ko' ? [
 
       <div class="max-w-2xl mx-auto">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
-          {message && (
-            <div class={`mb-6 p-4 rounded-lg ${
-              messageType === "success"
-                ? "bg-green-50 text-green-800 border border-green-200" 
-                : "bg-red-50 text-red-800 border border-red-200"
-            }`}>
-              {message}
-            </div>
-          )}
-
-          <form method="POST" class="space-y-6">
+          <form action="mailto:jyangca@connect.ust.hk" method="GET" class="space-y-6">
             <!-- Email Field -->
             <div>
               <label for="email" class="block text-sm font-medium text-gray-700 mb-2">

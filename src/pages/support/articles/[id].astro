@@ -5,28 +5,29 @@
   import type { WithContext, Thing } from "schema-dts";
   import { formatDate } from "@utils/utils";
   import { getReadingTime } from "@utils/reading-time";
-  import { getEntry, render } from "astro:content";
+  import { getEntry, render, getCollection } from "astro:content";
 
-  // 1. Get the slug from the incoming server request
-  const { id } = Astro.params;
-  if (id === undefined) {
-    return Astro.redirect("/404");
+  // Static paths for articles
+  export async function getStaticPaths() {
+    const allArticles = await getCollection("articles");
+    return allArticles.map((article) => ({
+      params: { id: article.id },
+      props: { article },
+    }));
   }
 
-  // 2. Query for the entry directly using the request slug
-  const post = await getEntry("articles", id);
+  // Get the article from props
+const { article } = Astro.props;
+const post = article;
 
-  // 3. Redirect if the entry does not exist
-  if (post === undefined) {
-    return Astro.redirect("/404");
-  }
+// getStaticPaths에서 이미 유효한 경로만 생성하므로 post는 항상 존재함
 
   // 4. Render the entry to HTML in the template
   const { Content, headings } = await render(post);
 
   const validHeadings = headings.filter((heading) => heading.depth === 2);
   const readingTime = getReadingTime(post.body ?? "");
-  const slug = id;
+  const slug = post.id;
 
   // Prepare SEO metadata based on the article content
   const seo = {

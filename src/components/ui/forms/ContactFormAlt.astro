@@ -106,13 +106,17 @@ const formStrings = {
     </div>
   </div>
 
-  {/* Submit button */}
+  {/* Submit button - Static site version */}
   <div class="mt-8">
-    <button
-      type="submit"
+    <a
+      href="mailto:jyangca@connect.ust.hk?subject=KSA%20문의사항&body=이름:%20%0A회사:%20%0A이메일:%20%0A라이선스%20타입:%20%0A메시지:%20"
       class="inline-flex items-center text-nowrap rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
     >
       {formStrings.submit}
-    </button>
+    </a>
   </div>
 </form>
+
+<div class="mt-4 text-sm text-gray-600">
+  <p>📧 또는 직접 이메일로 문의: <a href="mailto:jyangca@connect.ust.hk" class="text-teal-600 hover:text-teal-800">jyangca@connect.ust.hk</a></p>
+</div>

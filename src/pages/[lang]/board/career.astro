@@ -2,6 +2,14 @@
 import BaseLayout from "@layout/BaseLayout.astro";
 import { getTranslation } from "@utils/i18n";
 
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
 // URL 파라미터에서 언어 추출
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';

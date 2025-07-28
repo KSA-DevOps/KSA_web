@@ -3,6 +3,20 @@ import BaseLayout from "@layout/BaseLayout.astro";
 import { getCollection } from "astro:content";
 import { getTranslation } from "@utils/i18n";
 
+// Static paths for news detail pages
+export async function getStaticPaths() {
+  const allNews = await getCollection('news');
+  const paths = [];
+  
+  for (const news of allNews) {
+    // 한국어와 영어 버전 모두 생성
+    paths.push({ params: { lang: 'ko', id: news.id } });
+    paths.push({ params: { lang: 'en', id: news.id } });
+  }
+  
+  return paths;
+}
+
 // URL 파라미터에서 언어와 ID 추출
 const { lang, id } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
@@ -11,9 +25,9 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 const allNews = await getCollection('news');
 const news = allNews.find(item => item.id === id);
 
-// 소식이 없으면 404
+// getStaticPaths에서 이미 유효한 경로만 생성하므로 news는 항상 존재함
 if (!news) {
-  return Astro.redirect('/404');
+  throw new Error(`News item with id ${id} not found`);
 }
 
 // 카테고리별 색상 매핑
