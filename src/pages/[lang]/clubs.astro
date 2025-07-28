@@ -10,7 +10,7 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 <BaseLayout lang={currentLang} title={getTranslation('clubs.title', currentLang)}>
   <!-- Hero Section -->
   <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
-    <div class="container mx-auto px-4">
+    <div class="container mx-auto px-4 pt-header">
       <div class="text-center">
         <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
           {getTranslation('clubs.title', currentLang)}
@@ -22,86 +22,343 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
     </div>
   </section>
 
-  <!-- Coming Soon Section -->
+  <!-- Active Clubs Section -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <div class="text-center">
-        <div class="max-w-2xl mx-auto">
-          <div class="mb-8">
-            <svg class="mx-auto h-24 w-24 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-4">
+          {currentLang === 'ko' ? '활동 중인 동아리' : 'Active Clubs'}
+        </h2>
+        <p class="text-lg text-gray-600">
+          {currentLang === 'ko' 
+            ? '현재 HKUST KSA에서 활동하고 있는 동아리들을 소개합니다.' 
+            : 'Introducing the clubs currently active at HKUST KSA.'}
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- 축구 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">⚽</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">축구</h3>
+            <p class="text-sm text-gray-600 mb-4">Football Club</p>
           </div>
-          <h2 class="text-3xl font-bold text-gray-800 mb-4">
-            {getTranslation('clubs.coming', currentLang)}
-          </h2>
-          <p class="text-lg text-gray-600 mb-8">
-            {currentLang === 'ko' 
-              ? 'KSA 동아리 정보가 곧 업데이트될 예정입니다. 조금만 기다려 주세요!' 
-              : 'KSA clubs information will be updated soon. Please stay tuned!'}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={`/${currentLang}/events`} class="bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
-              {currentLang === 'ko' ? '행사 보기' : 'View Events'}
-            </a>
-            <a href={`/${currentLang}/contact`} class="border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-teal-600 hover:text-white transition-colors">
-              {getTranslation('contact.contact.button', currentLang)}
-            </a>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">김준영</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">20</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">jkimbt@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 마커스트 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🎨</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">마커스트</h3>
+            <p class="text-sm text-gray-600 mb-4">Art & Design Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">문강현</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 크리스 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🎭</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">크리스</h3>
+            <p class="text-sm text-gray-600 mb-4">Culture & Arts Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 소수 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">📚</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">소수</h3>
+            <p class="text-sm text-gray-600 mb-4">Study Group</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">김채원</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">22</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">ckimah@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 농구 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🏀</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">농구</h3>
+            <p class="text-sm text-gray-600 mb-4">Basketball Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">이종빈</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">22</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">jleecw@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 어스타임 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-teal-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🌍</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">어스타임</h3>
+            <p class="text-sm text-gray-600 mb-4">Environmental Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">노혜승</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">20</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">hrohab@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 청수 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">💧</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">청수</h3>
+            <p class="text-sm text-gray-600 mb-4">Water Conservation Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">양정현</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">19</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">jyangbz@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 흐쿠스트 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🎵</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">흐쿠스트</h3>
+            <p class="text-sm text-gray-600 mb-4">Music Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 사피엔티아 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🧠</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">사피엔티아</h3>
+            <p class="text-sm text-gray-600 mb-4">Intellectual Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">박수진</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">21</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">sparkbe@connect.ust.hk</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simplified Magazine -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">📰</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Simplified Magazine</h3>
+            <p class="text-sm text-gray-600 mb-4">Magazine Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Merge Feat -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-lime-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🎬</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">Merge Feat</h3>
+            <p class="text-sm text-gray-600 mb-4">Media & Film Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 멀동멀동 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-shadow">
+          <div class="text-center mb-4">
+            <div class="w-16 h-16 bg-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl text-white">🎪</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">멀동멀동</h3>
+            <p class="text-sm text-gray-600 mb-4">Entertainment Club</p>
+          </div>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '학번' : 'Student ID'}</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm font-medium text-gray-700">Email</span>
+              <span class="text-sm text-gray-600">-</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Future Clubs Preview -->
+  <!-- Contact Section -->
   <section class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
+      <div class="text-center">
         <h2 class="text-3xl font-bold text-gray-800 mb-4">
-          {currentLang === 'ko' ? '예정된 동아리들' : 'Upcoming Clubs'}
+          {currentLang === 'ko' ? '동아리 가입 문의' : 'Join a Club'}
         </h2>
-        <p class="text-lg text-gray-600">
+        <p class="text-lg text-gray-600 mb-8">
           {currentLang === 'ko' 
-            ? '곧 출시될 예정인 KSA 동아리들을 미리 살펴보세요.' 
-            : 'Take a preview of KSA clubs that will be launched soon.'}
+            ? '동아리에 가입하고 싶거나 추가 정보가 필요하시면 연락해 주세요.' 
+            : 'Contact us if you want to join a club or need more information.'}
         </p>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl text-white">🎵</span>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">
-            {currentLang === 'ko' ? 'K-Pop 댄스' : 'K-Pop Dance'}
-          </h3>
-          <p class="text-sm text-gray-600">
-            {currentLang === 'ko' ? 'K-Pop 댄스를 배우고 공연하는 동아리' : 'Club for learning and performing K-Pop dances'}
-          </p>
-        </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl text-white">🎨</span>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">
-            {currentLang === 'ko' ? '한국 미술' : 'Korean Art'}
-          </h3>
-          <p class="text-sm text-gray-600">
-            {currentLang === 'ko' ? '한국 전통 미술과 현대 미술을 탐구하는 동아리' : 'Club exploring traditional and modern Korean art'}
-          </p>
-        </div>
-        
-        <div class="text-center">
-          <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl text-white">⚽</span>
-          </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">
-            {currentLang === 'ko' ? '스포츠' : 'Sports'}
-          </h3>
-          <p class="text-sm text-gray-600">
-            {currentLang === 'ko' ? '다양한 스포츠 활동을 즐기는 동아리' : 'Club for enjoying various sports activities'}
-          </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href={`/${currentLang}/contact`} class="bg-teal-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors">
+            {getTranslation('contact.contact.button', currentLang)}
+          </a>
+          <a href={`/${currentLang}/events`} class="border-2 border-teal-600 text-teal-600 px-8 py-3 rounded-lg font-semibold hover:bg-teal-600 hover:text-white transition-colors">
+            {currentLang === 'ko' ? '행사 보기' : 'View Events'}
+          </a>
         </div>
       </div>
     </div>

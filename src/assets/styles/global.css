@@ -90,12 +90,28 @@
 
   /* Fix header overlap issue */
   html {
-    scroll-padding-top: 120px;
+    scroll-padding-top: 100px;
   }
 
   /* Ensure proper spacing for fixed header */
   .pt-header {
-    padding-top: 120px;
+    padding-top: 100px;
+  }
+
+  /* Navbar height consistency */
+  header {
+    height: 80px !important;
+    min-height: 80px !important;
+    max-height: 80px !important;
+  }
+
+  /* Prevent navbar layout shifts at 1070px breakpoint */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    header {
+      height: 80px !important;
+      min-height: 80px !important;
+      max-height: 80px !important;
+    }
   }
 }
 

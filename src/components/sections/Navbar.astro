@@ -57,8 +57,41 @@ const ksaMenuItems = [
     href: addLanguageToPath("/clubs", currentLang),
     dropdown: [
       {
-        header: "Coming Soon",
-        items: []
+        header: "스포츠 / Sports",
+        items: [
+          { text: "축구 / Football", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "농구 / Basketball", href: addLanguageToPath("/clubs", currentLang) }
+        ]
+      },
+      {
+        header: "문화/예술 / Culture & Arts",
+        items: [
+          { text: "마커스트 / Art & Design", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "크리스 / Culture & Arts", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "흐쿠스트 / Music", href: addLanguageToPath("/clubs", currentLang) }
+        ]
+      },
+      {
+        header: "학술/전문 / Academic & Professional",
+        items: [
+          { text: "소수 / Study Group", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "사피엔티아 / Intellectual", href: addLanguageToPath("/clubs", currentLang) }
+        ]
+      },
+      {
+        header: "환경/사회 / Environment & Social",
+        items: [
+          { text: "어스타임 / Environmental", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "청수 / Water Conservation", href: addLanguageToPath("/clubs", currentLang) }
+        ]
+      },
+      {
+        header: "미디어/엔터테인먼트 / Media & Entertainment",
+        items: [
+          { text: "Simplified Magazine", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "Merge Feat / Media & Film", href: addLanguageToPath("/clubs", currentLang) },
+          { text: "멀동멀동 / Entertainment", href: addLanguageToPath("/clubs", currentLang) }
+        ]
       }
     ]
   }
@@ -69,12 +102,14 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
 ---
 
 <header
-  class="fixed top-5 left-5 right-5 z-50 mx-auto flex w-auto max-w-sm flex-wrap rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:flex-nowrap md:justify-start lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem] 2xl:via-0%"
+  class="fixed top-5 left-5 right-5 z-50 mx-auto flex w-auto max-w-sm rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:justify-center lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem] 2xl:via-0%"
+  style="min-height: 80px; height: 80px;"
 >
   <nav
     class="relative mx-auto w-full px-4 py-2 sm:px-6 lg:px-8 xl:flex xl:max-w-7xl xl:items-center xl:justify-between xl:gap-3 2xl:max-w-[85rem]"
   >
-    <div class="flex items-center justify-between gap-x-1">
+    <!-- Logo and Mobile Menu Section -->
+    <div class="flex items-center justify-between gap-x-1 xl:justify-start">
       <a
         class="dm-sans flex-none text-2xl font-light text-slate-400 focus:opacity-80 focus:outline-hidden"
         href={addLanguageToPath("/", currentLang)}
@@ -83,59 +118,63 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
         ><span class="font-semibold text-teal-700">HKUST</span> KSA</a
       >
 
+      <!-- Mobile Menu Button -->
       <button
         type="button"
-        class="hs-collapse-toggle relative flex size-9 items-center justify-center rounded-lg border border-slate-200 text-[12px] font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden lg:hidden"
+        class="hs-collapse-toggle relative flex size-9 items-center justify-center rounded-lg border border-slate-200 text-[12px] font-medium text-slate-800 hover:bg-slate-100 focus:bg-slate-100 focus:outline-hidden xl:hidden"
         id="hs-header-base-collapse"
         aria-expanded="false"
         aria-controls="hs-header-base"
         aria-label="Toggle navigation"
         data-hs-collapse="#hs-header-base"
       >
-        <svg
-          class="size-4 hs-collapse-open:hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><line x1="3" x2="21" y1="6" y2="6"></line><line
-            x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
-        >
-        <svg
-          class="hidden size-4 shrink-0 hs-collapse-open:block"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
-        >
-        <span class="sr-only">Toggle navigation</span>
+      <svg
+        class="size-4 hs-collapse-open:hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><line x1="3" x2="21" y1="6" y2="6"></line><line
+          x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg
+      >
+      <svg
+        class="hidden size-4 shrink-0 hs-collapse-open:block"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg
+      >
+              <span class="sr-only">Toggle navigation</span>
       </button>
     </div>
 
+    <!-- Desktop Menu Section -->
     <div
       id="hs-header-base"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 lg:block lg:ml-8 2xl:ml-20"
+      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:block"
       aria-labelledby="hs-header-base-collapse"
     >
-      <div class="flex items-center justify-between gap-4">
-        <div
-          class="flex flex-col gap-0.5 py-2 lg:flex-row lg:items-center lg:gap-4 lg:py-0"
-        >
-          <div class="grow">
-            <div
-              class="flex flex-col gap-0.5 lg:flex-row lg:items-center lg:justify-center lg:gap-6"
-            >
+      <div class="flex items-center justify-between gap-4 w-full">
+        <!-- Center Menu Items -->
+        <div class="flex-1 flex justify-evenly">
+          <div
+            class="flex flex-col gap-0.5 py-2 xl:flex-row xl:items-center xl:gap-4 xl:py-0"
+          >
+            <div class="grow">
+              <div
+                class="flex flex-col gap-0.5 xl:flex-row xl:items-center xl:justify-center xl:gap-6"
+              >
               {ksaMenuItems.map((item) => (
                 <div class="hs-dropdown relative [--auto-close:inside] [--placement:bottom-left]">
                   <button
@@ -196,7 +235,8 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
           </div>
         </div>
         
-        <div class="flex items-center gap-3">
+        <!-- Right Side Buttons -->
+        <div class="flex items-center gap-3 flex-shrink-0">
           <Button href={addLanguageToPath("/contact", currentLang)} variant="primary" className="text-sm px-4 py-2">
             {getTranslation('nav.report', currentLang)}
           </Button>
@@ -208,7 +248,6 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
               EN
             </a>
           </div>
-        </div>
         </div>
       </div>
     </div>
