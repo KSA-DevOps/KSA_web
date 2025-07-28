@@ -108,63 +108,82 @@ const categories = [
   </div>
 
   <script>
-    // 필터링 기능
-    document.addEventListener('DOMContentLoaded', function() {
-      const filterButtons = document.querySelectorAll('button[data-category]');
-      const newsItems = document.querySelectorAll('.news-item');
-      const newsGrid = document.getElementById('news-grid');
+    // 필터링 기능 - 즉시 실행 함수로 변경
+    (function() {
+      function initializeFiltering() {
+        const filterButtons = document.querySelectorAll('button[data-category]');
+        const newsItems = document.querySelectorAll('.news-item');
+        const newsGrid = document.getElementById('news-grid');
 
-      // 초기 상태 설정
-      let currentFilter = 'all';
+        // 초기 상태 설정
+        let currentFilter = 'all';
 
-      filterButtons.forEach((button: Element) => {
-        button.addEventListener('click', function(this: Element) {
-          const selectedCategory = this.getAttribute('data-category');
-          
-          // 같은 카테고리를 다시 클릭한 경우 무시
-          if (selectedCategory === currentFilter) return;
-          
-          currentFilter = selectedCategory || 'all';
-          
-          // 버튼 스타일 업데이트
-          filterButtons.forEach((btn: Element) => {
-            btn.classList.remove('bg-teal-500', 'text-white');
-            btn.classList.add('bg-gray-100', 'text-gray-700');
-          });
-          this.classList.remove('bg-gray-100', 'text-gray-700');
-          this.classList.add('bg-teal-500', 'text-white');
+        // "All" 버튼을 기본 활성 상태로 설정
+        const allButton = document.querySelector('button[data-category="all"]');
+        if (allButton) {
+          allButton.classList.remove('bg-gray-100', 'text-gray-700');
+          allButton.classList.add('bg-teal-500', 'text-white');
+        }
 
-          // 모든 아이템을 먼저 숨기기
-          newsItems.forEach((item: Element) => {
-            const itemElement = item as HTMLElement;
-            itemElement.classList.add('filtering-out');
-          });
+        filterButtons.forEach((button: Element) => {
+          button.addEventListener('click', function(this: Element) {
+            const selectedCategory = this.getAttribute('data-category');
+            
+            // 같은 카테고리를 다시 클릭한 경우 무시
+            if (selectedCategory === currentFilter) return;
+            
+            currentFilter = selectedCategory || 'all';
+            
+            // 버튼 스타일 업데이트
+            filterButtons.forEach((btn: Element) => {
+              btn.classList.remove('bg-teal-500', 'text-white');
+              btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+            this.classList.remove('bg-gray-100', 'text-gray-700');
+            this.classList.add('bg-teal-500', 'text-white');
 
-          // 잠시 후 필터링 적용
-          setTimeout(() => {
+            // 모든 아이템을 먼저 숨기기
             newsItems.forEach((item: Element) => {
               const itemElement = item as HTMLElement;
-              const itemCategory = itemElement.getAttribute('data-category');
-              
-              if (selectedCategory === 'all' || itemCategory === selectedCategory) {
-                itemElement.classList.remove('filtering-out', 'hidden');
-                itemElement.classList.add('filtering-in');
-              } else {
-                itemElement.classList.add('hidden');
-              }
+              itemElement.classList.add('filtering-out');
             });
 
-            // 애니메이션 완료 후 클래스 정리
+            // 잠시 후 필터링 적용
             setTimeout(() => {
               newsItems.forEach((item: Element) => {
                 const itemElement = item as HTMLElement;
-                itemElement.classList.remove('filtering-in', 'filtering-out');
+                const itemCategory = itemElement.getAttribute('data-category');
+                
+                if (selectedCategory === 'all' || itemCategory === selectedCategory) {
+                  itemElement.classList.remove('filtering-out', 'hidden');
+                  itemElement.classList.add('filtering-in');
+                } else {
+                  itemElement.classList.add('hidden');
+                }
               });
-            }, 600);
-          }, 300);
+
+              // 애니메이션 완료 후 클래스 정리
+              setTimeout(() => {
+                newsItems.forEach((item: Element) => {
+                  const itemElement = item as HTMLElement;
+                  itemElement.classList.remove('filtering-in', 'filtering-out');
+                });
+              }, 600);
+            }, 300);
+          });
         });
-      });
-    });
+      }
+
+      // 페이지 로드 시 즉시 실행
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeFiltering);
+      } else {
+        initializeFiltering();
+      }
+
+      // Astro 페이지 전환 시에도 실행
+      document.addEventListener('astro:page-load', initializeFiltering);
+    })();
   </script>
 
   <style>
