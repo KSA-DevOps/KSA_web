@@ -40,4 +40,15 @@ const whitepapers = defineCollection({
   }),
 });
 
-export const collections = { articles, reference, spreadsheets, whitepapers };
+const news = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'], base: "./src/content/news" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    category: z.string(),
+    icon: z.string(),
+  }),
+});
+
+export const collections = { articles, reference, spreadsheets, whitepapers, news };

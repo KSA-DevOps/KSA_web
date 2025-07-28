@@ -50,6 +50,13 @@ const events = [
     title: "Christmas Party",
     description: "Holiday celebration",
     type: "social"
+  },
+  {
+    month: "January",
+    year: "2025",
+    title: "기숙사 신청 안내",
+    description: "Dormitory application guide for new semester",
+    type: "news"
   }
 ];
 
@@ -57,7 +64,8 @@ const eventTypes: Record<string, { color: string; icon: string }> = {
   welcome: { color: "bg-blue-500", icon: "🎉" },
   meeting: { color: "bg-green-500", icon: "📋" },
   career: { color: "bg-purple-500", icon: "💼" },
-  social: { color: "bg-orange-500", icon: "🎊" }
+  social: { color: "bg-orange-500", icon: "🎊" },
+  news: { color: "bg-red-500", icon: "📢" }
 };
 ---
 
@@ -123,7 +131,7 @@ const eventTypes: Record<string, { color: string; icon: string }> = {
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">Event Categories</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
           <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
             <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <span class="text-2xl">🎉</span>
@@ -154,6 +162,14 @@ const eventTypes: Record<string, { color: string; icon: string }> = {
             </div>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">Social Events</h3>
             <p class="text-gray-600">Fun activities and cultural celebrations</p>
+          </div>
+          
+          <div class="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+            <div class="w-16 h-16 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">📢</span>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">소식 / News</h3>
+            <p class="text-gray-600">Important announcements and updates</p>
           </div>
         </div>
       </div>
@@ -195,11 +211,7 @@ const eventTypes: Record<string, { color: string; icon: string }> = {
           </div>
         </div>
         
-        <div class="text-center mt-12">
-          <Button href="/photos" variant="primary" className="px-8 py-3">
-            View More Photos
-          </Button>
-        </div>
+
       </div>
     </section>
   </div>

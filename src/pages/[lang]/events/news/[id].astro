@@ -1,0 +1,430 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { getTranslation } from "@utils/i18n";
+
+// URL 파라미터에서 언어와 ID 추출
+const { lang, id } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 모든 소식 가져오기
+const allNews = await getCollection('news');
+const news = allNews.find(item => item.id === id);
+
+// 소식이 없으면 404
+if (!news) {
+  return Astro.redirect('/404');
+}
+
+// 카테고리별 색상 매핑
+const categoryColors = {
+  dormitory: "bg-blue-500",
+  membership: "bg-green-500", 
+  announcement: "bg-red-500",
+  academic: "bg-purple-500",
+  events: "bg-orange-500",
+  culture: "bg-pink-500"
+};
+
+// 카테고리별 이름 매핑
+const categoryNames = {
+  dormitory: currentLang === 'ko' ? "기숙사" : "Dormitory",
+  membership: currentLang === 'ko' ? "회원" : "Membership",
+  announcement: currentLang === 'ko' ? "공지" : "Announcement",
+  academic: currentLang === 'ko' ? "학업" : "Academic",
+  events: currentLang === 'ko' ? "행사" : "Events",
+  culture: currentLang === 'ko' ? "문화" : "Culture"
+};
+
+// 관련 소식 가져오기 (같은 카테고리, 최대 3개)
+const relatedNews = allNews
+  .filter(item => item.id !== id && item.data.category === news.data.category)
+  .slice(0, 3);
+
+// 목차 생성을 위한 섹션 정의
+const sections = (() => {
+  switch (news.data.category) {
+    case 'dormitory':
+      return [
+        { id: 'application-period', title: currentLang === 'ko' ? '신청 기간' : 'Application Period' },
+        { id: 'eligibility', title: currentLang === 'ko' ? '신청 자격' : 'Eligibility' },
+        { id: 'dormitory-types', title: currentLang === 'ko' ? '기숙사 종류' : 'Dormitory Types' },
+        { id: 'contact', title: currentLang === 'ko' ? '문의처' : 'Contact Information' }
+      ];
+    case 'membership':
+      return [
+        { id: 'registration-period', title: currentLang === 'ko' ? '등록 기간' : 'Registration Period' },
+        { id: 'benefits', title: currentLang === 'ko' ? '등록 혜택' : 'Registration Benefits' },
+        { id: 'fees', title: currentLang === 'ko' ? '등록비' : 'Registration Fees' },
+        { id: 'contact', title: currentLang === 'ko' ? '문의처' : 'Contact Information' }
+      ];
+    case 'announcement':
+      return [
+        { id: 'semester-schedule', title: currentLang === 'ko' ? '학기 일정' : 'Semester Schedule' },
+        { id: 'preparation', title: currentLang === 'ko' ? '필수 준비사항' : 'Required Preparations' },
+        { id: 'contact', title: currentLang === 'ko' ? '문의처' : 'Contact Information' }
+      ];
+    default:
+      return [
+        { id: 'contact', title: currentLang === 'ko' ? '문의처' : 'Contact Information' }
+      ];
+  }
+})();
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center justify-center mb-6">
+            <span class="text-4xl mr-4">{news.data.icon}</span>
+            <span class={`inline-block px-4 py-2 rounded-full text-sm font-medium text-white ${categoryColors[news.data.category as keyof typeof categoryColors]}`}>
+              {categoryNames[news.data.category as keyof typeof categoryNames]}
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+            {news.data.title}
+          </h1>
+          <p class="text-xl text-gray-600 mb-4">
+            {news.data.description}
+          </p>
+          <p class="text-gray-500">
+            {news.data.date.toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="grid gap-8 md:grid-cols-4 lg:gap-12 max-w-6xl mx-auto">
+          {/* Table of Contents */}
+          {sections.length > 0 && (
+            <div class="relative mt-10 rounded-lg border border-slate-300 border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+              <nav class="sticky top-10 md:top-32">
+                <small class="font-semibold uppercase text-gray-600">
+                  {currentLang === 'ko' ? '목차' : 'On this page'}
+                </small>
+                <ul class="mt-2 space-y-2">
+                  {sections.map((section) => (
+                    <li>
+                      <a
+                        href={`#${section.id}`}
+                        class="block text-slate-400 transition-colors duration-200 hover:text-slate-600"
+                        data-toc-link
+                      >
+                        {section.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )}
+
+          {/* Main Content */}
+          <div class="mx-auto md:col-span-2 md:col-start-2 md:pt-8">
+            <article class="prose prose-lg max-w-none">
+              <div class="markdown-content">
+                <p class="text-gray-600 leading-relaxed mb-8">
+                  {news.data.description}
+                </p>
+              
+              {news.data.category === 'dormitory' && (
+                <div class="space-y-6">
+                  <h2 id="application-period" class="text-2xl font-bold text-gray-800">신청 기간</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-600">
+                    <li><strong>1차 신청</strong>: 2025년 1월 15일 ~ 1월 25일</li>
+                    <li><strong>2차 신청</strong>: 2025년 1월 26일 ~ 2월 5일</li>
+                    <li><strong>결과 발표</strong>: 2025년 2월 10일</li>
+                  </ul>
+                  
+                  <h2 id="eligibility" class="text-2xl font-bold text-gray-800">신청 자격</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-600">
+                    <li>HKUST 재학생</li>
+                    <li>KSA 정회원</li>
+                    <li>이전 학기 성적 평점 2.5 이상</li>
+                  </ul>
+                  
+                  <h2 id="dormitory-types" class="text-2xl font-bold text-gray-800">기숙사 종류</h2>
+                  <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                      <h3 class="font-semibold text-gray-800">홀 1 (Hall 1)</h3>
+                      <p class="text-sm text-gray-600">위치: 캠퍼스 중앙</p>
+                      <p class="text-sm text-gray-600">방 타입: 2인실, 3인실</p>
+                      <p class="text-sm text-gray-600">월세: HK$ 3,500 ~ 4,200</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                      <h3 class="font-semibold text-gray-800">홀 2 (Hall 2)</h3>
+                      <p class="text-sm text-gray-600">위치: 캠퍼스 동쪽</p>
+                      <p class="text-sm text-gray-600">방 타입: 1인실, 2인실</p>
+                      <p class="text-sm text-gray-600">월세: HK$ 4,500 ~ 5,200</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                      <h3 class="font-semibold text-gray-800">홀 3 (Hall 3)</h3>
+                      <p class="text-sm text-gray-600">위치: 캠퍼스 서쪽</p>
+                      <p class="text-sm text-gray-600">방 타입: 2인실, 4인실</p>
+                      <p class="text-sm text-gray-600">월세: HK$ 3,200 ~ 3,800</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              {news.data.category === 'membership' && (
+                <div class="space-y-6">
+                  <h2 id="registration-period" class="text-2xl font-bold text-gray-800">등록 기간</h2>
+                  <ul class="list-disc list-inside space-y-2 text-gray-600">
+                    <li><strong>조기 등록</strong>: 2025년 1월 10일 ~ 1월 20일 (할인 혜택)</li>
+                    <li><strong>일반 등록</strong>: 2025년 1월 21일 ~ 2월 10일</li>
+                    <li><strong>추가 등록</strong>: 2025년 2월 11일 ~ 3월 31일</li>
+                  </ul>
+                  
+                  <h2 id="benefits" class="text-2xl font-bold text-gray-800">등록 혜택</h2>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-800 mb-3">기본 혜택</h3>
+                      <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>한국 문화 체험 프로그램 참가 자격</li>
+                        <li>네트워킹 이벤트 참가 자격</li>
+                        <li>학업 멘토링 서비스 이용</li>
+                        <li>한국어 스터디 그룹 참가</li>
+                        <li>KSA 뉴스레터 구독</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-800 mb-3">추가 혜택</h3>
+                      <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>기숙사 신청 우선권</li>
+                        <li>인턴십 정보 우선 제공</li>
+                        <li>졸업생 네트워크 접근</li>
+                        <li>한국 기업 방문 기회</li>
+                        <li>문화 축제 무료 참가</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <h2 id="fees" class="text-2xl font-bold text-gray-800">등록비</h2>
+                  <div class="overflow-x-auto">
+                    <table class="min-w-full bg-white border border-gray-200">
+                      <thead>
+                        <tr class="bg-gray-50">
+                          <th class="px-4 py-2 border">구분</th>
+                          <th class="px-4 py-2 border">조기 등록</th>
+                          <th class="px-4 py-2 border">일반 등록</th>
+                          <th class="px-4 py-2 border">추가 등록</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="px-4 py-2 border">신입생</td>
+                          <td class="px-4 py-2 border">HK$ 100</td>
+                          <td class="px-4 py-2 border">HK$ 150</td>
+                          <td class="px-4 py-2 border">HK$ 200</td>
+                        </tr>
+                        <tr>
+                          <td class="px-4 py-2 border">재학생</td>
+                          <td class="px-4 py-2 border">HK$ 80</td>
+                          <td class="px-4 py-2 border">HK$ 120</td>
+                          <td class="px-4 py-2 border">HK$ 150</td>
+                        </tr>
+                        <tr>
+                          <td class="px-4 py-2 border">대학원생</td>
+                          <td class="px-4 py-2 border">HK$ 120</td>
+                          <td class="px-4 py-2 border">HK$ 180</td>
+                          <td class="px-4 py-2 border">HK$ 220</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+              
+              {news.data.category === 'announcement' && (
+                <div class="space-y-6">
+                  <h2 id="semester-schedule" class="text-2xl font-bold text-gray-800">학기 일정</h2>
+                  <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">1학기 (Spring 2025)</h3>
+                    <ul class="space-y-2 text-gray-600">
+                      <li><strong>수업 시작</strong>: 2025년 2월 3일 (월요일)</li>
+                      <li><strong>수강신청 기간</strong>: 2025년 1월 20일 ~ 1월 31일</li>
+                      <li><strong>수강신청 변경</strong>: 2025년 2월 3일 ~ 2월 14일</li>
+                      <li><strong>중간고사</strong>: 2025년 3월 17일 ~ 3월 28일</li>
+                      <li><strong>기말고사</strong>: 2025년 5월 12일 ~ 5월 23일</li>
+                      <li><strong>학기 종료</strong>: 2025년 5월 30일</li>
+                    </ul>
+                  </div>
+                  
+                  <h2 id="preparation" class="text-2xl font-bold text-gray-800">필수 준비사항</h2>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-800 mb-3">수강신청</h3>
+                      <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>포털 접속: https://portal.ust.hk</li>
+                        <li>필수 과목 확인</li>
+                        <li>선수과목 체크</li>
+                        <li>시간표 확인</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-800 mb-3">학생증</h3>
+                      <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li>신규 학생: 학생증 발급 신청</li>
+                        <li>기존 학생: 유효기간 확인</li>
+                        <li>분실 시: 즉시 재발급 신청</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+              
+              <h2 id="contact" class="text-2xl font-bold text-gray-800 mt-8 mb-4">
+                {currentLang === 'ko' ? '문의처' : 'Contact Information'}
+              </h2>
+              <div class="bg-gray-50 p-6 rounded-lg">
+                <ul class="space-y-2 text-gray-600">
+                  <li>📞 <strong>전화</strong>: +852 2358-9999</li>
+                  <li>📧 <strong>이메일</strong>: info@ksa.ust.hk</li>
+                  <li>📍 <strong>위치</strong>: Academic Building 1층</li>
+                  <li>🕒 <strong>운영시간</strong>: 평일 10:00-18:00</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Related News Section -->
+    {relatedNews.length > 0 && (
+      <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-12 text-center">
+              {currentLang === 'ko' ? '관련 소식' : 'Related News'}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                             {relatedNews.map((item) => (
+                 <a href={`/${currentLang}/events/news/${item.id}`} class="group">
+                  <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="p-6">
+                      <div class="flex items-center mb-4">
+                        <span class="text-2xl mr-3">{item.data.icon}</span>
+                        <div>
+                          <h3 class="text-lg font-semibold text-gray-800 mb-1 group-hover:text-teal-600 transition-colors">
+                            {item.data.title}
+                          </h3>
+                          <p class="text-sm text-gray-500">
+                            {item.data.date.toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                      <p class="text-gray-600 mb-4 line-clamp-3">{item.data.description}</p>
+                      <div class="flex justify-between items-center">
+                        <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium text-white ${categoryColors[item.data.category as keyof typeof categoryColors]}`}>
+                          {categoryNames[item.data.category as keyof typeof categoryNames]}
+                        </span>
+                        <span class="text-teal-600 group-hover:text-teal-800 text-sm font-medium">
+                          {currentLang === 'ko' ? '자세히 보기' : 'Read More'}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Back to News Button -->
+    <section class="py-8 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center">
+          <a 
+            href={`/${currentLang}/events/news`}
+            class="inline-flex items-center px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+            </svg>
+            {currentLang === 'ko' ? '소식 목록으로 돌아가기' : 'Back to News'}
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Initializes the Table of Contents (TOC) by highlighting the active section
+    // as the user scrolls. Uses IntersectionObserver for performance optimization.
+    let intersectionObserver: IntersectionObserver | null = null;
+
+    function safeInitTOC() {
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initTOC);
+      } else {
+        setTimeout(initTOC, 200);
+      }
+    }
+
+    function initTOC() {
+      const tocLinks = document.querySelectorAll("[data-toc-link]");
+      const sections = document.querySelectorAll("h2[id]");
+
+      if (!tocLinks.length || !sections.length) return;
+
+      tocLinks.forEach((link) =>
+        link.classList.remove("text-slate-600", "font-medium"),
+      );
+
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          let activeSection = null;
+
+          entries.forEach((entry) => {
+            if (entry.target instanceof HTMLElement && entry.isIntersecting) {
+              activeSection = entry.target;
+            }
+          });
+
+          if (activeSection) {
+            const sectionId = (activeSection as HTMLElement).getAttribute("id");
+            if (sectionId) {
+              document
+                .querySelector(`[data-toc-link][href="#${sectionId}"]`)
+                ?.classList.add("text-slate-600", "font-medium");
+            }
+          }
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "-20% 0px -55% 0px",
+        },
+      );
+
+      sections.forEach((section) => intersectionObserver?.observe(section));
+    }
+
+    function cleanup() {
+      intersectionObserver?.disconnect();
+      intersectionObserver = null;
+    }
+
+    safeInitTOC();
+
+    document.addEventListener("astro:page-load", safeInitTOC);
+    document.addEventListener("astro:before-swap", cleanup);
+  </script>
+</BaseLayout> 

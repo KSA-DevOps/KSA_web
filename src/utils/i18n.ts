@@ -15,7 +15,7 @@ export const translations: Translations = {
     'nav.clubs': '동아리',
     'nav.report': '문의하기',
     'nav.login': 'Login',
-    'nav.photos': '갤러리',
+
     'nav.contact': '연락처',
     'nav.suggestion': '신문고',
     
@@ -27,6 +27,7 @@ export const translations: Translations = {
     // Events Menu
     'nav.events.annual': '연례행사',
     'nav.events.career': '커리어',
+    'nav.events.news': '소식',
     'nav.events.culture': '문화',
     'nav.events.enquiry': '문의',
     
@@ -90,8 +91,7 @@ export const translations: Translations = {
     'home.about.desc': '학생회 소개와 임원진을 알아보세요',
     'home.events.card': '행사',
     'home.events.desc': '다가오는 행사와 활동을 확인하세요',
-    'home.photos.card': '갤러리',
-    'home.photos.desc': '사진 갤러리를 둘러보세요',
+
     'home.suggestion.card': '신문고',
     'home.suggestion.desc': '건의사항과 피드백을 제출하세요',
     'home.contact.title': '연락하기',
@@ -232,7 +232,7 @@ export const translations: Translations = {
     'nav.clubs': 'Clubs',
     'nav.report': 'Contact',
     'nav.login': 'Login',
-    'nav.photos': 'Photos',
+
     'nav.contact': 'Contact',
     'nav.suggestion': 'Suggestion Box',
     
@@ -244,6 +244,7 @@ export const translations: Translations = {
     // Events Menu
     'nav.events.annual': 'Annual Events',
     'nav.events.career': 'Career',
+    'nav.events.news': 'News',
     'nav.events.culture': 'Culture',
     'nav.events.enquiry': 'Enquiry',
     
@@ -299,8 +300,7 @@ export const translations: Translations = {
     'home.about.desc': 'Learn about our association and executive committee',
     'home.events.card': 'Events',
     'home.events.desc': 'Check out our upcoming events and activities',
-    'home.photos.card': 'Photos',
-    'home.photos.desc': 'Browse through our photo gallery',
+
     'home.suggestion.card': 'Suggestion Box',
     'home.suggestion.desc': 'Submit your suggestions and feedback',
     'home.contact.title': 'Get in Touch',
