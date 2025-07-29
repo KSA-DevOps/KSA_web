@@ -66,6 +66,31 @@ export default config({
         }),
       },
     }),
+    news: collection({
+      label: "News",
+      slugField: "title",
+      path: "src/content/news/*",
+      format: { contentField: "content" },
+      schema: {
+        title: fields.slug({ name: { label: "Title" } }),
+        description: fields.text({ label: "Description" }),
+        content: fields.markdoc({
+          label: "Content",
+          options: {
+            image: {
+              directory: "src/assets/images/news",
+              publicPath: "@images/news/",
+            },
+          },
+        }),
+        date: fields.date({
+          label: "Publication date",
+          description: "The date of the publication",
+        }),
+        category: fields.text({ label: "Category" }),
+        icon: fields.text({ label: "Icon" }),
+      },
+    }),
     spreadsheets: collection({
       label: "Sample Spreadsheets",
       slugField: "title",

@@ -48,6 +48,11 @@ const news = defineCollection({
     date: z.date(),
     category: z.string(),
     icon: z.string(),
+    images: z.array(z.object({
+      src: z.string(),
+      alt: z.string(),
+    })).optional(),
+    layout: z.string().optional(),
   }),
 });
 
