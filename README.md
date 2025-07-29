@@ -1,650 +1,212 @@
-# Versatile Astro Template for Multi-Page Websites
+# HKUST KSA 웹사이트 개발 가이드
 
-![DataNova](https://github.com/user-attachments/assets/b2ca99ee-8161-4755-9b66-205993ef2910)
+## 프로젝트 개요
 
-DataNova is an open-source, multi-page website template designed for flexibility — perfect for marketing sites, documentation hubs, and dynamic applications. Built with [Astro](https://astro.build/), [Tailwind CSS](https://tailwindcss.com/), and [Preline UI](https://preline.co/), it seamlessly integrates with [Keystatic CMS](https://keystatic.com/) and [Astro DB](https://docs.astro.build/en/guides/astro-db/) for effortless content management and data handling.
+- **프로젝트명**: HKUST KSA (Korean Students' Association) 웹사이트
+- **기술 스택**: Astro + TypeScript + Tailwind CSS + Preline UI
+- **배포 방식**: Static Site Generation (SSG)
+- **도메인**: https://ksa.ust.hk
 
+## 기술 스택 상세
 
-<p align="left">
-    <a href="https://data-nova.vercel.app/" target="_blank">
-      <img src="https://vyclk3sx0z.ufs.sh/f/hv6ttNERWpXuFpMc8iWiVYanQyjefSkKg7v2Mrbz806uxod1" alt="DataNova Demo" width="180"/></a>
-</p>
+### 핵심 프레임워크
 
-## Table of Contents
+- **Astro 5.12.1**: 정적 사이트 생성기
+- **TypeScript 5.8.3**: 타입 안전성
+- **Tailwind CSS 4.1.11**: 유틸리티 기반 CSS 프레임워크
 
-* [Why Choose DataNova?](#why-choose-datanova)
-  * [Features](#features)
-* [What's New](#whats-new)
-* [Getting Started](#getting-started)
-  * [Use This Template](#use-this-template)
-  * [Clone the Repository](#clone-the-repository)
-  * [Installation](#installation)
-  * [Development Commands](#development-commands)
-* [Deployment](#deployment)
-* [Project Structure](#project-structure)
-* [Customization](#customization)
-  * [Navigation](#navigation)
-    * [Navigation Bar Links](#navigation-bar-links)
-    * [Mega Menu Links](#mega-menu-links)
-    * [Footer Links](#footer-links)
-      * [Footer](#footer)
-      * [Expanded Footer](#expanded-footer)
-  * [Content Sections and Common Components](#content-sections-and-common-components)
-    * [Tailwind CSS Customization](#tailwind-css-customization)
-* [Content Management](#content-management)
-  * [Keystatic CMS](#keystatic-cms)
-    * [Storage Mode Configuration](#storage-mode-configuration)
-    * [Accessing Keystatic Admin UI](#accessing-keystatic-admin-ui)
-    * [Disable Admin UI Routes in Production](#disable-admin-ui-routes-in-production)
-* [Data Handling with Astro DB](#data-handling-with-astro-db)
-  * [Create a Turso Database](#create-a-turso-database)
-    * [Database Configuration](#database-configuration)
-* [Integrations and Enhancements](#integrations-and-enhancements)
-  * [Astro SEO](#astro-seo)
-  * [Astro SEO Schema](#astro-seo-schema)
-  * [Astro Font](#astro-font)
-  * [Client-Side Router](#client-side-router)
-  * [Sitemap Generation](#sitemap-generation)
-* [Contributing](#contributing)
-* [License](#license)
+### 주요 라이브러리
 
-## Why Choose DataNova?
+- **React 19.0.0**: 인터랙티브 컴포넌트
+- **Svelte 5.36.12**: 경량 컴포넌트
+- **Preline 3.1.0**: UI 컴포넌트 라이브러리
+- **astro-seo 0.8.4**: SEO 최적화
+- **astro-seo-schema 5.0.0**: 구조화된 데이터
+- **astro-font 1.1.0**: 폰트 최적화
 
-* **Versatile:** Build a variety of websites, from blogs and landing pages to complex applications.
-* **Easy content management:** Keystatic CMS makes it simple to manage and update your content.
-* **Modern technology:** Built with Astro for fast, lightweight, and SEO-friendly websites.
-* **Developer-friendly:** Modular, customizable, and extendable architecture.
+### 개발 도구
 
-### Features
+- **Prettier 3.6.2**: 코드 포맷팅
+- **@tailwindcss/forms 0.5.9**: 폼 스타일링
+- **@tailwindcss/typography 0.5.15**: 타이포그래피
 
-* **Multi-page structure:** Suitable for websites with various sections and content types.
-* **Content collections:** Organize and manage different types of content efficiently.
-* **Keystatic CMS:** Streamlined content management for easy editing and updates.
-* **Astro DB integration:** Facilitates data handling and feedback collection.
-* **Feedback component:** Allows users to provide feedback, stored in Astro DB with Turso.
-* **Tailwind CSS:** Utility-first styling for rapid UI development and customization.
-* **Preline UI:** Interactive components like navbars and modals for enhanced user experience.
-* **Astro SEO:** Manage SEO metadata and schema.org data for improved search engine visibility.
-* **Astro Font:** Optimized font loading and preloading for better performance.
-* **Client-Side Router:** Enables client-side routing with page transitions for smoother navigation.
+## 프로젝트 구조
 
-## What's New
+```
+src/
+├── assets/
+│   ├── images/          # 이미지 파일들
+│   └── styles/
+│       └── global.css   # 전역 스타일 (Tailwind 설정 포함)
+├── components/
+│   ├── common/          # 공통 컴포넌트
+│   ├── sections/        # 페이지 섹션 컴포넌트
+│   └── ui/              # UI 컴포넌트 (버튼, 폼 등)
+├── content/             # 콘텐츠 컬렉션
+│   ├── articles/        # 기사 (Markdoc)
+│   ├── news/           # 뉴스 (Markdoc)
+│   └── reference/      # 참고 자료 (Markdoc)
+├── data/               # 정적 데이터
+│   ├── executives.ts   # 임원진 정보
+│   ├── spreadsheets/   # 스프레드시트 데이터
+│   └── whitepapers/    # 백서 데이터
+├── layout/
+│   └── BaseLayout.astro # 기본 레이아웃
+├── pages/              # 페이지 파일들
+│   ├── [lang]/         # 다국어 라우팅
+│   ├── api/            # API 엔드포인트
+│   └── ...
+└── utils/              # 유틸리티 함수들
+    ├── navigation.ts   # 네비게이션 설정
+    ├── megaMenu/       # 메가메뉴 설정
+    └── ...
+```
 
-> [!NOTE]
-> Currently, there are no planned improvements or known bugs. If you encounter any issues, please report them on our [issues page](https://github.com/mearashadowfax/DataNova/issues) or [start a discussion](https://github.com/mearashadowfax/DataNova/discussions/new/choose) to share ideas, suggestions, or ask questions.
+## 주요 설정 파일
 
-## Getting Started
+### Astro 설정 (`astro.config.mjs`)
 
-This guide will provide you with the necessary steps to set up and familiarize yourself with the Astro project on your local development machine.
+- **출력 모드**: Static Site Generation
+- **사이트 URL**: https://your-school-domain.com (배포 시 변경 필요)
+- **통합 기능**: React, Markdoc, Svelte, Tailwind CSS
+- **실험적 기능**: clientPrerender 활성화
 
-### Use This Template
+### TypeScript 설정 (`tsconfig.json`)
 
-Click the `Use this template` button at the top right of the repository to create your own repo based on this template.
+- **경로 별칭**: `@/*`, `@common/*`, `@ui/*` 등 설정됨
+- **JSX 설정**: React JSX 사용
+- **엄격 모드**: Astro strict 설정 상속
 
-### Clone the Repository
+### Tailwind CSS 설정 (`src/assets/styles/global.css`)
 
-Once your repository is created, you can clone it to your local machine using the following commands:
+- **커스텀 색상**: Teal 팔레트 (RGB 163, 29, 29 기반)
+- **폰트**: DM Sans, Work Sans
+- **커스텀 유틸리티**: card 클래스 정의
+- **반응형**: 헤더 높이 80px 고정
+
+## 콘텐츠 관리
+
+### 콘텐츠 컬렉션 (`src/content.config.ts`)
+
+- **articles**: 기사 (title, description, date)
+- **reference**: 참고 자료 (title, description, date)
+- **news**: 뉴스 (title, description, date, category, icon)
+- **spreadsheets**: 스프레드시트 데이터 (title, description, url)
+- **whitepapers**: 백서 (title, description, readLink, btnTitle, btnLink)
+
+### 정적 데이터
+
+- **임원진 정보**: `src/data/executives.ts`에서 관리
+- **네비게이션**: `src/utils/navigation.ts`에서 관리
+- **메가메뉴**: `src/utils/megaMenu/` 디렉토리에서 관리
+
+## 개발 명령어
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/[YOUR_REPO_NAME].git
-cd [YOUR_REPO_NAME]
+# 개발 서버 실행
+npm run dev
+
+# 프로덕션 빌드
+npm run build
+
+# 빌드 미리보기
+npm run preview
+
+# 이미지 최적화
+npm run optimize-images
 ```
 
-### Installation
+## 배포 정보
 
-Start by installing the project dependencies using your preferred package manager. Open your terminal, navigate to the project's root directory, and execute:
+### 환경 변수
 
-```bash
-npm install 
+- **사이트 URL**: `astro.config.mjs`에서 설정
+- **SEO 메타데이터**: `BaseLayout.astro`에서 관리
+
+### SEO 설정
+
+- **기본 제목**: "HKUST KSA - Korean Students' Association"
+- **기본 설명**: "Hong Kong University of Science and Technology Korean Students' Association..."
+- **Open Graph**: 소셜 미디어 공유 최적화
+- **구조화된 데이터**: Organization 스키마 적용
+
+## 다국어 지원
+
+- **기본 언어**: 한국어 (ko)
+- **지원 언어**: 한국어, 영어
+- **라우팅**: `[lang]` 디렉토리 기반
+
+## 이미지 최적화
+
+- **WebP 포맷**: 최적화된 이미지 사용
+- **최적화 스크립트**: `scripts/optimize-images.js`
+- **이미지 구조**:
+  - `public/images/`: 원본 이미지
+  - `public/images/optimized/`: 최적화된 이미지
+
+## 커스터마이징 가이드
+
+### 색상 변경
+
+`src/assets/styles/global.css`에서 Teal 팔레트 수정:
+
+```css
+--color-teal-700: oklch(0.42 0.129 21.3); /* 메인 색상 */
 ```
 
-This command will install all the necessary dependencies defined in the `package.json` file.
+### 네비게이션 수정
 
-### Development Commands
-
-With dependencies installed, you can utilize the following npm scripts to manage your project's development lifecycle:
-
-* `npm run dev`: Runs Astro's development server.
-* `npm run preview`: The [Node adapter](https://docs.astro.build/en/guides/integrations-guide/node/) supports `preview` for builds generated with on-demand rendering.
-* `npm run build`: Generates the required server files for deployment.
-
-> [!TIP]  
-> Need more details? Check out the [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
-
-## Deployment
-
-DataNova is configured for [Server-Side Rendering (SSR)](https://docs.astro.build/en/guides/on-demand-rendering/) and comes with the Vercel adapter pre-installed. You can deploy it by connecting your GitHub repository to Vercel.
-
-Click the button below to start deploying your project on Vercel:
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmearashadowfax%2FDataNova)
-
-> [!IMPORTANT]
-> Before deploying, configure the required environment variables. See [Astro DB](#data-handling-with-astro-db) and [Keystatic CMS](#disable-admin-ui-routes-in-production) for details.
-> * `ASTRO_DB_REMOTE_URL` (database URL - required for feedback component)
-> * `ASTRO_DB_APP_TOKEN` (database token - required for feedback component)
-> * `SKIP_KEYSTATIC=true` (to disable Keystatic Admin UI in production if using local mode)
-
-> [!NOTE]
-> SSR is used because Keystatic requires server-side execution for its API routes. If you only intend to use Keystatic for local development, you can configure the project for static output as described in the [Keystatic CMS section](#keystatic-cms).
-
-> [!TIP]  
-> If you're deploying to a different platform, you may need to install a different adapter.  Astro provides official adapters for various platforms, including Netlify, Cloudflare, and Node.js. You can find a list of adapters in the [Astro documentation](https://docs.astro.build/en/guides/on-demand-rendering/#server-adapters).
->
->To change the adapter, you'll need to modify the `astro.config.mjs` file. For example, to use the Netlify adapter, you would install it with `npx astro add netlify` and then update your `astro.config.mjs` file like this:
->
->```mjs
-> import { defineConfig } from 'astro/config';
-> import netlify from '@astrojs/netlify';
->
-> export default defineConfig({
->    // ...
->    output: 'server',
->    adapter: netlify(),
-> });
->```
-
-## Project Structure
-
-DataNova organizes modular sections, components, content, and layout to streamline development and content management.
-
-```md
-├── db/                                  # Contains the database schema and migrations
-├── public/                              # Static assets that are served directly
-└── src/
-    ├── assets/
-    │   ├── images/                      
-    │   └── styles/                      # CSS styles and Tailwind configuration
-    ├── components/
-    │   ├── common/                      # Commonly used components across the site
-    │   ├── sections/                    # Components for specific website sections
-    │   └── ui/                          # UI components (forms, icons, buttons)
-    ├── content/                         # The articles and reference collection of Markdoc files
-    │   ├── articles/
-    │   └── reference/
-    ├── data/                            # The spreadsheets and whitepapers collection of JSON files
-    │   ├── spreadsheets/
-    │   └── whitepapers/
-    ├── layout/
-    │   └── BaseLayout.astro             # A site-wide wrapping page template
-    ├── pages/                           # Astro files representing individual pages and website sections
-    │   ├── api/
-    │   │   └── feedback.ts              # Handles feedback submissions
-    │   ├── downloads/
-    │   ├── support/
-    │   │   └── articles/
-    │   │       ├── [id].astro
-    │   │       └── index.astro
-    │   ├── 404.astro                    # Custom 404 page
-    │   ├── about.astro
-    │   ├── contact.astro
-    │   ├── index.astro                  # The landing/home page
-    │   └── robots.txt.ts                # Dynamically generates robots.txt
-    ├── utils/                           # Shared utility functions and helpers
-    └── content.config.ts                # Contains content collections configuration options
-```
-
-## Customization
-
-This section provides guidance on customizing various aspects of the DataNova template, including the navigation bar, mega menu, footer, and sections.
-
-### Navigation
-
-#### Navigation Bar Links
-
-The navigation bar links are stored in the `utils/navigation.ts` file. To add or modify links, update the `navigationLinks` array:
+`src/utils/navigation.ts`에서 링크 추가/수정:
 
 ```typescript
 export const navigationLinks = [
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
-
 ```
 
-Replace `label` with the desired display text and use `href` to specify the corresponding page path.
-
-Use these links in the `Navbar.astro`:
-
-```astro
-   <div class="grow">
-     {
-       navigationLinks.map((link) => (
-         <a
-           href={link.href}
-           class={`flex items-center rounded-lg p-2 font-medium text-slate-800 hover:bg-slate-100 ${
-             currentPath === link.href ? "underline underline-offset-4" : ""
-           }`}
-           aria-current={currentPath === link.href ? "page" : undefined}
-         >
-           {link.label}
-         </a>
-       ))
-     }
-   </div>
-```
-
-The `currentPath` variable is used to highlight the active link in the navigation.
-
-#### Mega Menu Links
-
-The mega menu allows you to create dropdown menus with multiple sections and links. This data, including icons, links, titles, and descriptions, is stored in the `utils/megaMenu/*` files. For example, the downloads mega menu is stored in [utils/megaMenu/downloads.ts](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/utils/megaMenu/downloads.ts):
-
-```ts
-   export const downloadsMenu = [
-     {
-       sectionTitle: "Download",
-       items: [
-         {
-           icon: "download",
-           title: "DataNova Core",
-           description: "Download the free trial version.",
-           href: "/downloads/datanova-core",
-         },
-       ],
-     },
-     {
-       sectionTitle: "Licensing",
-       items: [
-         { icon: "badge", title: "License Options", href: "/downloads/license-options" },
-         { icon: "chatBubble", title: "Request a Quote", href: "/downloads/request-quote" },
-       ],
-     },
-   ];
-```
-
-Create new mega menu sections by adding files to the `utils/megaMenu/` directory.
-
-The `MegaMenu/*.astro` components generate the mega menu. For example, the downloads mega menu is generated by the `src/components/common/MegaMenu/Downloads.astro` component:
-
-```astro
-   ---
-   import { downloadsMenu } from "@utils/megaMenu/downloads";
-   const currentPath = Astro.url.pathname;
-   ---
-   <div class="hs-dropdown">
-     <button class={`hs-dropdown-toggle ${ currentPath.startsWith("/downloads") ? "underline" : "" }`}>
-       Downloads
-     </button>
-     // ...
-     <div class="hs-dropdown-menu">
-       {
-         downloadsMenu.map((section) => (
-           <div>
-             <p>{section.sectionTitle}</p>
-             {section.items.map((item) => (
-               <a href={item.href}>
-                 <p>{item.title}</p>
-                 <p>{item.description}</p>
-               </a>
-             ))}
-           </div>
-         ))
-       }
-     </div>
-   </div>
-```
-
-To use the mega menu in the navigation bar, import and add the `MegaMenu` components to the `Navbar.astro` component.
-
-> [!TIP]
->Key locations to customize:
->
-> * [@utils/navigation.ts](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/utils/navigation.ts): Navigation bar links
-> * [@utils/megaMenu/*](https://github.com/mearashadowfax/DataNova/tree/c611b145c821aaac2df787df8848ebf5002a8ddd/src/utils/megaMenu): Mega menu configurations
-> * [Navbar.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Navbar.astro): Navigation component
-
-#### Footer Links
-
-This project provides two distinct footer implementations, each offering different features and customization options.
-
-##### Footer
-
-The basic footer provides a simple layout with core company information, contact details, and a standard subscription form.
-
-```astro
----
-// ...
-
-// Company Information
-const companyName = "Your Company Name";
-const companyDescription = "Brief company description";
-
-// Contact Details
-const contactDetails = {
-  address: "City, State, ZIP",
-  phone: "Phone Number",
-  email: "contact@example.com",
-  website: "[www.yourwebsite.com](https://www.google.com/search?q=https://www.yourwebsite.com)"
-};
+### 메가메뉴 수정
 
-// Copyright & Attribution
-const craftedBy = { 
-  name: "Your Name", 
-  url: "[https://yourwebsite.com](https://yourwebsite.com)" 
-};
+`src/utils/megaMenu/` 디렉토리의 각 파일에서 메뉴 구조 수정
 
-const trademarkNotice = "Your trademark information";
----
-```
+### 임원진 정보 수정
 
-##### Expanded Footer
+`src/data/executives.ts`에서 임원진 정보 업데이트
 
-The expanded footer includes detailed navigation links and an alternative subscription form layout.
-
-```astro
----
-// ...
-import FooterFormExpanded from "@ui/forms/FooterFormExpanded.astro";
-
-// Import data for dynamic rendering
-import { featuresMenu } from "@utils/megaMenu/features";
-import { platformMenu } from "@utils/megaMenu/platform";
-import { supportMenu } from "@utils/megaMenu/support";
----
-```
-
-To switch between the basic and expanded footers, replace the import statement in `@layouts/BaseLayout.astro` with the desired footer component.
-
-```astro
----
-// ...
-import Navbar from "@sections/Navbar.astro";
-import Footer from "@sections/Footer.astro"; // Replace with FooterExpanded.astro for the expanded version
----
-```
-
-> [!TIP]
->Key locations to customize:
->
-> * [Footer.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/sections/Footer.astro): Main basic footer component
-> * [FooterExpanded.astro](https://github.com/mearashadowfax/DataNova/blob/4ae0e6f486730066c9a38b2157363589bff479aa/src/components/sections/FooterExpanded.astro): Expanded footer component
-> * [@ui/forms/FooterForm.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/ui/forms/FooterForm.astro): Basic email subscription form
-> * [@ui/forms/FooterFormExpanded.astro](https://github.com/mearashadowfax/DataNova/blob/4ae0e6f486730066c9a38b2157363589bff479aa/src/components/ui/forms/FooterFormExpanded.astro): Expanded email subscription form
-> * [@common/ContactInfo.astro](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/ContactInfo.astro): Contact information display
-
-### Content Sections and Common Components
-
-DataNova's content sections and common components follow a similar structure, making customization easy. To customize content, update variables within component files:
-
-* Modify `title`, `subTitle`
-* Update Call-to-Action (CTA) configurations
-  * `primaryCTA`
-  * `secondaryCTA`
-  * `tertiaryCTA`
-
-To change the title of a hero section, locate the corresponding Astro component file and update the `title` variable:
-
-```astro
----
-// ...
-const title = "My New Title";
----
-```
-
-#### Tailwind CSS Customization
-
-**Color Customization**
-
-* Modify colors in `@styles/global.css`
-* [Tailwind Color Customization Docs](https://tailwindcss.com/docs/colors#customizing-your-colors)
-
-**Font Customization**
-
-* Update font families in `@styles/global.css`
-* [Tailwind Font Family Docs](https://tailwindcss.com/docs/font-family#customizing-your-theme)
-
-**Utility Classes**
-   * Use Tailwind utility classes to fine-tune styling
-   * [Tailwind Utility Classes Guide](https://tailwindcss.com/docs/styling-with-utility-classes)
-
-> [!TIP]
-> Recommended resources:
->
-> * [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-> * [Tailwind Adding custom styles](https://tailwindcss.com/docs/adding-custom-styles)
-
-## Content Management
-
-### Keystatic CMS
-
-DataNova uses Keystatic CMS for content management. You can edit content through the Keystatic web interface and store it in either your local file system or a GitHub repository
-
-#### Accessing Keystatic Admin UI
-
-* **Local Mode**: Visit `http://127.0.0.1:4321/keystatic` to access the Admin UI in development.
-* **GitHub Mode**: Once deployed, access the Admin UI at `https://your_domain.com/keystatic`.
-  
-#### Storage Mode Configuration
-
-Keystatic allows you to configure the storage mode in `keystatic.config.ts`. You can set the mode to either `local` or `github`:
-
-```typescript
-// ...
-let KEYSTATIC_STORAGE_MODE = "local";
-
-const GITHUB_REPO_OWNER = "REPO_OWNER";
-const GITHUB_REPO_NAME = "REPO_NAME";
-
-export default config({
-  storage:
-    (KEYSTATIC_STORAGE_MODE as "github") === "github"
-      ? {
-          kind: "github",
-          repo: `${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}`,
-        }
-      : {
-          kind: "local",
-        },
-    // ...
-});
-```
-
-The appropriate storage mode is automatically selected based on the configuration.
-
-#### Disable Admin UI Routes in Production
-
-When using the `local` strategy, you may want to disable access to `/keystatic` routes in production. To achieve this, `astro.config.mjs` was modified as follows:
-
-```typescript
-// ...
-import keystatic from '@keystatic/astro';
-
-export default defineConfig({
-   integrations: [react(), markdoc(), ...(process.env.SKIP_KEYSTATIC ? [] : [keystatic()])],
-});
-```
-> [!IMPORTANT]
-> [Setting](https://keystatic.com/docs/recipes/astro-disable-admin-ui-in-production#adding-environment-variables) `SKIP_KEYSTATIC=true` in your environment variables will prevent Keystatic from mounting in production.
-
-> [!NOTE]
-> The template uses Server-Side Rendering (SSR) because the API routes in the Keystatic Admin UI need to perform reads/writes on the file system (or GitHub repo), which require server-side execution.
->
-> If you only intend to use Keystatic for local development, you can configure Astro for static output and set Keystatic to local storage mode. This will allow you to deploy your project to any static hosting service.
->
-> To configure Astro for static output and Keystatic for local storage mode:
->
-> 1. **Update `astro.config.mjs`:**
->
-> ```mjs
->  import { defineConfig } from 'astro/config';
->  // ...
->
->  const isDev = process.env.NODE_ENV === "development"
->
->  export default defineConfig({
->    // ...
->    integrations: [
->      // ...
->      ...(isDev ? [keystatic()] :) // Uses the integration conditionally
->    ],
->    output: isDev ? 'server' : 'static' // Only set server rendering for dev mode
->  });
-> ```
->
-> 2. **Update `keystatic/config.ts`:**
->
-> ```ts
-> import { config, fields, collection } from "@keystatic/core";
->
-> let KEYSTATIC_STORAGE_MODE = "local";
-> ```
->
-> 3. **Update your dynamic route to use `getStaticPaths()`. Refer to the [Astro documentation](https://docs.astro.build/en/guides/content-collections/#building-for-static-output-default) for details on generating static content from collections.**
-
-> [!TIP]
-> Recommended Resources:
->
-> * [Keystatic Docs](https://keystatic.com/docs/introduction)
-> * [Disable Admin UI Routes in Production](https://keystatic.com/docs/recipes/astro-disable-admin-ui-in-production)
-> * [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/)
-
-## Data Handling with Astro DB
-
-DataNova utilizes Astro DB with Turso for the feedback component. Astro DB is a database integration for Astro that allows you to easily connect to various databases, including Turso. Turso is a serverless database platform that provides a scalable and globally distributed database.
-
-### Create a Turso Database
-
-You will need to create a Turso database to use the feedback component.
-
-1. **Sign up and create a database:**
-
-* [Sign up for a Turso account](https://turso.tech/)
-* Create a new database in your Turso dashboard or click below:
-
-[![Create Database](https://sqlite.new/button)](https://sqlite.new?name=creative-orange-mouse)
-
-2. **Configure environment variables:**
-
-* Rename `.env.template` to `.env` and fill in your specific database credentials:
-
-```env
-    ASTRO_DB_REMOTE_URL=your_turso_db_url  # Copy the database URL
-    ASTRO_DB_APP_TOKEN=your_turso_db_token  # Create a database token
-```
-
-3. **Push the database schema:**
-
-```bash
-npx astro db push --remote
-```
-
-You should see something like this on a successful push:
-
-```bash
-Pushing database schema updates...
-Push complete!
-```
+## 성능 최적화
 
-#### Database Configuration
+- **정적 생성**: 모든 페이지가 빌드 시 생성
+- **이미지 최적화**: WebP 포맷 사용
+- **폰트 최적화**: astro-font로 폰트 로딩 최적화
+- **SEO 최적화**: 메타데이터 및 구조화된 데이터 적용
 
-The database schema is defined in `/db/config.ts`. It stores the post slug and the counts for helpful and not helpful feedback:
+## 브라우저 지원
 
-```typescript
-import { defineDb, defineTable, column } from "astro:db";
+- **모던 브라우저**: Chrome, Firefox, Safari, Edge 최신 버전
+- **반응형 디자인**: 모바일, 태블릿, 데스크톱 지원
+- **접근성**: WCAG 가이드라인 준수
 
-const Feedback = defineTable({
-columns: {
-slug: column.text({ primaryKey: true }),
-helpful: column.number({ default: 0 }),
-notHelpful: column.number({ default: 0 })
-},
-});
+## 개발 팁
 
-export default defineDb({
-tables: { Feedback },
-});
-```
+1. **컴포넌트 재사용**: `src/components/common/`에서 공통 컴포넌트 활용
+2. **타입 안전성**: TypeScript 인터페이스 활용
+3. **스타일링**: Tailwind 유틸리티 클래스 우선 사용
+4. **콘텐츠 관리**: Markdoc 파일로 콘텐츠 작성
+5. **SEO**: 각 페이지에서 적절한 메타데이터 설정
 
-> [!NOTE]
-> Don't forget to add the environment variables when deploying your site.
+## 문제 해결
 
-> [!TIP]
->Key locations:
->
-> * [/db/*](https://github.com/mearashadowfax/DataNova/tree/c611b145c821aaac2df787df8848ebf5002a8ddd/db): Database schema
-> * [@common/PostFeedback.svelte](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/components/common/PostFeedback.svelte): Feedback component
-> * [src/pages/api/feedback.ts](https://github.com/mearashadowfax/DataNova/blob/c611b145c821aaac2df787df8848ebf5002a8ddd/src/pages/api/feedback.ts): API
->
-> Recommended resources:
->
-> * [Astro DB](https://docs.astro.build/en/guides/astro-db/)
-> * [Turso Docs](https://docs.turso.tech/introduction)
+### 빌드 오류
 
-## Integrations and Enhancements
+- TypeScript 타입 체크: `npm run build`로 확인
+- 의존성 문제: `npm install` 재실행
 
-DataNova uses several Astro integrations and enhancements to improve its functionality, performance, and developer experience.
+### 스타일 문제
 
-### Astro SEO
+- Tailwind 클래스 확인
+- `global.css`에서 커스텀 스타일 점검
 
-The [astro-seo](https://github.com/jonasmerlin/astro-seo) integration helps manage SEO metadata and schema.org data, improving the website's visibility on search engines.
+### 콘텐츠 문제
 
-In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L43), the `SEO` component from `astro-seo` is used to define global SEO settings like `title`, `description`, `openGraph`, and `twitter` metadata. Page-specific SEO settings can be overridden by passing `seo` props to the `BaseLayout` component, as shown in the example below:
-
-```astro
----
-//...
-
-const seo = {
-  title: "About DataNova",
-  description: "Learn more about DataNova...",
-};
----
-
-<BaseLayout seo={seo}>
-  {/* ... page content ... */}
-</BaseLayout>
-```
-
-### Astro SEO Schema
-
-The [astro-seo-schema](https://github.com/codiume/orbit/tree/main/packages/astro-seo-schema) integration provides a convenient way to add schema.org structured data to your pages, helping search engines understand the content better.
-
-In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L79), the Schema component from `astro-seo-schema` is used to define default schema.org data for the website. Page-specific schema.org data can be added by passing `schema` props to the `BaseLayout` component, as shown in the example below.
-
-```astro
----
-// ...
-import type { WithContext, Thing } from "schema-dts";
-
-const schema: WithContext<Thing> = {
-  // ... schema.org metadata
-};
----
-
-<BaseLayout schema={schema}>
-  {/* ... page content ... */}
-</BaseLayout>
-```
-
-### Astro Font
-
-The [astro-font](https://github.com/rishi-raj-jain/astro-font) integration optimizes font loading and preloading, improving website performance.
-
-In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L85), the `AstroFont` component is used to define font configurations, including `name`, `src`, `preload`, `display`, `selector`, and `fallback` options. This ensures fonts are loaded efficiently and applied to the correct elements.
-
-### Client-Side Router
-
-The [ClientRouter](https://docs.astro.build/en/guides/view-transitions/) component from `astro:transitions` enables client-side routing with page transitions, providing a smoother and more interactive user experience.
-
-In [BaseLayout.astro](https://github.com/mearashadowfax/DataNova/blob/771087f60258ced93f7ad8ab38669c5ada1a65c6/src/layout/BaseLayout.astro#L82), the `ClientRouter` component is included to activate client-side routing. This allows for page transitions and improves navigation performance.
-
-### Sitemap Generation
-
-While DataNova doesn't include the official [@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/) integration by default, you can easily add it if needed. However, please note that the official integration cannot generate sitemap entries for dynamic routes in SSR mode.
-
-If you require more advanced sitemap generation capabilities, such as including dynamic routes or customizing sitemap entries, you can use the community-maintained [Sitemap Extensions](https://inox-tools.fryuni.dev/sitemap-ext) package.
-
-## Contributing
-
-If you're interested in helping, you can contribute in several ways:
-
-1. Reporting Issues: Feel free to use the issue tracker to report bugs or request features.
-2. Submitting Pull Requests: If you've fixed a bug or added a new feature, submit a pull request with a clear description of your changes.
-3. Providing Feedback: Share your thoughts on the project's current features and suggest improvements.
-
-## License
-
-This project is released under the MIT License. Please read the [LICENSE](https://github.com/mearashadowfax/DataNova/blob/main/LICENSE) file for more details.
-
-**Note:** This website template has no affiliation with the companies displayed. Logos are used for demonstration purposes only and should be replaced in customized versions.
+- Markdoc 문법 확인
+- 콘텐츠 스키마 검증
