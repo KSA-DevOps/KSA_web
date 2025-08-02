@@ -39,7 +39,7 @@ export const translations: Translations = {
     
     // Executive Committee page
     'exco.title': '회장단',
-    'exco.subtitle': 'Korean Students\' Association 2024 - 2025 Executive Committee',
+    'exco.subtitle': 'Korean Students\' Association 2025 - 2026 Executive Committee',
     'exco.president': 'President',
     'exco.president.korean': '회장',
     'exco.vice.president': 'Vice President',
@@ -51,7 +51,7 @@ export const translations: Translations = {
     
     // Subcommittee page
     'subcommittee.title': '임원진',
-    'subcommittee.subtitle': 'Korean Students\' Association 2024 - 2025 Executives',
+    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Executives',
     'subcommittee.coming': 'Coming Soon',
     
     // Events sub-pages
@@ -322,7 +322,7 @@ export const translations: Translations = {
     'common.loading': '로딩 중...',
     'common.error': '오류가 발생했습니다',
     'common.success': '성공적으로 완료되었습니다',
-    'common.copyright': '© HKUSTKSA 2024'
+    'common.copyright': '© HKUSTKSA 2025'
   },
   en: {
     // Navigation
@@ -357,7 +357,7 @@ export const translations: Translations = {
     
     // Executive Committee page
     'exco.title': 'Executive Committee',
-    'exco.subtitle': 'Korean Students\' Association 2024 - 2025 Executive Committee',
+    'exco.subtitle': 'Korean Students\' Association 2025 - 2026 Executive Committee',
     'exco.president': 'President',
     'exco.president.korean': 'President',
     'exco.vice.president': 'Vice President',
@@ -369,7 +369,7 @@ export const translations: Translations = {
     
     // Subcommittee page
     'subcommittee.title': 'Executives',
-    'subcommittee.subtitle': 'Korean Students\' Association 2024 - 2025 Executives',
+    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Executives',
     'subcommittee.coming': 'Coming Soon',
     
     // Events sub-pages
@@ -632,7 +632,7 @@ export const translations: Translations = {
     'common.loading': 'Loading...',
     'common.error': 'An error occurred',
     'common.success': 'Successfully completed',
-    'common.copyright': '© HKUSTKSA 2024'
+    'common.copyright': '© HKUSTKSA 2025'
   }
 };
 

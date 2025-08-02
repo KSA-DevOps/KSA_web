@@ -57,7 +57,7 @@ export const executiveData: ExecutiveGroup[] = [
         position: "Internal Manager",
         name: "LEE Haelin",
         studentId: "21103532",
-        program: "MGMT",
+        program: "ACCT",
         year: 1,
         email: "hleebi@connect.ust.hk"
       },
