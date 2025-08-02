@@ -18,36 +18,31 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 const careerEvents = [
   {
     title: currentLang === 'ko' ? '커리어 토크' : 'Career Talk',
-    date: 'Monthly',
+    date: currentLang === 'ko' ? 'Coming Soon' : 'Coming Soon',
     description: currentLang === 'ko'
-      ? '다양한 분야의 전문가들을 초청하여 경력 개발에 대한 조언을 제공합니다.'
-      : 'Invites experts from various fields to provide career development advice.',
-    icon: '🎤'
-  },
-  {
-    title: currentLang === 'ko' ? '인턴십 정보 세션' : 'Internship Information Session',
-    date: 'Quarterly',
-    description: currentLang === 'ko'
-      ? '인턴십 기회와 지원 방법에 대한 정보를 제공합니다.'
-      : 'Provides information about internship opportunities and application methods.',
-    icon: '💼'
+      ? '현업에 계신 졸업생 분들을 초청하여 경력 개발에 대한 실질적인 경험과 인사이트를 제공합니다.'
+      : 'We invite successful alumni working in various industries to provide practical career development advice and insights. Through sharing experiences from different sectors, we help students plan their career paths.',
+    icon: '🎤',
+    isActive: false
   },
   {
     title: currentLang === 'ko' ? '네트워킹 이벤트' : 'Networking Event',
-    date: 'Bi-monthly',
+    date: currentLang === 'ko' ? 'Coming Soon' : 'Coming Soon',
     description: currentLang === 'ko'
-      ? '졸업생들과의 네트워킹 기회를 제공합니다.'
-      : 'Provides networking opportunities with alumni.',
-    icon: '🤝'
+      ? '졸업생 분들과의 네트워킹 기회를 제공합니다.'
+      : 'Provides networking opportunities with alumni. Through industry-specific small group meetings, students can engage in deep conversations and receive mentoring, which may lead to future internship or job opportunities.',
+    icon: '🤝',
+    isActive: false
   },
   {
-    title: currentLang === 'ko' ? '이력서 워크샵' : 'Resume Workshop',
-    date: 'Semester',
+    title: currentLang === 'ko' ? '교수님과의 커피챗' : 'Coffee Chat with Professors',
+    date: currentLang === 'ko' ? 'Coming Soon' : 'Coming Soon',
     description: currentLang === 'ko'
-      ? '이력서 작성과 면접 준비에 대한 실습 워크샵을 제공합니다.'
-      : 'Provides hands-on workshops for resume writing and interview preparation.',
-    icon: '📝'
-  }
+      ? 'HKUST 한인 교수님들과의 커피챗을 통해 학업과 커리어에 대한 조언을 받을 수 있습니다.'
+      : 'Enjoy casual coffee chats with Korean professors at HKUST to receive advice on academic and research directions. This is particularly valuable for students interested in graduate studies or research careers.',
+    icon: '☕',
+    isActive: false
+  },
 ];
 ---
 
@@ -71,13 +66,22 @@ const careerEvents = [
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         {careerEvents.map((event) => (
-          <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-            <div class="p-6">
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-4xl">{event.icon}</span>
-                <span class="text-sm text-teal-600 font-medium">{event.date}</span>
+          <div class={`bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${event.isActive ? 'hover:shadow-xl cursor-pointer' : 'opacity-75'}`}>
+            <div class="h-48 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center relative overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-200/50 to-purple-200/50 flex items-center justify-center">
+                <div class="text-center">
+                  <span class="text-6xl mb-4 block">{event.icon}</span>
+                  <div class="bg-white/80 backdrop-blur-sm rounded-full px-4 py-1">
+                    <span class="text-blue-700 font-semibold text-sm">Coming Soon</span>
+                  </div>
+                </div>
               </div>
-              <h3 class="text-xl font-semibold text-gray-800 mb-3">{event.title}</h3>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-xl font-semibold text-gray-800">{event.title}</h3>
+                <span class="text-sm text-blue-600 font-medium">{event.date}</span>
+              </div>
               <p class="text-gray-600 leading-relaxed">{event.description}</p>
             </div>
           </div>
