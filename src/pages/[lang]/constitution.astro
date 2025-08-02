@@ -15,100 +15,160 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// 회칙 데이터
-const constitution = [
+// 회칙 데이터 구조
+const constitutionData = [
   {
-    title: "제1장 총칙",
-    articles: [
-      {
-        number: "제1조 (명칭)",
-        content: "본 회는 홍콩과학기술대학교 한인학생회(Korean Students' Association at HKUST, 이하 'KSA')라 한다."
-      },
-      {
-        number: "제2조 (목적)",
-        content: "본 회는 홍콩과학기술대학교에 재학 중인 한국 학생들의 학업 및 생활 전반에 걸친 상호 협력과 교류를 통하여 학업 성취도 향상과 한국 문화의 전파를 목적으로 한다."
-      },
-      {
-        number: "제3조 (위치)",
-        content: "본 회의 주소는 홍콩과학기술대학교 내에 둔다."
-      }
+    key: 'article1',
+    title: getTranslation('constitution.article1.title', currentLang),
+    items: [
+      { key: 'constitution.article1.1', content: getTranslation('constitution.article1.1', currentLang) },
+      { key: 'constitution.article1.2', content: getTranslation('constitution.article1.2', currentLang) },
+      { key: 'constitution.article1.3', content: getTranslation('constitution.article1.3', currentLang) },
+      { key: 'constitution.article1.4', content: getTranslation('constitution.article1.4', currentLang) },
+      { key: 'constitution.article1.5', content: getTranslation('constitution.article1.5', currentLang) },
+      { key: 'constitution.article1.6', content: getTranslation('constitution.article1.6', currentLang) }
     ]
   },
   {
-    title: "제2장 회원",
-    articles: [
-      {
-        number: "제4조 (회원의 자격)",
-        content: "홍콩과학기술대학교에 재학 중인 한국 학생은 본 회의 회원이 된다."
-      },
-      {
-        number: "제5조 (회원의 권리)",
-        content: "회원은 본 회의 모든 활동에 참여할 권리를 가지며, 본 회의 운영에 관한 의견을 제시할 수 있다."
-      },
-      {
-        number: "제6조 (회원의 의무)",
-        content: "회원은 본 회의 목적 달성을 위해 노력하며, 본 회의 명예를 훼손하는 행위를 하지 않아야 한다."
-      }
+    key: 'article2',
+    title: getTranslation('constitution.article2.title', currentLang),
+    items: [
+      { key: 'constitution.article2.1', content: getTranslation('constitution.article2.1', currentLang) },
+      { key: 'constitution.article2.2', content: getTranslation('constitution.article2.2', currentLang) },
+      { key: 'constitution.article2.3', content: getTranslation('constitution.article2.3', currentLang) },
+      { key: 'constitution.article2.4', content: getTranslation('constitution.article2.4', currentLang) },
+      { key: 'constitution.article2.5', content: getTranslation('constitution.article2.5', currentLang) }
     ]
   },
   {
-    title: "제3장 조직",
-    articles: [
-      {
-        number: "제7조 (총회)",
-        content: "총회는 본 회의 최고 의결기관으로서 정기총회와 임시총회로 구분한다."
-      },
-      {
-        number: "제8조 (임원)",
-        content: "본 회에는 다음의 임원을 둔다. 1. 회장 1명 2. 부회장 1명 3. 총무 1명 4. 기타 필요한 임원"
-      },
-      {
-        number: "제9조 (임원의 선출)",
-        content: "임원은 총회에서 회원 중에서 선출하며, 임기는 1년으로 한다."
-      }
+    key: 'article3',
+    title: getTranslation('constitution.article3.title', currentLang),
+    items: [
+      { key: 'constitution.article3.1', content: getTranslation('constitution.article3.1', currentLang) },
+      { key: 'constitution.article3.2', content: getTranslation('constitution.article3.2', currentLang) },
+      { key: 'constitution.article3.3', content: getTranslation('constitution.article3.3', currentLang) },
+      { key: 'constitution.article3.4', content: getTranslation('constitution.article3.4', currentLang) },
+      { key: 'constitution.article3.5', content: getTranslation('constitution.article3.5', currentLang) },
+      { key: 'constitution.article3.6', content: getTranslation('constitution.article3.6', currentLang) },
+      { key: 'constitution.article3.7', content: getTranslation('constitution.article3.7', currentLang) },
+      { key: 'constitution.article3.8', content: getTranslation('constitution.article3.8', currentLang) },
+      { key: 'constitution.article3.9', content: getTranslation('constitution.article3.9', currentLang) },
+      { key: 'constitution.article3.10', content: getTranslation('constitution.article3.10', currentLang) }
     ]
   },
   {
-    title: "제4장 활동",
-    articles: [
-      {
-        number: "제10조 (정기활동)",
-        content: "본 회는 학기별로 정기 모임을 가지며, 회원 간의 교류를 위한 다양한 활동을 전개한다."
-      },
-      {
-        number: "제11조 (특별활동)",
-        content: "본 회는 필요에 따라 특별 활동을 계획하고 실행할 수 있다."
-      },
-      {
-        number: "제12조 (외부교류)",
-        content: "본 회는 다른 대학의 한인학생회 및 관련 단체와의 교류를 적극적으로 추진한다."
-      }
+    key: 'article4',
+    title: getTranslation('constitution.article4.title', currentLang),
+    items: [
+      { key: 'constitution.article4.1', content: getTranslation('constitution.article4.1', currentLang) },
+      { key: 'constitution.article4.2', content: getTranslation('constitution.article4.2', currentLang) },
+      { key: 'constitution.article4.3', content: getTranslation('constitution.article4.3', currentLang) },
+      { key: 'constitution.article4.4', content: getTranslation('constitution.article4.4', currentLang) },
+      { key: 'constitution.article4.5', content: getTranslation('constitution.article4.5', currentLang) },
+      { key: 'constitution.article4.6', content: getTranslation('constitution.article4.6', currentLang) },
+      { key: 'constitution.article4.7', content: getTranslation('constitution.article4.7', currentLang) }
     ]
   },
   {
-    title: "제5장 재정",
-    articles: [
-      {
-        number: "제13조 (재정원천)",
-        content: "본 회의 재정은 회비, 후원금, 기타 수입으로 충당한다."
-      },
-      {
-        number: "제14조 (회계감사)",
-        content: "본 회의 회계는 매 학기 말에 감사를 받아야 한다."
-      }
+    key: 'article5',
+    title: getTranslation('constitution.article5.title', currentLang),
+    items: [
+      { key: 'constitution.article5.1', content: getTranslation('constitution.article5.1', currentLang) },
+      { key: 'constitution.article5.2', content: getTranslation('constitution.article5.2', currentLang) },
+      { key: 'constitution.article5.3', content: getTranslation('constitution.article5.3', currentLang) },
+      { key: 'constitution.article5.4', content: getTranslation('constitution.article5.4', currentLang) },
+      { key: 'constitution.article5.5', content: getTranslation('constitution.article5.5', currentLang) }
     ]
   },
   {
-    title: "제6장 부칙",
-    articles: [
-      {
-        number: "제15조 (개정)",
-        content: "본 회칙의 개정은 총회에서 재적회원 2/3 이상의 찬성으로 의결한다."
-      },
-      {
-        number: "제16조 (시행)",
-        content: "본 회칙은 공포한 날부터 시행한다."
-      }
+    key: 'article6',
+    title: getTranslation('constitution.article6.title', currentLang),
+    items: [
+      { key: 'constitution.article6.1', content: getTranslation('constitution.article6.1', currentLang) },
+      { key: 'constitution.article6.2', content: getTranslation('constitution.article6.2', currentLang) },
+      { key: 'constitution.article6.3', content: getTranslation('constitution.article6.3', currentLang) },
+      { key: 'constitution.article6.4', content: getTranslation('constitution.article6.4', currentLang) },
+      { key: 'constitution.article6.5', content: getTranslation('constitution.article6.5', currentLang) },
+      { key: 'constitution.article6.6', content: getTranslation('constitution.article6.6', currentLang) },
+      { key: 'constitution.article6.7', content: getTranslation('constitution.article6.7', currentLang) },
+      { key: 'constitution.article6.8', content: getTranslation('constitution.article6.8', currentLang) },
+      { key: 'constitution.article6.9', content: getTranslation('constitution.article6.9', currentLang) },
+      { key: 'constitution.article6.10', content: getTranslation('constitution.article6.10', currentLang) }
+    ]
+  },
+  {
+    key: 'article7',
+    title: getTranslation('constitution.article7.title', currentLang),
+    items: [
+      { key: 'constitution.article7.1', content: getTranslation('constitution.article7.1', currentLang) },
+      { key: 'constitution.article7.2', content: getTranslation('constitution.article7.2', currentLang) },
+      { key: 'constitution.article7.3', content: getTranslation('constitution.article7.3', currentLang) },
+      { key: 'constitution.article7.3.1', content: getTranslation('constitution.article7.3.1', currentLang) },
+      { key: 'constitution.article7.3.2', content: getTranslation('constitution.article7.3.2', currentLang) },
+      { key: 'constitution.article7.3.3', content: getTranslation('constitution.article7.3.3', currentLang) },
+      { key: 'constitution.article7.3.4', content: getTranslation('constitution.article7.3.4', currentLang) },
+      { key: 'constitution.article7.3.5', content: getTranslation('constitution.article7.3.5', currentLang) },
+      { key: 'constitution.article7.3.6', content: getTranslation('constitution.article7.3.6', currentLang) },
+      { key: 'constitution.article7.3.7', content: getTranslation('constitution.article7.3.7', currentLang) },
+      { key: 'constitution.article7.3.8', content: getTranslation('constitution.article7.3.8', currentLang) },
+      { key: 'constitution.article7.3.9', content: getTranslation('constitution.article7.3.9', currentLang) },
+      { key: 'constitution.article7.3.10', content: getTranslation('constitution.article7.3.10', currentLang) }
+    ]
+  },
+  {
+    key: 'article8',
+    title: getTranslation('constitution.article8.title', currentLang),
+    items: [
+      { key: 'constitution.article8.1', content: getTranslation('constitution.article8.1', currentLang) },
+      { key: 'constitution.article8.2', content: getTranslation('constitution.article8.2', currentLang) },
+      { key: 'constitution.article8.3', content: getTranslation('constitution.article8.3', currentLang) },
+      { key: 'constitution.article8.4', content: getTranslation('constitution.article8.4', currentLang) },
+      { key: 'constitution.article8.5', content: getTranslation('constitution.article8.5', currentLang) },
+      { key: 'constitution.article8.6', content: getTranslation('constitution.article8.6', currentLang) },
+      { key: 'constitution.article8.7', content: getTranslation('constitution.article8.7', currentLang) },
+      { key: 'constitution.article8.8', content: getTranslation('constitution.article8.8', currentLang) },
+      { key: 'constitution.article8.9', content: getTranslation('constitution.article8.9', currentLang) }
+    ]
+  },
+  {
+    key: 'article9',
+    title: getTranslation('constitution.article9.title', currentLang),
+    items: [
+      { key: 'constitution.article9.1', content: getTranslation('constitution.article9.1', currentLang) },
+      { key: 'constitution.article9.2', content: getTranslation('constitution.article9.2', currentLang) },
+      { key: 'constitution.article9.3', content: getTranslation('constitution.article9.3', currentLang) }
+    ]
+  },
+  {
+    key: 'article10',
+    title: getTranslation('constitution.article10.title', currentLang),
+    items: [
+      { key: 'constitution.article10.1', content: getTranslation('constitution.article10.1', currentLang) },
+      { key: 'constitution.article10.2', content: getTranslation('constitution.article10.2', currentLang) },
+      { key: 'constitution.article10.2.1', content: getTranslation('constitution.article10.2.1', currentLang) },
+      { key: 'constitution.article10.2.2', content: getTranslation('constitution.article10.2.2', currentLang) },
+      { key: 'constitution.article10.2.3', content: getTranslation('constitution.article10.2.3', currentLang) },
+      { key: 'constitution.article10.3', content: getTranslation('constitution.article10.3', currentLang) },
+      { key: 'constitution.article10.4', content: getTranslation('constitution.article10.4', currentLang) },
+      { key: 'constitution.article10.5', content: getTranslation('constitution.article10.5', currentLang) },
+      { key: 'constitution.article10.6', content: getTranslation('constitution.article10.6', currentLang) },
+      { key: 'constitution.article10.7', content: getTranslation('constitution.article10.7', currentLang) },
+      { key: 'constitution.article10.8', content: getTranslation('constitution.article10.8', currentLang) }
+    ]
+  },
+  {
+    key: 'article11',
+    title: getTranslation('constitution.article11.title', currentLang),
+    items: [
+      { key: 'constitution.article11.1', content: getTranslation('constitution.article11.1', currentLang) },
+      { key: 'constitution.article11.2', content: getTranslation('constitution.article11.2', currentLang) },
+      { key: 'constitution.article11.2.1', content: getTranslation('constitution.article11.2.1', currentLang), indent: true },
+      { key: 'constitution.article11.2.2', content: getTranslation('constitution.article11.2.2', currentLang), indent: true },
+      { key: 'constitution.article11.2.3', content: getTranslation('constitution.article11.2.3', currentLang), indent: true },
+      { key: 'constitution.article11.2.4', content: getTranslation('constitution.article11.2.4', currentLang), indent: true },
+      { key: 'constitution.article11.3', content: getTranslation('constitution.article11.3', currentLang) },
+      { key: 'constitution.article11.4', content: getTranslation('constitution.article11.4', currentLang) },
+      { key: 'constitution.article11.5', content: getTranslation('constitution.article11.5', currentLang) }
     ]
   }
 ];
@@ -119,10 +179,36 @@ const constitution = [
     <!-- Hero Section -->
     <section class="relative py-20">
       <div class="container mx-auto px-4 text-center pt-header">
-        <h1 class="text-5xl font-bold text-gray-800 mb-6">Constitution</h1>
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+          {getTranslation('constitution.title', currentLang)}
+        </h1>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-          홍콩과학기술대학교 한인학생회 회칙
+          {getTranslation('constitution.subtitle', currentLang)}
         </p>
+      </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="py-8 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+              {getTranslation('constitution.table.of.contents', currentLang)}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {constitutionData.map((chapter, index) => (
+                <a 
+                  href={`#${chapter.key}`}
+                  class="block p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+                >
+                  <span class="text-sm text-gray-500 font-medium">Article {index + 1}</span>
+                  <h3 class="text-lg font-semibold text-gray-800 mt-1">{chapter.title}</h3>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -131,20 +217,31 @@ const constitution = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="prose prose-lg mx-auto">
-            {constitution.map((chapter, chapterIndex) => (
-              <div class="mb-12">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2">
+            {constitutionData.map((chapter, chapterIndex) => (
+              <div id={chapter.key} class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 border-b-2 border-teal-500 pb-4">
                   {chapter.title}
                 </h2>
                 <div class="space-y-6">
-                  {chapter.articles.map((article, articleIndex) => (
-                    <div class="bg-gray-50 rounded-lg p-6">
-                      <h3 class="text-lg font-semibold text-teal-700 mb-3">
-                        {article.number}
-                      </h3>
-                      <p class="text-gray-700 leading-relaxed">
-                        {article.content}
-                      </p>
+                  {chapter.items.map((item, itemIndex) => (
+                    <div class={`bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 ${item.indent ? 'ml-8' : ''}`}>
+                      <div class="flex items-start space-x-4">
+                        {!item.indent && (
+                          <span class="flex-shrink-0 w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                            {itemIndex + 1}
+                          </span>
+                        )}
+                        {item.indent && (
+                          <span class="flex-shrink-0 w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                            {itemIndex + 1}
+                          </span>
+                        )}
+                        <div class="flex-1">
+                          <p class="text-gray-700 leading-relaxed">
+                            {item.content}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -160,13 +257,18 @@ const constitution = [
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <div class="bg-white rounded-xl p-8 shadow-lg">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">회칙 관련 문의</h2>
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+              {getTranslation('constitution.inquiry.title', currentLang)}
+            </h2>
             <p class="text-gray-600 mb-6">
-              회칙에 대한 질문이나 개정 제안이 있으시면 언제든지 연락해 주세요.
+              {getTranslation('constitution.inquiry.desc', currentLang)}
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <Button href="/ko/suggestion" variant="secondary" className="px-6 py-3">
-                개정 제안
+              <Button href={`/${currentLang}/contact`} variant="secondary" className="px-6 py-3">
+                {getTranslation('constitution.inquiry.button', currentLang)}
+              </Button>
+              <Button href={`/${currentLang}/suggestion`} variant="primary" className="px-6 py-3">
+                {getTranslation('constitution.amendment.button', currentLang)}
               </Button>
             </div>
           </div>
@@ -177,16 +279,18 @@ const constitution = [
     <!-- Navigation -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 text-center">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">다른 페이지 보기</h2>
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">
+          {getTranslation('constitution.navigation.title', currentLang)}
+        </h2>
         <div class="flex flex-wrap justify-center gap-4">
-          <Button href="/about" variant="secondary" className="px-6 py-3">
-            About Us
+          <Button href={`/${currentLang}/about`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.about', currentLang)}
           </Button>
-          <Button href="/events" variant="secondary" className="px-6 py-3">
-            Events
+          <Button href={`/${currentLang}/events`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.events', currentLang)}
           </Button>
-          <Button href="/contact" variant="secondary" className="px-6 py-3">
-            Contact
+          <Button href={`/${currentLang}/contact`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.contact', currentLang)}
           </Button>
         </div>
       </div>

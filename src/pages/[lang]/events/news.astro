@@ -18,24 +18,46 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 // 모든 소식 가져오기
 const allNews = await getCollection('news');
 
-// 카테고리별 이름 매핑
-const categoryNames = {
-  dormitory: currentLang === 'ko' ? "기숙사" : "Dormitory",
+// 모든 라벨 수집
+const allLabels = new Set<string>();
+allNews.forEach(item => {
+  if (item.data.labels && Array.isArray(item.data.labels)) {
+    item.data.labels.forEach((label: string) => allLabels.add(label));
+  }
+});
+
+// 라벨별 이름 매핑
+const labelNames: Record<string, string> = {
+  // 기존 카테고리들
+  career: currentLang === 'ko' ? "커리어" : "Career",
+  event: currentLang === 'ko' ? "행사" : "Event",
+  mentoring: currentLang === 'ko' ? "멘토링" : "Mentoring",
+  introduction: currentLang === 'ko' ? "소개" : "Introduction",
   membership: currentLang === 'ko' ? "회원" : "Membership",
+  
+  // 추가 라벨들
   announcement: currentLang === 'ko' ? "공지" : "Announcement",
-  academic: currentLang === 'ko' ? "학업" : "Academic",
-  events: currentLang === 'ko' ? "행사" : "Events",
-  culture: currentLang === 'ko' ? "문화" : "Culture"
+  "welcome-party": currentLang === 'ko' ? "환영회" : "Welcome Party",
+  program: currentLang === 'ko' ? "프로그램" : "Program",
+  executive: currentLang === 'ko' ? "임원진" : "Executive"
 };
 
+// 라벨별 카운트 계산
+const labelCounts: Record<string, number> = {};
+allLabels.forEach(label => {
+  labelCounts[label] = allNews.filter(item => 
+    item.data.labels && Array.isArray(item.data.labels) && item.data.labels.includes(label)
+  ).length;
+});
+
+// 카테고리 배열 생성 (전체 + 라벨별)
 const categories = [
   { id: "all", name: currentLang === 'ko' ? "전체" : "All", count: allNews.length },
-  { id: "dormitory", name: categoryNames.dormitory, count: allNews.filter(item => item.data.category === "dormitory").length },
-  { id: "membership", name: categoryNames.membership, count: allNews.filter(item => item.data.category === "membership").length },
-  { id: "announcement", name: categoryNames.announcement, count: allNews.filter(item => item.data.category === "announcement").length },
-  { id: "academic", name: categoryNames.academic, count: allNews.filter(item => item.data.category === "academic").length },
-  { id: "events", name: categoryNames.events, count: allNews.filter(item => item.data.category === "events").length },
-  { id: "culture", name: categoryNames.culture, count: allNews.filter(item => item.data.category === "culture").length }
+  ...Array.from(allLabels).map(label => ({
+    id: label,
+    name: labelNames[label] || label,
+    count: labelCounts[label]
+  })).sort((a, b) => b.count - a.count) // 카운트 순으로 정렬
 ];
 ---
 
@@ -81,7 +103,7 @@ const categories = [
       <div class="container mx-auto px-4">
         <div id="news-grid" class="max-w-6xl mx-auto">
           {allNews.map((item) => (
-            <a href={`/${currentLang}/events/news/${item.id}`} class="group news-item" data-category={item.data.category}>
+            <a href={`/${currentLang}/events/news/${item.id}`} class="group news-item" data-category={item.data.category} data-labels={item.data.labels ? JSON.stringify(item.data.labels) : '[]'}>
               <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 <div class="p-6">
                   <div class="flex items-center mb-4">
@@ -100,7 +122,7 @@ const categories = [
                   <p class="text-gray-600 mb-4">{item.data.description}</p>
                   <div class="flex justify-between items-center">
                     <span class="inline-block px-3 py-1 rounded-full text-xs font-medium text-white bg-teal-500">
-                      {categoryNames[item.data.category as keyof typeof categoryNames]}
+                      {labelNames[item.data.category] || item.data.category}
                     </span>
                     <span class="text-teal-600 group-hover:text-teal-800 text-sm font-medium">
                       {currentLang === 'ko' ? '자세히 보기' : 'Read More'}
@@ -161,8 +183,18 @@ const categories = [
               newsItems.forEach((item: Element) => {
                 const itemElement = item as HTMLElement;
                 const itemCategory = itemElement.getAttribute('data-category');
+                const itemLabels = itemElement.getAttribute('data-labels');
+                let itemLabelsArray: string[] = [];
                 
-                if (selectedCategory === 'all' || itemCategory === selectedCategory) {
+                if (itemLabels) {
+                  try {
+                    itemLabelsArray = JSON.parse(itemLabels);
+                  } catch (e) {
+                    itemLabelsArray = [];
+                  }
+                }
+                
+                if (selectedCategory === 'all' || itemCategory === selectedCategory || (selectedCategory && itemLabelsArray.includes(selectedCategory))) {
                   itemElement.classList.remove('filtering-out', 'hidden');
                   itemElement.classList.add('filtering-in');
                 } else {

@@ -1,0 +1,22 @@
+{
+  "name": "HKUST KSA - Korean Students' Association",
+  "short_name": "KSA",
+  "description": "Hong Kong University of Science and Technology Korean Students' Association",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192-round.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512-round.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0f766e",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+}

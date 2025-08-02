@@ -36,7 +36,30 @@ const canonicalURLString = canonicalURL.toString();
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16-round.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32-round.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-round.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192-round.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-chrome-512x512-round.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Favicon 스타일링 -->
+    <style>
+      /* 브라우저 탭의 favicon을 둥글게 만들기 위한 스타일 */
+      link[rel="icon"],
+      link[rel="apple-touch-icon"] {
+        border-radius: 50%;
+      }
+      
+      /* PWA 아이콘도 둥글게 */
+      .pwa-icon {
+        border-radius: 50%;
+      }
+    </style>
+    
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     
@@ -111,6 +134,6 @@ const canonicalURLString = canonicalURL.toString();
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>

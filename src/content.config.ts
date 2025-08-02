@@ -47,6 +47,7 @@ const news = defineCollection({
     description: z.string(),
     date: z.date(),
     category: z.string(),
+    labels: z.array(z.string()).optional(),
     icon: z.string(),
     images: z.array(z.object({
       src: z.string(),

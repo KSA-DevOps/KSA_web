@@ -1,6 +1,6 @@
 ---
 import { twMerge } from "tailwind-merge";
-const { type, href, rel, target, variant, className, id } = Astro.props;
+const { type, href, rel, target, variant, className, id, disabled } = Astro.props;
 
 export interface Props {
   type?: "button" | "submit" | "reset";
@@ -10,6 +10,7 @@ export interface Props {
   variant?: "primary" | "secondary" | "tertiary";
   className?: string;
   id?: string;
+  disabled?: boolean;
 }
 
 /**
@@ -57,8 +58,9 @@ This component dynamically renders either a `<button>` element or an `<a>` (link
     <button
       id={id}
       type={type || "button"}
+      disabled={disabled}
       class={twMerge(
-        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? "primary"]} ${className || ""}`,
+        `rounded-lg px-6 py-2.5 text-center font-medium transition-colors duration-300 focus:outline-hidden ${variants[variant ?? "primary"]} ${className || ""} ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`,
       )}
     >
       <slot />

@@ -1,0 +1,11 @@
+---
+// Redirect to Korean version
+export async function GET() {
+  return new Response(null, {
+    status: 302,
+    headers: {
+      'Location': '/ko/constitution'
+    }
+  });
+}
+--- 

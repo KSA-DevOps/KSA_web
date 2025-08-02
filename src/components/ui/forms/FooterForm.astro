@@ -1,14 +1,26 @@
 ---
-const formStrings = {
+interface Props {
+  lang?: 'ko' | 'en';
+}
+
+const { lang = 'ko' } = Astro.props;
+
+const formStrings = lang === 'ko' ? {
+  legend: "KSA 뉴스레터 구독",
+  placeholder: "@connect.ust.hk 이메일을 입력하세요",
+  submit: "구독하기",
+  description: "KSA에서 제공하는 이벤트와 커리어 세션 정보를 뉴스레터로 받아보세요. @connect.ust.hk 이메일 주소를 입력해주세요.",
+  errorMessage: "올바른 HKUST 이메일 주소를 입력해주세요 (@connect.ust.hk)"
+} : {
   legend: "Subscribe to KSA newsletter",
   placeholder: "Enter your @connect.ust.hk email",
-  submit: "구독하기",
-  description:
-    "KSA에서 제공하는 이벤트와 커리어 세션 정보를 뉴스레터로 받아보세요. @connect.ust.hk 이메일 주소를 입력해주세요.",
+  submit: "Subscribe",
+  description: "Receive KSA events and career session information via newsletter. Please enter your @connect.ust.hk email address.",
+  errorMessage: "Please enter a valid HKUST email address (@connect.ust.hk)"
 };
 ---
 
-<form>
+<form action="https://formspree.io/f/mblkklbd" method="POST">
   {/* Fieldset for grouping form elements */}
   <fieldset
     class="mt-4 flex flex-col items-center gap-2 rounded-lg bg-teal-400 p-2 sm:flex-row sm:gap-3"
@@ -26,23 +38,29 @@ const formStrings = {
         type="email"
         id="email-input"
         name="email"
-        class="block w-full rounded-lg border-transparent px-4 py-3 text-sm focus:border-teal-700/80 focus:ring-teal-700/80"
+        class="block w-full rounded-lg border-transparent px-4 py-3 text-sm focus:border-teal-700/80 focus:ring-teal-700/80 transition-colors"
         placeholder={formStrings.placeholder}
         required
         aria-label={formStrings.placeholder}
         aria-describedby="form-description"
         autocomplete="email"
         spellcheck="false"
-        pattern="[a-z0-9._%+-]+@connect\.ust\.hk$"
+        pattern="[a-zA-Z0-9._%+-]+@connect\.ust\.hk$"
         title="Please enter a valid @connect.ust.hk email address"
+        onchange="validateNewsletterEmail(this)"
       />
+      <p id="newsletter-email-error" class="text-xs text-red-500 mt-1 hidden">
+        {formStrings.errorMessage}
+      </p>
     </div>
 
     {/* Submit button */}
     <button
       type="submit"
+      id="newsletter-submit-button"
       class="inline-flex w-full items-center justify-center gap-x-2 whitespace-nowrap rounded-lg border border-transparent bg-teal-100 p-3 text-sm font-medium text-slate-700 transition duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700 focus:text-white focus:outline-hidden sm:w-auto"
       aria-label="Subscribe to newsletter"
+      disabled
     >
       {formStrings.submit}
     </button>
@@ -53,3 +71,44 @@ const formStrings = {
     {formStrings.description}
   </p>
 </form>
+
+<script is:inline>
+  function validateNewsletterEmail(input) {
+    const emailError = document.getElementById('newsletter-email-error');
+    const submitButton = document.getElementById('newsletter-submit-button');
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@connect\.ust\.hk$/;
+    
+    if (!emailError || !submitButton) return;
+    
+    let isValid = false;
+    
+    if (input.value && emailPattern.test(input.value)) {
+      emailError.classList.add('hidden');
+      input.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+      input.classList.add('border-transparent', 'focus:border-teal-700/80', 'focus:ring-teal-700/80');
+      isValid = true;
+    } else {
+      emailError.classList.remove('hidden');
+      input.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+      input.classList.remove('border-transparent', 'focus:border-teal-700/80', 'focus:ring-teal-700/80');
+      isValid = false;
+    }
+    
+    // 버튼 상태 업데이트
+    submitButton.disabled = !isValid;
+    if (!isValid) {
+      submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+      submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+  }
+  
+  // 초기 상태 설정
+  document.addEventListener('DOMContentLoaded', function() {
+    const emailField = document.getElementById('email-input');
+    if (emailField) {
+      validateNewsletterEmail(emailField);
+    }
+  });
+</script>
+
