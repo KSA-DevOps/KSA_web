@@ -14,48 +14,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// 채용 정보 (실제 데이터로 교체 필요)
-const jobListings = [
-  {
-    company: "Samsung Electronics",
-    position: currentLang === 'ko' ? '소프트웨어 엔지니어' : 'Software Engineer',
-    location: "Seoul, Korea",
-    type: currentLang === 'ko' ? '정규직' : 'Full-time',
-    deadline: "2025-12-31",
-    description: currentLang === 'ko' 
-      ? '모바일 애플리케이션 개발 및 유지보수를 담당합니다.'
-      : 'Responsible for mobile application development and maintenance.',
-    requirements: currentLang === 'ko' 
-      ? ['컴퓨터 과학 또는 관련 분야 학사 학위', 'Java/Kotlin 경험', 'Android 개발 경험']
-      : ['Bachelor\'s degree in Computer Science or related field', 'Experience with Java/Kotlin', 'Android development experience']
-  },
-  {
-    company: "LG Electronics",
-    position: currentLang === 'ko' ? '하드웨어 엔지니어' : 'Hardware Engineer',
-    location: "Seoul, Korea",
-    type: currentLang === 'ko' ? '인턴십' : 'Internship',
-    deadline: "2025-11-30",
-    description: currentLang === 'ko'
-      ? '전자 제품 설계 및 테스트를 담당합니다.'
-      : 'Responsible for electronic product design and testing.',
-    requirements: currentLang === 'ko'
-      ? ['전자공학 또는 관련 분야 학사 학위', 'PCB 설계 경험', '회로 설계 지식']
-      : ['Bachelor\'s degree in Electrical Engineering or related field', 'PCB design experience', 'Circuit design knowledge']
-  },
-  {
-    company: "Hyundai Motor Company",
-    position: currentLang === 'ko' ? '자동차 엔지니어' : 'Automotive Engineer',
-    location: "Ulsan, Korea",
-    type: currentLang === 'ko' ? '정규직' : 'Full-time',
-    deadline: "2025-12-15",
-    description: currentLang === 'ko'
-      ? '자동차 엔진 및 변속기 설계를 담당합니다.'
-      : 'Responsible for automotive engine and transmission design.',
-    requirements: currentLang === 'ko'
-      ? ['기계공학 또는 관련 분야 학사 학위', 'CAD 소프트웨어 경험', '자동차 산업 지식']
-      : ['Bachelor\'s degree in Mechanical Engineering or related field', 'CAD software experience', 'Automotive industry knowledge']
-  }
-];
+// Coming soon page — replace with real content when available
 ---
 
 <BaseLayout lang={currentLang} title={getTranslation('board.career.title', currentLang)}>
@@ -76,47 +35,20 @@ const jobListings = [
   <!-- Job Listings -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {jobListings.map((job) => (
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-              <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
-                <h3 class="text-xl font-semibold mb-2">{job.company}</h3>
-                <p class="text-lg opacity-90">{job.position}</p>
-              </div>
-              <div class="p-6">
-                <div class="flex items-center justify-between mb-4">
-                  <span class="text-sm text-gray-500">{job.location}</span>
-                  <span class="text-sm text-teal-600 font-medium">{job.type}</span>
-                </div>
-                <p class="text-gray-600 mb-4 leading-relaxed">{job.description}</p>
-                
-                <div class="mb-4">
-                  <h4 class="text-sm font-semibold text-gray-800 mb-2">
-                    {currentLang === 'ko' ? '요구사항' : 'Requirements'}
-                  </h4>
-                  <ul class="text-sm text-gray-600 space-y-1">
-                    {job.requirements.map((req) => (
-                      <li class="flex items-start">
-                        <span class="text-teal-600 mr-2">•</span>
-                        {req}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                
-                <div class="flex items-center justify-between">
-                  <span class="text-xs text-gray-500">
-                    {currentLang === 'ko' ? '마감일' : 'Deadline'}: {job.deadline}
-                  </span>
-                  <button class="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-700 transition-colors">
-                    {currentLang === 'ko' ? '지원하기' : 'Apply'}
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+      <div class="max-w-3xl mx-auto text-center py-24">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 text-teal-700 mb-6">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
+        <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-3">
+          {currentLang === 'ko' ? '준비 중입니다' : 'Coming Soon'}
+        </h2>
+        <p class="text-gray-600">
+          {currentLang === 'ko' 
+            ? '채용 게시판은 현재 준비 중입니다. 곧 업데이트될 예정입니다.' 
+            : 'The career board is under construction and will be available soon.'}
+        </p>
       </div>
     </div>
   </section>

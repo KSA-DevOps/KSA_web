@@ -36,6 +36,7 @@ export const clubs: Club[] = [
     bgColor: "green",
     subtitleEn: "축구 동아리",
     president: "김준영",
+    link: "https://www.instagram.com/hkustfootball.ksa/"
   },
   {
     key: "markust",
@@ -71,6 +72,7 @@ export const clubs: Club[] = [
     bgColor: "orange",
     subtitleEn: "농구 동아리",
     president: "윤성빈",
+    link: "https://www.instagram.com/hkustbasketball.ksa/"
   },
   {
     key: "ustime",
