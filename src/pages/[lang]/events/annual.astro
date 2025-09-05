@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
 import { getTranslation } from "@utils/i18n";
+import { getCollection } from "astro:content";
 
 // Static paths for language routes
 export function getStaticPaths() {
@@ -14,37 +15,35 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// 연례행사 정보
-const annualEvents = [
-  {
-    title: currentLang === 'ko' ? '신입생 환영회' : 'Freshman Welcome Party',
-    date: 'August 2025',
-    description: currentLang === 'ko' 
-      ? '2025 가을학기 신입생을 환영하고 재학생·복학생과 교류하기 위한 Welcome HKUST 환영회입니다.'
-      : 'Welcome HKUST party to welcome new students for Fall 2025 and promote interaction between current and returning students.',
-    image: '/images/ksa_welcome_party/1.jpg',
-    link: `/${currentLang}/events/news/ksa_welcome_party`,
-    isActive: true
-  },
-  {
-    title: currentLang === 'ko' ? 'MT (Membership Training)' : 'MT (Membership Training)',
-    date: currentLang === 'ko' ? 'Coming Soon' : 'Coming Soon',
-    description: currentLang === 'ko'
-      ? 'KSA 멤버들 간의 친목을 도모하는 1박 2일의 팀 빌딩 행사입니다.'
-      : 'A 2-day team building event to foster friendship among KSA members.',
-    // image: '/images/events/Events_MT.jpg',
-    isActive: false
-  },
-  {
-    title: currentLang === 'ko' ? '한국 문화 축제' : 'Korean Culture Festival',
-    date: currentLang === 'ko' ? 'Coming Soon' : 'Coming Soon',
-    description: currentLang === 'ko'
-      ? '한국 전통 문화를 홍콩과기대 학생들에게 소개하는 문화 축제입니다.'
-      : 'A cultural festival introducing Korean traditional culture to HKUST students.',
-    // image: '/images/events/Events_culture.jpg',
-    isActive: false
-  }
-];
+// Load news content
+const allNews = await getCollection('news');
+
+// Filter only event category news and sort by date desc (farther future first)
+const eventNews = allNews
+  .filter(item => item.data.category === 'event')
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+// Helper: format full date per locale
+const formatFullDate = (date: Date) =>
+  date.toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+
+// Build list from content with full-date formatting
+const annualEventsResolved = eventNews.map((item) => {
+  const image = Array.isArray(item.data.images) && item.data.images.length > 0 ? item.data.images[0].src : undefined;
+  return {
+    title: item.data.title,
+    description: item.data.description,
+    image,
+    link: `/${currentLang}/events/news/${item.id}`,
+    isActive: true,
+    dateText: formatFullDate(item.data.date)
+  };
+});
 ---
 
 <BaseLayout lang={currentLang} title={getTranslation('events.annual.title', currentLang)}>
@@ -66,9 +65,8 @@ const annualEvents = [
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {annualEvents.map((event) => (
+        {annualEventsResolved.map((event) => (
           <div class={`bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ${event.isActive ? 'hover:shadow-xl cursor-pointer' : 'opacity-75'}`}>
-            {event.isActive && event.link ? (
               <a href={event.link} class="block">
                 <div class="h-48 bg-gradient-to-br from-teal-400 to-blue-500 flex items-center justify-center relative overflow-hidden">
                   {event.image && (
@@ -85,37 +83,11 @@ const annualEvents = [
                 <div class="p-6">
                   <div class="flex items-center justify-between mb-3">
                     <h3 class="text-xl font-semibold text-gray-800">{event.title}</h3>
-                    <span class="text-sm text-teal-600 font-medium">{event.date}</span>
+                    <span class="text-sm text-teal-600 font-medium">{event.dateText}</span>
                   </div>
                   <p class="text-gray-600 leading-relaxed">{event.description}</p>
                 </div>
               </a>
-            ) : (
-              <>
-                <div class="h-48 bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center relative overflow-hidden">
-                  {event.image && (
-                    <img src={event.image} alt={event.title} class="absolute inset-0 w-full h-full object-cover opacity-30" />
-                  )}
-                  <div class="absolute inset-0 bg-gradient-to-br from-blue-200/50 to-purple-200/50 flex items-center justify-center">
-                    <div class="text-center">
-                      <svg class="h-16 w-16 text-blue-600 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                      </svg>
-                      <div class="bg-white/80 backdrop-blur-sm rounded-full px-4 py-1">
-                        <span class="text-blue-700 font-semibold text-sm">Coming Soon</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="p-6">
-                  <div class="flex items-center justify-between mb-3">
-                    <h3 class="text-xl font-semibold text-gray-800">{event.title}</h3>
-                    <span class="text-sm text-blue-600 font-medium">{event.date}</span>
-                  </div>
-                  <p class="text-gray-600 leading-relaxed">{event.description}</p>
-                </div>
-              </>
-            )}
           </div>
         ))}
       </div>

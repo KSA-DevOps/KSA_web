@@ -23,6 +23,7 @@ export const translations: Translations = {
     'nav.about.constitution': '학생회칙',
     'nav.about.presidents': '회장단',
     'nav.about.executives': '임원진',
+    'nav.about.subcommittee': '소위원회',
     
     // Events Menu
     'nav.events.annual': '연례행사',
@@ -50,8 +51,8 @@ export const translations: Translations = {
     'exco.treasurer.korean': '회계',
     
     // Subcommittee page
-    'subcommittee.title': '임원진',
-    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Executives',
+    'subcommittee.title': '소위원회',
+    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Subcommittee',
     'subcommittee.coming': 'Coming Soon',
     
     // Events sub-pages
@@ -341,6 +342,7 @@ export const translations: Translations = {
     'nav.about.constitution': 'Constitution',
     'nav.about.presidents': 'Presidents',
     'nav.about.executives': 'Executives',
+    'nav.about.subcommittee': 'Subcommittee',
     
     // Events Menu
     'nav.events.annual': 'Annual Events',
@@ -368,8 +370,8 @@ export const translations: Translations = {
     'exco.treasurer.korean': 'Treasurer',
     
     // Subcommittee page
-    'subcommittee.title': 'Executives',
-    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Executives',
+    'subcommittee.title': 'Subcommittee',
+    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Subcommittee',
     'subcommittee.coming': 'Coming Soon',
     
     // Events sub-pages

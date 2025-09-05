@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
 import { getTranslation } from "@utils/i18n";
-import { executiveData } from "../../data/executives";
+import { executiveData } from "@/data/executives";
 
 // Static paths for language routes
 export function getStaticPaths() {
@@ -15,8 +15,8 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// 임원진 정보만 필터링
-const executives = executiveData.find((group: any) => group.title.includes("임원진") || group.title.includes("Executives"));
+// 소위원회 정보만 필터링
+const subcommittee = executiveData.find((group: any) => group.title.includes("소위원회") || group.title.includes("Subcommittee"));
 ---
 
 <BaseLayout lang={currentLang} title={getTranslation('subcommittee.title', currentLang)}>
@@ -34,11 +34,11 @@ const executives = executiveData.find((group: any) => group.title.includes("임�
     </div>
   </section>
 
-  <!-- Executives -->
+  <!-- Subcommittee -->
   <section class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {executives?.executives.map((member: any) => (
+        {subcommittee?.executives.map((member: any) => (
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
             <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
               <h3 class="text-xl font-semibold mb-1">{member.position}</h3>
@@ -52,4 +52,5 @@ const executives = executiveData.find((group: any) => group.title.includes("임�
       </div>
     </div>
   </section>
-</BaseLayout> 
+</BaseLayout>
+

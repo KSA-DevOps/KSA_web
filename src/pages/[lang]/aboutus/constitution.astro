@@ -1,0 +1,300 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import Button from "@ui/Button.astro";
+import { getTranslation } from "@utils/i18n";
+
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// 회칙 데이터 구조
+const constitutionData = [
+  {
+    key: 'article1',
+    title: getTranslation('constitution.article1.title', currentLang),
+    items: [
+      { key: 'constitution.article1.1', content: getTranslation('constitution.article1.1', currentLang) },
+      { key: 'constitution.article1.2', content: getTranslation('constitution.article1.2', currentLang) },
+      { key: 'constitution.article1.3', content: getTranslation('constitution.article1.3', currentLang) },
+      { key: 'constitution.article1.4', content: getTranslation('constitution.article1.4', currentLang) },
+      { key: 'constitution.article1.5', content: getTranslation('constitution.article1.5', currentLang) },
+      { key: 'constitution.article1.6', content: getTranslation('constitution.article1.6', currentLang) }
+    ]
+  },
+  {
+    key: 'article2',
+    title: getTranslation('constitution.article2.title', currentLang),
+    items: [
+      { key: 'constitution.article2.1', content: getTranslation('constitution.article2.1', currentLang) },
+      { key: 'constitution.article2.2', content: getTranslation('constitution.article2.2', currentLang) },
+      { key: 'constitution.article2.3', content: getTranslation('constitution.article2.3', currentLang) },
+      { key: 'constitution.article2.4', content: getTranslation('constitution.article2.4', currentLang) },
+      { key: 'constitution.article2.5', content: getTranslation('constitution.article2.5', currentLang) }
+    ]
+  },
+  {
+    key: 'article3',
+    title: getTranslation('constitution.article3.title', currentLang),
+    items: [
+      { key: 'constitution.article3.1', content: getTranslation('constitution.article3.1', currentLang) },
+      { key: 'constitution.article3.2', content: getTranslation('constitution.article3.2', currentLang) },
+      { key: 'constitution.article3.3', content: getTranslation('constitution.article3.3', currentLang) },
+      { key: 'constitution.article3.4', content: getTranslation('constitution.article3.4', currentLang) },
+      { key: 'constitution.article3.5', content: getTranslation('constitution.article3.5', currentLang) },
+      { key: 'constitution.article3.6', content: getTranslation('constitution.article3.6', currentLang) },
+      { key: 'constitution.article3.7', content: getTranslation('constitution.article3.7', currentLang) },
+      { key: 'constitution.article3.8', content: getTranslation('constitution.article3.8', currentLang) },
+      { key: 'constitution.article3.9', content: getTranslation('constitution.article3.9', currentLang) },
+      { key: 'constitution.article3.10', content: getTranslation('constitution.article3.10', currentLang) }
+    ]
+  },
+  {
+    key: 'article4',
+    title: getTranslation('constitution.article4.title', currentLang),
+    items: [
+      { key: 'constitution.article4.1', content: getTranslation('constitution.article4.1', currentLang) },
+      { key: 'constitution.article4.2', content: getTranslation('constitution.article4.2', currentLang) },
+      { key: 'constitution.article4.3', content: getTranslation('constitution.article4.3', currentLang) },
+      { key: 'constitution.article4.4', content: getTranslation('constitution.article4.4', currentLang) },
+      { key: 'constitution.article4.5', content: getTranslation('constitution.article4.5', currentLang) },
+      { key: 'constitution.article4.6', content: getTranslation('constitution.article4.6', currentLang) },
+      { key: 'constitution.article4.7', content: getTranslation('constitution.article4.7', currentLang) }
+    ]
+  },
+  {
+    key: 'article5',
+    title: getTranslation('constitution.article5.title', currentLang),
+    items: [
+      { key: 'constitution.article5.1', content: getTranslation('constitution.article5.1', currentLang) },
+      { key: 'constitution.article5.2', content: getTranslation('constitution.article5.2', currentLang) },
+      { key: 'constitution.article5.3', content: getTranslation('constitution.article5.3', currentLang) },
+      { key: 'constitution.article5.4', content: getTranslation('constitution.article5.4', currentLang) },
+      { key: 'constitution.article5.5', content: getTranslation('constitution.article5.5', currentLang) }
+    ]
+  },
+  {
+    key: 'article6',
+    title: getTranslation('constitution.article6.title', currentLang),
+    items: [
+      { key: 'constitution.article6.1', content: getTranslation('constitution.article6.1', currentLang) },
+      { key: 'constitution.article6.2', content: getTranslation('constitution.article6.2', currentLang) },
+      { key: 'constitution.article6.3', content: getTranslation('constitution.article6.3', currentLang) },
+      { key: 'constitution.article6.4', content: getTranslation('constitution.article6.4', currentLang) },
+      { key: 'constitution.article6.5', content: getTranslation('constitution.article6.5', currentLang) },
+      { key: 'constitution.article6.6', content: getTranslation('constitution.article6.6', currentLang) },
+      { key: 'constitution.article6.7', content: getTranslation('constitution.article6.7', currentLang) },
+      { key: 'constitution.article6.8', content: getTranslation('constitution.article6.8', currentLang) },
+      { key: 'constitution.article6.9', content: getTranslation('constitution.article6.9', currentLang) },
+      { key: 'constitution.article6.10', content: getTranslation('constitution.article6.10', currentLang) }
+    ]
+  },
+  {
+    key: 'article7',
+    title: getTranslation('constitution.article7.title', currentLang),
+    items: [
+      { key: 'constitution.article7.1', content: getTranslation('constitution.article7.1', currentLang) },
+      { key: 'constitution.article7.2', content: getTranslation('constitution.article7.2', currentLang) },
+      { key: 'constitution.article7.3', content: getTranslation('constitution.article7.3', currentLang) },
+      { key: 'constitution.article7.3.1', content: getTranslation('constitution.article7.3.1', currentLang) },
+      { key: 'constitution.article7.3.2', content: getTranslation('constitution.article7.3.2', currentLang) },
+      { key: 'constitution.article7.3.3', content: getTranslation('constitution.article7.3.3', currentLang) },
+      { key: 'constitution.article7.3.4', content: getTranslation('constitution.article7.3.4', currentLang) },
+      { key: 'constitution.article7.3.5', content: getTranslation('constitution.article7.3.5', currentLang) },
+      { key: 'constitution.article7.3.6', content: getTranslation('constitution.article7.3.6', currentLang) },
+      { key: 'constitution.article7.3.7', content: getTranslation('constitution.article7.3.7', currentLang) },
+      { key: 'constitution.article7.3.8', content: getTranslation('constitution.article7.3.8', currentLang) },
+      { key: 'constitution.article7.3.9', content: getTranslation('constitution.article7.3.9', currentLang) },
+      { key: 'constitution.article7.3.10', content: getTranslation('constitution.article7.3.10', currentLang) }
+    ]
+  },
+  {
+    key: 'article8',
+    title: getTranslation('constitution.article8.title', currentLang),
+    items: [
+      { key: 'constitution.article8.1', content: getTranslation('constitution.article8.1', currentLang) },
+      { key: 'constitution.article8.2', content: getTranslation('constitution.article8.2', currentLang) },
+      { key: 'constitution.article8.3', content: getTranslation('constitution.article8.3', currentLang) },
+      { key: 'constitution.article8.4', content: getTranslation('constitution.article8.4', currentLang) },
+      { key: 'constitution.article8.5', content: getTranslation('constitution.article8.5', currentLang) },
+      { key: 'constitution.article8.6', content: getTranslation('constitution.article8.6', currentLang) },
+      { key: 'constitution.article8.7', content: getTranslation('constitution.article8.7', currentLang) },
+      { key: 'constitution.article8.8', content: getTranslation('constitution.article8.8', currentLang) },
+      { key: 'constitution.article8.9', content: getTranslation('constitution.article8.9', currentLang) }
+    ]
+  },
+  {
+    key: 'article9',
+    title: getTranslation('constitution.article9.title', currentLang),
+    items: [
+      { key: 'constitution.article9.1', content: getTranslation('constitution.article9.1', currentLang) },
+      { key: 'constitution.article9.2', content: getTranslation('constitution.article9.2', currentLang) },
+      { key: 'constitution.article9.3', content: getTranslation('constitution.article9.3', currentLang) }
+    ]
+  },
+  {
+    key: 'article10',
+    title: getTranslation('constitution.article10.title', currentLang),
+    items: [
+      { key: 'constitution.article10.1', content: getTranslation('constitution.article10.1', currentLang) },
+      { key: 'constitution.article10.2', content: getTranslation('constitution.article10.2', currentLang) },
+      { key: 'constitution.article10.2.1', content: getTranslation('constitution.article10.2.1', currentLang) },
+      { key: 'constitution.article10.2.2', content: getTranslation('constitution.article10.2.2', currentLang) },
+      { key: 'constitution.article10.2.3', content: getTranslation('constitution.article10.2.3', currentLang) },
+      { key: 'constitution.article10.3', content: getTranslation('constitution.article10.3', currentLang) },
+      { key: 'constitution.article10.4', content: getTranslation('constitution.article10.4', currentLang) },
+      { key: 'constitution.article10.5', content: getTranslation('constitution.article10.5', currentLang) },
+      { key: 'constitution.article10.6', content: getTranslation('constitution.article10.6', currentLang) },
+      { key: 'constitution.article10.7', content: getTranslation('constitution.article10.7', currentLang) },
+      { key: 'constitution.article10.8', content: getTranslation('constitution.article10.8', currentLang) }
+    ]
+  },
+  {
+    key: 'article11',
+    title: getTranslation('constitution.article11.title', currentLang),
+    items: [
+      { key: 'constitution.article11.1', content: getTranslation('constitution.article11.1', currentLang) },
+      { key: 'constitution.article11.2', content: getTranslation('constitution.article11.2', currentLang) },
+      { key: 'constitution.article11.2.1', content: getTranslation('constitution.article11.2.1', currentLang), indent: true },
+      { key: 'constitution.article11.2.2', content: getTranslation('constitution.article11.2.2', currentLang), indent: true },
+      { key: 'constitution.article11.2.3', content: getTranslation('constitution.article11.2.3', currentLang), indent: true },
+      { key: 'constitution.article11.2.4', content: getTranslation('constitution.article11.2.4', currentLang), indent: true },
+      { key: 'constitution.article11.3', content: getTranslation('constitution.article11.3', currentLang) },
+      { key: 'constitution.article11.4', content: getTranslation('constitution.article11.4', currentLang) },
+      { key: 'constitution.article11.5', content: getTranslation('constitution.article11.5', currentLang) }
+    ]
+  }
+];
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+          {getTranslation('constitution.title', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+          {getTranslation('constitution.subtitle', currentLang)}
+        </p>
+      </div>
+    </section>
+
+    <!-- Table of Contents -->
+    <section class="py-8 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-gray-50 rounded-xl p-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+              {getTranslation('constitution.table.of.contents', currentLang)}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {constitutionData.map((chapter, index) => (
+                <a 
+                  href={`#${chapter.key}`}
+                  class="block p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+                >
+                  <span class="text-sm text-gray-500 font-medium">Article {index + 1}</span>
+                  <h3 class="text-lg font-semibold text-gray-800 mt-1">{chapter.title}</h3>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Constitution Content -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="prose prose-lg mx-auto">
+            {constitutionData.map((chapter, chapterIndex) => (
+              <div id={chapter.key} class="mb-16 scroll-mt-20">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8 border-b-2 border-teal-500 pb-4">
+                  {chapter.title}
+                </h2>
+                <div class="space-y-6">
+                  {chapter.items.map((item, itemIndex) => (
+                    <div class={`bg-gray-50 rounded-lg p-6 hover:shadow-md transition-shadow duration-200 ${item.indent ? 'ml-8' : ''}`}>
+                      <div class="flex items-start space-x-4">
+                        {!item.indent && (
+                          <span class="flex-shrink-0 w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                            {itemIndex + 1}
+                          </span>
+                        )}
+                        {item.indent && (
+                          <span class="flex-shrink-0 w-8 h-8 bg-gray-400 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+                            {itemIndex + 1}
+                          </span>
+                        )}
+                        <div class="flex-1">
+                          <p class="text-gray-700 leading-relaxed">
+                            {item.content}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Additional Information -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">
+              {getTranslation('constitution.inquiry.title', currentLang)}
+            </h2>
+            <p class="text-gray-600 mb-6">
+              {getTranslation('constitution.inquiry.desc', currentLang)}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <Button href={`/${currentLang}/contact`} variant="secondary" className="px-6 py-3">
+                {getTranslation('constitution.inquiry.button', currentLang)}
+              </Button>
+              <Button href={`/${currentLang}/suggestion`} variant="primary" className="px-6 py-3">
+                {getTranslation('constitution.amendment.button', currentLang)}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">
+          {getTranslation('constitution.navigation.title', currentLang)}
+        </h2>
+        <div class="flex flex-wrap justify-center gap-4">
+          <Button href={`/${currentLang}/about`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.about', currentLang)}
+          </Button>
+          <Button href={`/${currentLang}/events`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.events', currentLang)}
+          </Button>
+          <Button href={`/${currentLang}/contact`} variant="secondary" className="px-6 py-3">
+            {getTranslation('nav.contact', currentLang)}
+          </Button>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+

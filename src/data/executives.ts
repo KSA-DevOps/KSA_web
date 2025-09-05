@@ -118,5 +118,66 @@ export const executiveData: ExecutiveGroup[] = [
         email: "syoonac@connect.ust.hk"
       }
     ]
+  },
+  {
+    title: "소위원회 / Subcommittee",
+    executives: [
+      {
+        position: "Subcommittee",
+        name: "HONG Jungwoo",
+        studentId: "",
+        program: "SBM",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "LIM Gyumin",
+        studentId: "",
+        program: "EVMT",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "KO Kyungmin",
+        studentId: "",
+        program: "MARK",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "KIM Taekyung",
+        studentId: "",
+        program: "MATH",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "SHIN Hyunseong",
+        studentId: "",
+        program: "COMP",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "EO Seoyeon",
+        studentId: "",
+        program: "CIVL",
+        year: 0,
+        email: ""
+      },
+      {
+        position: "Subcommittee",
+        name: "KANG Jimin",
+        studentId: "",
+        program: "MARK",
+        year: 0,
+        email: ""
+      }
+    ]
   }
 ]; 

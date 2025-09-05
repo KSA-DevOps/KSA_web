@@ -14,14 +14,15 @@ const ksaMenuItems = [
       {
         header: "The Association",
         items: [
-          { text: getTranslation('nav.about.constitution', currentLang), href: addLanguageToPath("/constitution", currentLang) }
+          { text: getTranslation('nav.about.constitution', currentLang), href: addLanguageToPath("/aboutus/constitution", currentLang) }
         ]
       },
       {
         header: "Personnels",
         items: [
-          { text: getTranslation('nav.about.presidents', currentLang), href: addLanguageToPath("/exco", currentLang) },
-          { text: getTranslation('nav.about.executives', currentLang), href: addLanguageToPath("/subcommittee", currentLang) }
+          { text: getTranslation('nav.about.presidents', currentLang), href: addLanguageToPath("/aboutus/presidents", currentLang) },
+          { text: getTranslation('nav.about.executives', currentLang), href: addLanguageToPath("/aboutus/executives", currentLang) },
+          { text: getTranslation('nav.about.subcommittee', currentLang), href: addLanguageToPath("/aboutus/subcommittee", currentLang) }
         ]
       }
     ]
@@ -51,58 +52,16 @@ const ksaMenuItems = [
         ]
       }
     ]
-  },
-  {
-    text: getTranslation('nav.clubs', currentLang),
-    href: addLanguageToPath("/clubs", currentLang),
-    dropdown: [
-      {
-        header: "스포츠 / Sports",
-        items: [
-          { text: "축구 / Football", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "농구 / Basketball", href: addLanguageToPath("/clubs", currentLang) }
-        ]
-      },
-      {
-        header: "문화/예술 / Culture & Arts",
-        items: [
-          { text: "마커스트 / Art & Design", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "크리스 / Culture & Arts", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "흐쿠스트 / Music", href: addLanguageToPath("/clubs", currentLang) }
-        ]
-      },
-      {
-        header: "학술/전문 / Academic & Professional",
-        items: [
-          { text: "소수 / Study Group", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "사피엔티아 / Intellectual", href: addLanguageToPath("/clubs", currentLang) }
-        ]
-      },
-      {
-        header: "환경/사회 / Environment & Social",
-        items: [
-          { text: "어스타임 / Environmental", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "청수 / Water Conservation", href: addLanguageToPath("/clubs", currentLang) }
-        ]
-      },
-      {
-        header: "미디어/엔터테인먼트 / Media & Entertainment",
-        items: [
-          { text: "Simplified Magazine", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "Merge Feat / Media & Film", href: addLanguageToPath("/clubs", currentLang) },
-          { text: "멀동멀동 / Entertainment", href: addLanguageToPath("/clubs", currentLang) }
-        ]
-      }
-    ]
   }
 ];
 
 const simpleMenuItems: Array<{ text: string; href: string }> = [
+  { text: getTranslation('nav.clubs', currentLang), href: addLanguageToPath("/clubs", currentLang) }
 ];
 ---
 
 <header
-  class="fixed top-5 left-5 right-5 z-50 mx-auto flex w-auto max-w-sm rounded-2xl border-b border-slate-100 bg-white bg-linear-to-t/oklch from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:justify-center lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem] 2xl:via-0%"
+  class="fixed top-5 left-5 right-5 z-50 mx-auto flex w-auto max-w-sm rounded-2xl border-b border-slate-100 bg-white bg-gradient-to-t from-teal-100 via-transparent to-white p-4 shadow-xs sm:max-w-xl md:max-w-4xl md:justify-center lg:max-w-5xl xl:max-w-6xl xl:shadow-none xl:ring-teal-950/5 2xl:max-w-[81rem]"
   style="min-height: 80px; height: 80px;"
 >
   <nav
@@ -162,7 +121,7 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
     <!-- Desktop Menu Section -->
     <div
       id="hs-header-base"
-      class="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 xl:block"
+      class="hs-collapse hidden grow basis-full transition-all duration-300 xl:block"
       aria-labelledby="hs-header-base-collapse"
     >
       <div class="flex items-center justify-between gap-4 w-full">
@@ -193,7 +152,7 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                   </button>
 
                   <div
-                    class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-64 opacity-0 transition-[opacity,margin] duration z-50 mt-2 hidden min-w-48 rounded-lg bg-white p-2 shadow-md"
+                    class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-64 opacity-0 transition-[opacity,margin] duration z-50 mt-2 hidden min-w-48 rounded-lg bg-white p-2 shadow-md absolute left-0 top-full"
                     aria-labelledby={`hs-dropdown-hover-event-${item.text.replace(/\s/g, '-')}`}
                   >
                     {item.dropdown.map((section) => (
@@ -236,7 +195,7 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
         </div>
         
         <!-- Right Side Buttons -->
-        <div class="flex items-center gap-3 flex-shrink-0">
+        <div class="hidden xl:flex items-center gap-3 flex-shrink-0">
           <Button href={addLanguageToPath("/contact", currentLang)} variant="primary" className="text-sm px-4 py-2">
             {getTranslation('nav.report', currentLang)}
           </Button>

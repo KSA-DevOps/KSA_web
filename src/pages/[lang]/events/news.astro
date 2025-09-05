@@ -17,6 +17,8 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
 // 모든 소식 가져오기
 const allNews = await getCollection('news');
+// Sort by date desc (farther future first)
+const sortedNews = [...allNews].sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // 모든 라벨 수집
 const allLabels = new Set<string>();
@@ -102,7 +104,7 @@ const categories = [
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4">
         <div id="news-grid" class="max-w-6xl mx-auto">
-          {allNews.map((item) => (
+          {sortedNews.map((item) => (
             <a href={`/${currentLang}/events/news/${item.id}`} class="group news-item" data-category={item.data.category} data-labels={item.data.labels ? JSON.stringify(item.data.labels) : '[]'}>
               <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105">
                 <div class="p-6">
