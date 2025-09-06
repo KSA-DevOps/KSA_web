@@ -6,42 +6,49 @@ import { clubs, getColorValue, type ColorKey } from "../../../data/clubs";
 // Static paths for language and club routes
 export function getStaticPaths() {
   const paths = [];
-  const languages = ['ko', 'en'];
-  
+  const languages = ["ko", "en"];
+
   for (const lang of languages) {
     for (const club of clubs) {
       paths.push({
-        params: { 
+        params: {
           lang: lang,
-          club: club.key 
+          club: club.key,
         },
-        props: { club }
+        props: { club },
       });
     }
   }
-  
+
   return paths;
 }
 
 // URL 파라미터에서 언어와 클럽 정보 추출
 const { lang, club: clubKey } = Astro.params;
 const { club } = Astro.props;
-const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
 
 // 404 처리
 if (!club) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 ---
 
-<BaseLayout lang={currentLang} title={`${club.nameKo} - ${getTranslation('clubs.title', currentLang)}`}>
+<BaseLayout
+  lang={currentLang}
+  title={`${club.nameKo} - ${getTranslation("clubs.title", currentLang)}`}
+>
   <!-- Breadcrumb -->
-  <section class="py-4 bg-gray-50">
+  <section class="bg-gray-50 py-4">
     <div class="container mx-auto px-4">
       <nav class="text-sm text-gray-600">
-        <a href={`/${currentLang}`} class="hover:text-teal-600">{getTranslation('nav.home', currentLang)}</a>
+        <a href={`/${currentLang}`} class="hover:text-teal-600"
+          >{getTranslation("nav.home", currentLang)}</a
+        >
         <span class="mx-2">></span>
-        <a href={`/${currentLang}/clubs`} class="hover:text-teal-600">{getTranslation('nav.clubs', currentLang)}</a>
+        <a href={`/${currentLang}/clubs`} class="hover:text-teal-600"
+          >{getTranslation("nav.clubs", currentLang)}</a
+        >
         <span class="mx-2">></span>
         <span class="text-gray-800">{club.nameKo}</span>
       </nav>
@@ -49,16 +56,19 @@ if (!club) {
   </section>
 
   <!-- Hero Section -->
-  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
-    <div class="container mx-auto px-4 pt-header">
+  <section class="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20">
+    <div class="pt-header container mx-auto px-4">
       <div class="text-center">
-        <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6" style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}>
+        <div
+          class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full"
+          style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+        >
           <span class="text-4xl text-white">{club.emoji}</span>
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+        <h1 class="mb-4 text-4xl font-bold text-gray-800 md:text-6xl">
           {club.nameKo}
         </h1>
-        <p class="text-xl text-gray-600 mb-8">
+        <p class="mb-8 text-xl text-gray-600">
           {club.subtitleEn}
         </p>
       </div>
@@ -66,85 +76,99 @@ if (!club) {
   </section>
 
   <!-- Club Information -->
-  <section class="py-20 bg-white">
+  <section class="bg-white py-20">
     <div class="container mx-auto px-4">
-      <div class="max-w-4xl mx-auto">
+      <div class="mx-auto max-w-4xl">
         <!-- Description -->
         <div class="mb-12">
-          <h2 class="text-3xl font-bold text-gray-800 mb-6">
-            {currentLang === 'ko' ? '동아리 소개' : 'About the Club'}
+          <h2 class="mb-6 text-3xl font-bold text-gray-800">
+            {currentLang === "ko" ? "동아리 소개" : "About the Club"}
           </h2>
-          <p class="text-lg text-gray-600 leading-relaxed">
-            {currentLang === 'ko' 
-              ? (club.descriptionKo || `${club.nameKo}는 ${club.subtitleEn} 활동을 하는 동아리입니다.`)
-              : (club.descriptionEn || `${club.nameKo} is a club focused on ${club.subtitleEn.toLowerCase()} activities.`)
+          <p class="text-lg leading-relaxed text-gray-600">
+            {
+              currentLang === "ko"
+                ? club.descriptionKo ||
+                  `${club.nameKo}는 ${club.subtitleEn} 활동을 하는 동아리입니다.`
+                : club.descriptionEn ||
+                  `${club.nameKo} is a club focused on ${club.subtitleEn.toLowerCase()} activities.`
             }
           </p>
         </div>
 
         <!-- Club Details -->
-        <div class="bg-gray-50 rounded-xl p-8 mb-12">
-          <h3 class="text-2xl font-bold text-gray-800 mb-6">
-            {currentLang === 'ko' ? '동아리 정보' : 'Club Information'}
+        <div class="mb-12 rounded-xl bg-gray-50 p-8">
+          <h3 class="mb-6 text-2xl font-bold text-gray-800">
+            {currentLang === "ko" ? "동아리 정보" : "Club Information"}
           </h3>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white rounded-lg p-6">
-              <div class="flex items-center mb-3">
-                <div class="w-10 h-10 rounded-full flex items-center justify-center mr-3" style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div class="rounded-lg bg-white p-6">
+              <div class="mb-3 flex items-center">
+                <div
+                  class="mr-3 flex h-10 w-10 items-center justify-center rounded-full"
+                  style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+                >
                   <span class="text-lg text-white">{club.emoji}</span>
                 </div>
-                <h4 class="font-semibold text-gray-800">{currentLang === 'ko' ? '동아리명' : 'Club Name'}</h4>
+                <h4 class="font-semibold text-gray-800">
+                  {currentLang === "ko" ? "동아리명" : "Club Name"}
+                </h4>
               </div>
               <p class="text-gray-600">{club.nameKo}</p>
             </div>
-            
-            <div class="bg-white rounded-lg p-6">
-              <div class="flex items-center mb-3">
-                <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
+
+            <div class="rounded-lg bg-white p-6">
+              <div class="mb-3 flex items-center">
+                <div
+                  class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200"
+                >
                   <span class="text-lg">👤</span>
                 </div>
-                <h4 class="font-semibold text-gray-800">{currentLang === 'ko' ? '회장' : 'President'}</h4>
+                <h4 class="font-semibold text-gray-800">
+                  {currentLang === "ko" ? "회장" : "President"}
+                </h4>
               </div>
-              <p class="text-gray-600">{club.president || '-'}</p>
+              <p class="text-gray-600">{club.president || "-"}</p>
             </div>
           </div>
         </div>
 
         <!-- Links and Contact -->
-        {club.link && (
-          <div class="bg-gradient-to-r from-teal-50 to-blue-50 rounded-xl p-8">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6">
-              {currentLang === 'ko' ? '연락처 및 링크' : 'Contact & Links'}
-            </h3>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a 
-                href={club.link} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="inline-flex items-center justify-center bg-teal-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors"
-              >
-                <span class="mr-2">📷</span>
-                {currentLang === 'ko' ? '인스타그램 보기' : 'View Instagram'}
-              </a>
-              <a 
-                href={`/${currentLang}/contact`} 
-                class="inline-flex items-center justify-center border-2 border-teal-600 text-teal-600 px-6 py-3 rounded-lg font-semibold hover:bg-teal-600 hover:text-white transition-colors"
-              >
-                <span class="mr-2">✉️</span>
-                {currentLang === 'ko' ? '가입 문의하기' : 'Join Inquiry'}
-              </a>
+        {
+          club.link && (
+            <div class="rounded-xl bg-gradient-to-r from-teal-50 to-blue-50 p-8">
+              <h3 class="mb-6 text-2xl font-bold text-gray-800">
+                {currentLang === "ko" ? "연락처 및 링크" : "Contact & Links"}
+              </h3>
+              <div class="flex flex-col gap-4 sm:flex-row">
+                <a
+                  href={club.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center justify-center rounded-lg bg-teal-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-teal-700"
+                >
+                  <span class="mr-2">📷</span>
+                  {currentLang === "ko" ? "인스타그램 보기" : "View Instagram"}
+                </a>
+                <a
+                  href={`/${currentLang}/contact`}
+                  class="inline-flex items-center justify-center rounded-lg border-2 border-teal-600 px-6 py-3 font-semibold text-teal-600 transition-colors hover:bg-teal-600 hover:text-white"
+                >
+                  <span class="mr-2">✉️</span>
+                  {currentLang === "ko" ? "가입 문의하기" : "Join Inquiry"}
+                </a>
+              </div>
             </div>
-          </div>
-        )}
+          )
+        }
 
         <!-- Back to Clubs -->
-        <div class="text-center mt-12">
-          <a 
-            href={`/${currentLang}/clubs`} 
-            class="inline-flex items-center text-teal-600 hover:text-teal-800 font-semibold"
+        <div class="mt-12 text-center">
+          <a
+            href={`/${currentLang}/clubs`}
+            class="inline-flex items-center font-semibold text-teal-600 hover:text-teal-800"
           >
             <span class="mr-2">←</span>
-            {currentLang === 'ko' ? '모든 동아리 보기' : 'View All Clubs'}
+            {currentLang === "ko" ? "모든 동아리 보기" : "View All Clubs"}
           </a>
         </div>
       </div>

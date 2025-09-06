@@ -5,71 +5,84 @@ import { clubs, getColorValue, type ColorKey } from "../../data/clubs";
 
 // Static paths for language routes
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'ko' } },
-    { params: { lang: 'en' } }
-  ];
+  return [{ params: { lang: "ko" } }, { params: { lang: "en" } }];
 }
 
 // URL 파라미터에서 언어 추출
 const { lang } = Astro.params;
-const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
 ---
 
-<BaseLayout lang={currentLang} title={getTranslation('clubs.title', currentLang)}>
+<BaseLayout
+  lang={currentLang}
+  title={getTranslation("clubs.title", currentLang)}
+>
   <!-- Hero Section -->
-  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
-    <div class="container mx-auto px-4 pt-header">
+  <section class="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20">
+    <div class="pt-header container mx-auto px-4">
       <div class="text-center">
-        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
-          {getTranslation('clubs.title', currentLang)}
+        <h1 class="mb-4 text-4xl font-bold text-gray-800 md:text-6xl">
+          {getTranslation("clubs.title", currentLang)}
         </h1>
-        <p class="text-xl text-gray-600 mb-8">
-          {getTranslation('clubs.subtitle', currentLang)}
+        <p class="mb-8 text-xl text-gray-600">
+          {getTranslation("clubs.subtitle", currentLang)}
         </p>
       </div>
     </div>
   </section>
 
   <!-- Active Clubs Section -->
-  <section class="py-20 bg-white">
+  <section class="bg-white py-20">
     <div class="container mx-auto px-4">
-      <div class="text-center mb-12">
-        <h2 class="text-3xl font-bold text-gray-800 mb-4">
-          {currentLang === 'ko' ? '활동 중인 동아리' : 'Active Clubs'}
+      <div class="mb-12 text-center">
+        <h2 class="mb-4 text-3xl font-bold text-gray-800">
+          {currentLang === "ko" ? "활동 중인 동아리" : "Active Clubs"}
         </h2>
         <p class="text-lg text-gray-600">
-          {currentLang === 'ko' 
-            ? '현재 HKUST KSA에서 활동하고 있는 동아리들을 소개합니다.' 
-            : 'Introducing the clubs currently active at HKUST KSA.'}
+          {
+            currentLang === "ko"
+              ? "현재 HKUST KSA에서 활동하고 있는 동아리들을 소개합니다."
+              : "Introducing the clubs currently active at HKUST KSA."
+          }
         </p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {clubs.map((club) => (
-          <a href={`/${currentLang}/clubs/${club.key}`} class="group">
-            <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all duration-300 group-hover:-translate-y-1">
-              <div class="text-center mb-4">
-                <div class="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110" style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}>
-                  <span class="text-2xl text-white">{club.emoji}</span>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {
+          clubs.map((club) => (
+            <a href={`/${currentLang}/clubs/${club.key}`} class="group">
+              <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
+                <div class="mb-4 text-center">
+                  <div
+                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-transform group-hover:scale-110"
+                    style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+                  >
+                    <span class="text-2xl text-white">{club.emoji}</span>
+                  </div>
+                  <h3 class="mb-2 text-xl font-semibold text-gray-800 transition-colors group-hover:text-teal-600">
+                    {club.nameKo}
+                  </h3>
+                  <p class="mb-4 text-sm text-gray-600">{club.subtitleEn}</p>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2 group-hover:text-teal-600 transition-colors">{club.nameKo}</h3>
-                <p class="text-sm text-gray-600 mb-4">{club.subtitleEn}</p>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-700">
+                      {currentLang === "ko" ? "회장" : "President"}
+                    </span>
+                    <span class="text-sm text-gray-600">
+                      {club.president || "-"}
+                    </span>
+                  </div>
+                  <div class="border-t border-gray-100 pt-2">
+                    <span class="text-xs text-gray-500 transition-colors group-hover:text-teal-500">
+                      {currentLang === "ko" ? "자세히 보기 →" : "Learn more →"}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                  <span class="text-sm font-medium text-gray-700">{currentLang === 'ko' ? '회장' : 'President'}</span>
-                  <span class="text-sm text-gray-600">{club.president || '-'}</span>
-                </div>
-                <div class="pt-2 border-t border-gray-100">
-                  <span class="text-xs text-gray-500 group-hover:text-teal-500 transition-colors">
-                    {currentLang === 'ko' ? '자세히 보기 →' : 'Learn more →'}
-                  </span>
-                </div>
-              </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -97,4 +110,5 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
       </div>
     </div>
   </section> -->
-</BaseLayout> 
+</BaseLayout>
+
