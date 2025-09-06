@@ -5,7 +5,7 @@
 - **프로젝트명**: HKUST KSA (Korean Students' Association) 웹사이트
 - **기술 스택**: Astro + TypeScript + Tailwind CSS + Preline UI
 - **배포 방식**: Static Site Generation (SSG)
-- **도메인**: https://ksa.ust.hk
+- **도메인**: https://ksa.su.hkust.edu.hk/
 
 ## 기술 스택 상세
 

@@ -34,6 +34,7 @@ export const translations: Translations = {
     
     // Board Menu
     'nav.board.career': '채용게시판',
+    'nav.board.suggestions': '학생 제안 게시판',
     
     // Clubs Menu
     'nav.clubs.coming': 'Coming Soon',
@@ -353,6 +354,7 @@ export const translations: Translations = {
     
     // Board Menu
     'nav.board.career': 'Career Board',
+    'nav.board.suggestions': 'Campus Suggestions',
     
     // Clubs Menu
     'nav.clubs.coming': 'Coming Soon',

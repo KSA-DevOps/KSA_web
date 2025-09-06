@@ -48,7 +48,8 @@ const ksaMenuItems = [
       {
         header: "게시판",
         items: [
-          { text: getTranslation('nav.board.career', currentLang), href: addLanguageToPath("/board/career", currentLang) }
+          { text: getTranslation('nav.board.career', currentLang), href: addLanguageToPath("/board/career", currentLang) },
+          { text: getTranslation('nav.board.suggestions', currentLang), href: addLanguageToPath("/board/suggestions", currentLang) }
         ]
       }
     ]
@@ -121,7 +122,8 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
     <!-- Desktop Menu Section -->
     <div
       id="hs-header-base"
-      class="hs-collapse hidden grow basis-full transition-all duration-300 xl:block"
+      class="hs-collapse hidden grow basis-full transition-all duration-300 
+            bg-white/80 rounded-md xl:rounded-xl xl:bg-transparent xl:block"
       aria-labelledby="hs-header-base-collapse"
     >
       <div class="flex items-center justify-between gap-4 w-full">
@@ -152,7 +154,7 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                   </button>
 
                   <div
-                    class="hs-dropdown-menu hs-dropdown-open:opacity-100 w-64 opacity-0 transition-[opacity,margin] duration z-50 mt-2 hidden min-w-48 rounded-lg bg-white p-2 shadow-md absolute left-0 top-full"
+                    class="hs-dropdown-menu hs-dropdown-open:opacity-100 rounded-md w-auto xl:w-64 opacity-0 transition-[opacity,margin] duration z-50 mt-0 xl:mt-2 hidden min-w-48 xl:rounded-lg bg-white p-0 xl:p-2 shadow-none xl:shadow-md static lg:absolute left-0 top-full"
                     aria-labelledby={`hs-dropdown-hover-event-${item.text.replace(/\s/g, '-')}`}
                   >
                     {item.dropdown.map((section) => (
@@ -165,7 +167,7 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                         {section.items.map((subItem) => (
                           <a
                             href={subItem.href}
-                            class="flex items-center gap-x-3.5 rounded-lg px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 transition-all duration-200 ease-in-out hover:scale-101 hover:shadow-sm hover:text-teal-700 hover:bg-teal-50"
+                            class="flex items-center gap-x-3.5 rounded-lg px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:bg-gray-100 transition-all duration-200 ease-in-out hover:scale-101 hover:shadow-sm hover:text-teal-700 hover:bg-teal-50"
                           >
                             {subItem.text}
                           </a>

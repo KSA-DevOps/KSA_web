@@ -1,0 +1,55 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+---
+
+<BaseLayout lang={currentLang} title={currentLang === 'ko' ? '학생 제안 게시판' : 'Campus Suggestions'}>
+  <!-- Hero Section -->
+  <section class="relative py-20 bg-gradient-to-br from-teal-50 to-blue-50">
+    <div class="container mx-auto px-4 pt-header">
+      <div class="text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+          {currentLang === 'ko' ? '학생 제안 게시판' : 'Campus Suggestions'}
+        </h1>
+        <p class="text-xl text-gray-600 mb-8">
+          {currentLang === 'ko' ? '학교 생활에 대한 의견과 제안을 남겨주세요.' : 'Share your ideas and suggestions for campus life.'}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Suggestions CTA -->
+  <section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center py-24">
+        <a
+          href="https://teams.microsoft.com/l/channel/19%3Ac892cb73c6e248888a202ab9ae0a3b37%40thread.tacv2/KSA%20Career?groupId=42e2acf2-487b-41af-8bda-bc6f5cf02ad3&tenantId=6c1d4152-39d0-44ca-88d9-b8d6ddca0708"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 rounded-lg bg-[#7b7ed3] px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-[#53569d] focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-[#6264A7]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-5 h-5" aria-hidden="true">
+            <path fill="#7b83eb" d="M28 8h12a4 4 0 0 1 4 4v14a6 6 0 0 1-6 6h-6V12a4 4 0 0 0-4-4Z"/>
+            <rect x="6" y="14" width="22" height="22" rx="4" fill="#6264A7"/>
+            <path fill="#fff" d="M14.5 20h3.1c3.2 0 5.3 1.9 5.3 5s-2.1 5-5.3 5h-3.1V20Zm3.1 7.9c1.8 0 2.9-1 2.9-2.9s-1.1-2.9-2.9-2.9h-0.7v5.8h0.7Z"/>
+          </svg>
+          <span>KSA Community 열기</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+
