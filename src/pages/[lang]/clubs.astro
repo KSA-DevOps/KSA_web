@@ -71,6 +71,7 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
         <button
           class="filter-btn active rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-teal-700"
           data-category="all"
+          onclick="filterClubs('all', this)"
         >
           {currentLang === "ko" ? "전체" : "All"}
         </button>
@@ -79,6 +80,7 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
             <button
               class="filter-btn rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-gray-300"
               data-category={category}
+              onclick={`filterClubs('${category}', this)`}
             >
               {categoryTranslations[category][currentLang]}
             </button>
@@ -243,57 +245,62 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
     </div>
   </section> -->
 
-  <script>
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const allClubsView = document.getElementById("all-clubs-view");
-    const categorizedClubsView = document.getElementById(
-      "categorized-clubs-view",
-    );
-    const categorySections = document.querySelectorAll(".category-section");
+  <script is:inline>
+    function filterClubs(selectedCategory, clickedButton) {
+      console.log("Button clicked:", selectedCategory);
 
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", (e) => {
-        const target = e.target as HTMLButtonElement;
-        const selectedCategory = target.dataset.category;
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const allClubsView = document.getElementById("all-clubs-view");
+      const categorizedClubsView = document.getElementById(
+        "categorized-clubs-view",
+      );
+      const categorySections = document.querySelectorAll(".category-section");
 
-        // Update active button style
-        filterButtons.forEach((btn) => {
-          btn.classList.remove(
-            "active",
-            "bg-teal-600",
-            "text-white",
-            "shadow-sm",
-          );
-          btn.classList.add("bg-gray-200", "text-gray-700");
-        });
-        target.classList.add(
+      // Update active button style
+      filterButtons.forEach((btn) => {
+        btn.classList.remove(
           "active",
           "bg-teal-600",
           "text-white",
           "shadow-sm",
         );
-        target.classList.remove("bg-gray-200", "text-gray-700");
-
-        if (selectedCategory === "all") {
-          // Show all clubs view (uncategorized)
-          if (allClubsView) allClubsView.style.display = "grid";
-          if (categorizedClubsView) categorizedClubsView.style.display = "none";
-        } else {
-          // Show categorized view and filter by category
-          if (allClubsView) allClubsView.style.display = "none";
-          if (categorizedClubsView)
-            categorizedClubsView.style.display = "block";
-
-          categorySections.forEach((section) => {
-            const sectionElement = section as HTMLElement;
-            if (sectionElement.dataset.category === selectedCategory) {
-              sectionElement.style.display = "block";
-            } else {
-              sectionElement.style.display = "none";
-            }
-          });
-        }
+        btn.classList.add("bg-gray-200", "text-gray-700");
       });
-    });
+
+      clickedButton.classList.add(
+        "active",
+        "bg-teal-600",
+        "text-white",
+        "shadow-sm",
+      );
+      clickedButton.classList.remove("bg-gray-200", "text-gray-700");
+
+      if (selectedCategory === "all") {
+        console.log("Showing all clubs view");
+        if (allClubsView) {
+          allClubsView.style.display = "grid";
+        }
+        if (categorizedClubsView) {
+          categorizedClubsView.style.display = "none";
+        }
+      } else {
+        console.log("Showing categorized view for:", selectedCategory);
+        if (allClubsView) {
+          allClubsView.style.display = "none";
+        }
+        if (categorizedClubsView) {
+          categorizedClubsView.style.display = "block";
+        }
+
+        categorySections.forEach((section) => {
+          if (section.dataset.category === selectedCategory) {
+            section.style.display = "block";
+            console.log("Showing section:", selectedCategory);
+          } else {
+            section.style.display = "none";
+          }
+        });
+      }
+    }
   </script>
 </BaseLayout>
