@@ -1,7 +1,13 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
 import { getTranslation } from "@utils/i18n";
-import { clubs, getColorValue, type ColorKey } from "../../data/clubs";
+import {
+  clubs,
+  getColorValue,
+  getCategories,
+  getClubsByCategory,
+  type ColorKey,
+} from "../../data/clubs";
 
 // Static paths for language routes
 export function getStaticPaths() {
@@ -11,6 +17,19 @@ export function getStaticPaths() {
 // URL 파라미터에서 언어 추출
 const { lang } = Astro.params;
 const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
+
+// Get all categories
+const categories = getCategories();
+
+// Category translations
+const categoryTranslations: Record<string, { ko: string; en: string }> = {
+  Sports: { ko: "스포츠", en: "Sports" },
+  Business: { ko: "비즈니스", en: "Business" },
+  Music: { ko: "음악", en: "Music" },
+  Academic: { ko: "학술", en: "Academic" },
+  Service: { ko: "봉사", en: "Service" },
+  Creative: { ko: "창작", en: "Creative" },
+};
 ---
 
 <BaseLayout
@@ -47,24 +66,64 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
         </p>
       </div>
 
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <!-- Category Filter Buttons -->
+      <div class="mb-12 flex flex-wrap justify-center gap-2">
+        <button
+          class="filter-btn active rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-teal-700"
+          data-category="all"
+        >
+          {currentLang === "ko" ? "전체" : "All"}
+        </button>
+        {
+          categories.map((category) => (
+            <button
+              class="filter-btn rounded-full bg-gray-200 px-4 py-2 text-sm font-semibold text-gray-700 transition-all duration-300 hover:bg-gray-300"
+              data-category={category}
+            >
+              {categoryTranslations[category][currentLang]}
+            </button>
+          ))
+        }
+      </div>
+
+      <!-- All Clubs View (uncategorized) -->
+      <div
+        id="all-clubs-view"
+        class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+      >
         {
           clubs.map((club) => (
-            <a href={`/${currentLang}/clubs/${club.key}`} class="group">
-              <div class="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
+            <a
+              href={`/${currentLang}/clubs/${club.key}`}
+              class="club-card group"
+              data-category={club.category}
+            >
+              <div class="flex h-full min-h-[350px] flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
                 <div class="mb-4 text-center">
-                  <div
-                    class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full transition-transform group-hover:scale-110"
-                    style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
-                  >
-                    <span class="text-2xl text-white">{club.emoji}</span>
-                  </div>
+                  {club.logo ? (
+                    <div class="mx-auto mb-4 flex h-32 w-32 items-center justify-center transition-transform group-hover:scale-105">
+                      <img
+                        src={club.logo}
+                        alt={`${currentLang === "ko" ? club.nameKo : club.nameEn} logo`}
+                        class="h-full w-full object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      class="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full transition-transform group-hover:scale-110"
+                      style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+                    >
+                      <span class="text-4xl text-white">{club.emoji}</span>
+                    </div>
+                  )}
                   <h3 class="mb-2 text-xl font-semibold text-gray-800 transition-colors group-hover:text-teal-600">
-                    {club.nameKo}
+                    {currentLang === "ko" ? club.nameKo : club.nameEn}
                   </h3>
-                  <p class="mb-4 text-sm text-gray-600">{club.subtitleEn}</p>
+                  <p class="mb-4 text-sm text-gray-600">
+                    {currentLang === "ko" ? club.subtitleKo : club.subtitleEn}
+                  </p>
                 </div>
-                <div class="space-y-3">
+                <div class="mt-0.5 space-y-0.5">
                   <div class="flex items-center justify-between">
                     <span class="text-sm font-medium text-gray-700">
                       {currentLang === "ko" ? "회장" : "President"}
@@ -73,7 +132,7 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                       {club.president || "-"}
                     </span>
                   </div>
-                  <div class="border-t border-gray-100 pt-2">
+                  <div class="border-t border-gray-100 pt-1">
                     <span class="text-xs text-gray-500 transition-colors group-hover:text-teal-500">
                       {currentLang === "ko" ? "자세히 보기 →" : "Learn more →"}
                     </span>
@@ -82,6 +141,79 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
               </div>
             </a>
           ))
+        }
+      </div>
+
+      <!-- Clubs by Category -->
+      <div id="categorized-clubs-view" style="display: none;">
+        {
+          categories.map((category) => {
+            const clubsInCategory = getClubsByCategory(category);
+            return (
+              <div class="category-section mb-16" data-category={category}>
+                <h3 class="mb-8 text-2xl font-bold text-gray-800">
+                  {categoryTranslations[category][currentLang]}
+                </h3>
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                  {clubsInCategory.map((club) => (
+                    <a
+                      href={`/${currentLang}/clubs/${club.key}`}
+                      class="club-card group"
+                      data-category={club.category}
+                    >
+                      <div class="flex h-full min-h-[350px] flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
+                        <div class="mb-4 text-center">
+                          {club.logo ? (
+                            <div class="mx-auto mb-4 flex h-32 w-32 items-center justify-center transition-transform group-hover:scale-105">
+                              <img
+                                src={club.logo}
+                                alt={`${currentLang === "ko" ? club.nameKo : club.nameEn} logo`}
+                                class="h-full w-full object-contain"
+                              />
+                            </div>
+                          ) : (
+                            <div
+                              class="mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full transition-transform group-hover:scale-110"
+                              style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+                            >
+                              <span class="text-4xl text-white">
+                                {club.emoji}
+                              </span>
+                            </div>
+                          )}
+                          <h3 class="mb-2 text-xl font-semibold text-gray-800 transition-colors group-hover:text-teal-600">
+                            {currentLang === "ko" ? club.nameKo : club.nameEn}
+                          </h3>
+                          <p class="mb-4 text-sm text-gray-600">
+                            {currentLang === "ko"
+                              ? club.subtitleKo
+                              : club.subtitleEn}
+                          </p>
+                        </div>
+                        <div class="mt-0.5 space-y-0.5">
+                          <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-gray-700">
+                              {currentLang === "ko" ? "회장" : "President"}
+                            </span>
+                            <span class="text-sm text-gray-600">
+                              {club.president || "-"}
+                            </span>
+                          </div>
+                          <div class="border-t border-gray-100 pt-1">
+                            <span class="text-xs text-gray-500 transition-colors group-hover:text-teal-500">
+                              {currentLang === "ko"
+                                ? "자세히 보기 →"
+                                : "Learn more →"}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            );
+          })
         }
       </div>
     </div>
@@ -110,5 +242,58 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
       </div>
     </div>
   </section> -->
-</BaseLayout>
 
+  <script>
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const allClubsView = document.getElementById("all-clubs-view");
+    const categorizedClubsView = document.getElementById(
+      "categorized-clubs-view",
+    );
+    const categorySections = document.querySelectorAll(".category-section");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        const target = e.target as HTMLButtonElement;
+        const selectedCategory = target.dataset.category;
+
+        // Update active button style
+        filterButtons.forEach((btn) => {
+          btn.classList.remove(
+            "active",
+            "bg-teal-600",
+            "text-white",
+            "shadow-sm",
+          );
+          btn.classList.add("bg-gray-200", "text-gray-700");
+        });
+        target.classList.add(
+          "active",
+          "bg-teal-600",
+          "text-white",
+          "shadow-sm",
+        );
+        target.classList.remove("bg-gray-200", "text-gray-700");
+
+        if (selectedCategory === "all") {
+          // Show all clubs view (uncategorized)
+          if (allClubsView) allClubsView.style.display = "grid";
+          if (categorizedClubsView) categorizedClubsView.style.display = "none";
+        } else {
+          // Show categorized view and filter by category
+          if (allClubsView) allClubsView.style.display = "none";
+          if (categorizedClubsView)
+            categorizedClubsView.style.display = "block";
+
+          categorySections.forEach((section) => {
+            const sectionElement = section as HTMLElement;
+            if (sectionElement.dataset.category === selectedCategory) {
+              sectionElement.style.display = "block";
+            } else {
+              sectionElement.style.display = "none";
+            }
+          });
+        }
+      });
+    });
+  </script>
+</BaseLayout>

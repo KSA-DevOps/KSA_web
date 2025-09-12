@@ -36,7 +36,7 @@ if (!club) {
 
 <BaseLayout
   lang={currentLang}
-  title={`${club.nameKo} - ${getTranslation("clubs.title", currentLang)}`}
+  title={`${currentLang === "ko" ? club.nameKo : club.nameEn} - ${getTranslation("clubs.title", currentLang)}`}
 >
   <!-- Breadcrumb -->
   <section class="bg-gray-50 py-4">
@@ -50,7 +50,9 @@ if (!club) {
           >{getTranslation("nav.clubs", currentLang)}</a
         >
         <span class="mx-2">></span>
-        <span class="text-gray-800">{club.nameKo}</span>
+        <span class="text-gray-800"
+          >{currentLang === "ko" ? club.nameKo : club.nameEn}</span
+        >
       </nav>
     </div>
   </section>
@@ -59,75 +61,73 @@ if (!club) {
   <section class="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20">
     <div class="pt-header container mx-auto px-4">
       <div class="text-center">
-        <div
-          class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full"
-          style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
-        >
-          <span class="text-4xl text-white">{club.emoji}</span>
-        </div>
+        {
+          club.logo ? (
+            <div class="mx-auto mb-6 flex h-56 w-56 items-center justify-center">
+              <img
+                src={club.logo}
+                alt={`${currentLang === "ko" ? club.nameKo : club.nameEn} logo`}
+                class="h-full w-full object-contain"
+              />
+            </div>
+          ) : (
+            <div
+              class="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full"
+              style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
+            >
+              <span class="text-4xl text-white">{club.emoji}</span>
+            </div>
+          )
+        }
         <h1 class="mb-4 text-4xl font-bold text-gray-800 md:text-6xl">
-          {club.nameKo}
+          {currentLang === "ko" ? club.nameKo : club.nameEn}
         </h1>
         <p class="mb-8 text-xl text-gray-600">
-          {club.subtitleEn}
+          {currentLang === "ko" ? club.subtitleKo : club.subtitleEn}
         </p>
       </div>
     </div>
   </section>
 
   <!-- Club Information -->
-  <section class="bg-white py-20">
+  <section class="bg-white py-12">
     <div class="container mx-auto px-4">
       <div class="mx-auto max-w-4xl">
         <!-- Description -->
-        <div class="mb-12">
-          <h2 class="mb-6 text-3xl font-bold text-gray-800">
+        <div class="mb-4">
+          <h2 class="mb-4 text-3xl font-bold text-gray-800">
             {currentLang === "ko" ? "동아리 소개" : "About the Club"}
           </h2>
           <p class="text-lg leading-relaxed text-gray-600">
             {
               currentLang === "ko"
                 ? club.descriptionKo ||
-                  `${club.nameKo}는 ${club.subtitleEn} 활동을 하는 동아리입니다.`
+                  `${club.nameKo}는 ${club.subtitleKo} 활동을 하는 동아리입니다.`
                 : club.descriptionEn ||
-                  `${club.nameKo} is a club focused on ${club.subtitleEn.toLowerCase()} activities.`
+                  `${club.nameEn} is a club focused on ${club.subtitleEn.toLowerCase()} activities.`
             }
           </p>
         </div>
 
-        <!-- Club Details -->
-        <div class="mb-12 rounded-xl bg-gray-50 p-8">
-          <h3 class="mb-6 text-2xl font-bold text-gray-800">
-            {currentLang === "ko" ? "동아리 정보" : "Club Information"}
-          </h3>
-          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div class="rounded-lg bg-white p-6">
-              <div class="mb-3 flex items-center">
-                <div
-                  class="mr-3 flex h-10 w-10 items-center justify-center rounded-full"
-                  style={`background-color: ${getColorValue(club.bgColor as ColorKey)}`}
-                >
-                  <span class="text-lg text-white">{club.emoji}</span>
+        <!-- President Information -->
+        <div class="mb-8">
+          <div class="mx-auto max-w-md">
+            <div class="rounded-lg bg-white p-6 shadow-sm">
+              <div class="flex h-full items-center justify-center text-center">
+                <div>
+                  <div
+                    class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-purple-100 shadow-sm"
+                  >
+                    <span class="text-xl">👤</span>
+                  </div>
+                  <h4 class="mb-2 text-lg font-semibold text-gray-800">
+                    {currentLang === "ko" ? "회장" : "President"}
+                  </h4>
+                  <p class="text-base text-gray-600">
+                    {club.president || "-"}
+                  </p>
                 </div>
-                <h4 class="font-semibold text-gray-800">
-                  {currentLang === "ko" ? "동아리명" : "Club Name"}
-                </h4>
               </div>
-              <p class="text-gray-600">{club.nameKo}</p>
-            </div>
-
-            <div class="rounded-lg bg-white p-6">
-              <div class="mb-3 flex items-center">
-                <div
-                  class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gray-200"
-                >
-                  <span class="text-lg">👤</span>
-                </div>
-                <h4 class="font-semibold text-gray-800">
-                  {currentLang === "ko" ? "회장" : "President"}
-                </h4>
-              </div>
-              <p class="text-gray-600">{club.president || "-"}</p>
             </div>
           </div>
         </div>
