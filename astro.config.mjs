@@ -11,7 +11,7 @@ import svelte from "@astrojs/svelte";
 export default defineConfig({
   // The `site` property specifies the base URL for your site.
   // Be sure to update this to your own domain (e.g., "https://yourdomain.com") before deploying.
-  site: "https://your-school-domain.com", // 학교 도메인으로 변경하세요
+  site: "https://ksa.su.hkust.edu.hk/", // 학교 도메인으로 변경하세요
   prefetch: true,
   trailingSlash: "never",
   experimental: {
