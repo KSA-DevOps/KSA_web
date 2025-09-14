@@ -62,11 +62,11 @@ const faqData = currentLang === 'ko' ? [
     <div class="container mx-auto px-4 pt-header">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-gray-800 mb-4">
-          {currentLang === 'ko' ? '문의하기' : 'Contact Us'}
+          {currentLang === 'ko' ? '건의하기' : 'Contact Us'}
         </h2>
         <p class="text-lg text-gray-600 max-w-4xl mx-auto">
           {currentLang === 'ko' 
-            ? '일반 문의사항이나 IT 관련 문의사항을 선택하여 연락해 주세요.' 
+            ? '일반 건의사항이나 IT 관련 건의사항을 선택하여 제출해 주세요.' 
             : 'Please choose between general inquiries or IT-related inquiries to contact us.'}
         </p>
       </div>
@@ -76,16 +76,17 @@ const faqData = currentLang === 'ko' ? [
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
           <div class="text-center mb-6">
             <h3 class="text-2xl font-bold text-gray-800 mb-2">
-              {currentLang === 'ko' ? '일반 문의' : 'General Inquiry'}
+              {currentLang === 'ko' ? '일반 건의사항' : 'General Inquiry'}
             </h3>
             <p class="text-gray-600">
               {currentLang === 'ko' 
-                ? '질문이나 건의사항이 있으시면 연락해 주세요. 익명 제출도 가능합니다.' 
+                ? '질문이나 건의사항이 있으시면 제출해 주세요. 익명 제출도 가능합니다.' 
                 : 'If you have any questions or suggestions, please contact us. Anonymous submissions are also possible.'}
             </p>
           </div>
           
           <form action="https://formspree.io/f/mblkklbd" method="POST" class="space-y-6" id="contact-form">
+            <input type="hidden" name="inquiry_type" value="general" />
             <!-- Email Field -->
             <div id="email-container" class="transition-all duration-300">
               <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
@@ -133,10 +134,28 @@ const faqData = currentLang === 'ko' ? [
               </label>
             </div>
 
+            <!-- Suggestion Type Field -->
+            <div>
+              <label for="suggestion-type" class="block text-sm font-medium text-gray-700 mb-2">
+                {currentLang === 'ko' ? '건의 유형 *' : 'Suggestion Type *'}
+              </label>
+              <select
+                id="suggestion-type"
+                name="suggestion_type"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all duration-300"
+                onchange="validateForm()"
+              >
+                <option value="">{currentLang === 'ko' ? '건의 유형을 선택하세요' : 'Select suggestion type'}</option>
+                <option value="school">{currentLang === 'ko' ? '학교 건의사항' : 'Suggestion to School'}</option>
+                <option value="ksa">{currentLang === 'ko' ? 'KSA 건의사항' : 'Suggestion to KSA'}</option>
+              </select>
+            </div>
+
             <!-- Message Field -->
             <div>
               <label for="message" class="block text-sm font-medium text-gray-700 mb-2">
-                {currentLang === 'ko' ? '문의사항/건의사항 *' : 'Inquiry/Suggestion *'}
+                {currentLang === 'ko' ? '건의사항 *' : 'Inquiry/Suggestion *'}
               </label>
               <textarea
                 id="message"
@@ -144,7 +163,7 @@ const faqData = currentLang === 'ko' ? [
                 required
                 rows="6"
                 placeholder={currentLang === 'ko' 
-                  ? '문의사항, 건의사항 또는 피드백을 공유해 주세요...' 
+                  ? '건의사항을 남겨주세요.' 
                   : 'Please share your inquiry, suggestion, or feedback...'}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors resize-none"
                 onchange="validateForm()"
@@ -161,7 +180,7 @@ const faqData = currentLang === 'ko' ? [
                 id="submit-button"
                 disabled={false}
               >
-                {currentLang === 'ko' ? '문의사항 제출' : 'Submit Inquiry'}
+                {currentLang === 'ko' ? '건의사항 제출' : 'Submit Inquiry'}
               </Button>
             </div>
           </form>
@@ -174,8 +193,11 @@ const faqData = currentLang === 'ko' ? [
               </h4>
               <ul class="text-blue-700 space-y-1 text-xs">
                 <li>• {currentLang === 'ko' 
-                  ? '문의사항은 KSA 임원진이 검토합니다' 
+                  ? '건의사항은 KSA 임원진이 주간 회의를 통해 검토합니다.' 
                   : 'Your inquiry will be reviewed by the KSA executive committee'}</li>
+                <li>• {currentLang === 'ko' 
+                  ? '건의사항에 대한 답변은 1~2주 이내에 KSA Community > 건의사항 게시판에 게시됩니다.' 
+                  : 'The response to your inquiry will be posted on the KSA Community > Suggestion Board within 1-2 weeks.'}</li>
                 <li>• {currentLang === 'ko' 
                   ? '익명 제출은 완전히 기밀입니다' 
                   : 'Anonymous submissions are completely confidential'}</li>
@@ -188,11 +210,11 @@ const faqData = currentLang === 'ko' ? [
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-purple-200">
           <div class="text-center mb-6">
             <h3 class="text-2xl font-bold text-gray-800 mb-2">
-              {currentLang === 'ko' ? 'IT Team 문의' : 'IT Team Inquiry'}
+              {currentLang === 'ko' ? 'IT Team 건의사항' : 'IT Team Inquiry'}
             </h3>
             <p class="text-gray-600">
               {currentLang === 'ko' 
-                ? '웹사이트 관련 기술적 문제나 개선 제안이 있으시면 IT Team에게 문의해 주세요.' 
+                ? '웹사이트 관련 기술적 문제나 개선 제안이 있으시면 IT Team에게 건의해 주세요.' 
                 : 'If you have technical issues with the website or improvement suggestions, please contact the IT Team.'}
             </p>
           </div>
@@ -232,7 +254,7 @@ const faqData = currentLang === 'ko' ? [
             <!-- Issue Type Field -->
             <div>
               <label for="issue-type" class="block text-sm font-medium text-gray-700 mb-2">
-                {currentLang === 'ko' ? '문의 유형 *' : 'Inquiry Type *'}
+                {currentLang === 'ko' ? '건의 유형 *' : 'Inquiry Type *'}
               </label>
               <select
                 id="issue-type"
@@ -241,7 +263,7 @@ const faqData = currentLang === 'ko' ? [
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-300"
                 onchange="validateITForm()"
               >
-                <option value="">{currentLang === 'ko' ? '문의 유형을 선택하세요' : 'Select inquiry type'}</option>
+                <option value="">{currentLang === 'ko' ? '건의 유형을 선택하세요' : 'Select inquiry type'}</option>
                 <option value="bug_report">{currentLang === 'ko' ? '버그 리포트' : 'Bug Report'}</option>
                 <option value="feature_request">{currentLang === 'ko' ? '기능 요청' : 'Feature Request'}</option>
                 <option value="performance_issue">{currentLang === 'ko' ? '성능 문제' : 'Performance Issue'}</option>
@@ -262,7 +284,7 @@ const faqData = currentLang === 'ko' ? [
                 required
                 rows="6"
                 placeholder={currentLang === 'ko' 
-                  ? '문제 상황, 개선 제안, 또는 요청사항을 자세히 설명해 주세요. 가능하다면 스크린샷이나 구체적인 단계를 포함해 주세요...' 
+                  ? '문제 상황, 개선 제안, 또는 요청사항을 남겨주세요.' 
                   : 'Please describe the issue, improvement suggestion, or request in detail. If possible, include screenshots or specific steps...'}
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors resize-none"
                 onchange="validateITForm()"
@@ -278,7 +300,7 @@ const faqData = currentLang === 'ko' ? [
                 id="it-submit-button"
                 disabled={false}
               >
-                {currentLang === 'ko' ? '문의사항 제출' : 'Submit to IT Team'}
+                {currentLang === 'ko' ? '건의사항 제출' : 'Submit to IT Team'}
               </Button>
             </div>
           </form>
@@ -293,7 +315,7 @@ const faqData = currentLang === 'ko' ? [
           if (window.location.search.includes('success=true')) {
             resetForm();
             // 성공 메시지 표시
-            const successMessage = '문의사항이 성공적으로 제출되었습니다. 감사합니다!';
+            const successMessage = '건의사항이 성공적으로 제출되었습니다. 감사합니다!';
             alert(successMessage);
             // URL에서 성공 파라미터 제거
             window.history.replaceState({}, document.title, window.location.pathname);
@@ -308,6 +330,24 @@ const faqData = currentLang === 'ko' ? [
           // 초기 폼 유효성 검사
           validateForm();
           validateITForm();
+
+          // 폼 제출(일반 건의)
+          const generalForm = document.getElementById('contact-form');
+          if (generalForm) {
+            generalForm.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              await submitAndReload(generalForm, 'submit-button');
+            });
+          }
+
+          // 폼 제출 (IT 건의)
+          const itForm = document.getElementById('it-contact-form');
+          if (itForm) {
+            itForm.addEventListener('submit', async function(e) {
+              e.preventDefault();
+              await submitAndReload(itForm, 'it-submit-button');
+            });
+          }
         });
 
         function toggleEmailField(checkbox) {
@@ -380,6 +420,11 @@ const faqData = currentLang === 'ko' ? [
           
           // 메시지 필드 검사
           if (!messageField.value.trim()) {
+            isValid = false;
+          }
+          // 건의 유형 검사
+          const suggestionTypeField = document.getElementById('suggestion-type');
+          if (!suggestionTypeField || !(suggestionTypeField instanceof HTMLSelectElement) || !suggestionTypeField.value) {
             isValid = false;
           }
           
@@ -491,6 +536,45 @@ const faqData = currentLang === 'ko' ? [
           if (form) {
             form.reset();
             validateITForm();
+          }
+        }
+
+        // 공통 폼 제출 → 성공 시 새로고침
+        async function submitAndReload(formElement, submitButtonId) {
+          const submitButton = document.getElementById(submitButtonId);
+          try {
+            if (submitButton) {
+              submitButton.disabled = true;
+              submitButton.classList.add('opacity-50', 'cursor-not-allowed');
+            }
+
+            const formData = new FormData(formElement);
+            const response = await fetch(formElement.action, {
+              method: 'POST',
+              headers: { 'Accept': 'application/json' },
+              body: formData
+            });
+
+            if (response.ok) {
+              alert('건의사항이 성공적으로 제출되었습니다.');
+              window.location.reload();
+            } else {
+              let details = '';
+              try {
+                const data = await response.json();
+                if (data && Array.isArray(data.errors)) {
+                  details = ' ' + data.errors.map(e => e.message).join(', ');
+                }
+              } catch (_) {}
+              alert('제출에 실패했습니다. 잠시 후 다시 시도해 주세요.' + details);
+            }
+          } catch (err) {
+            alert('제출에 실패했습니다. 잠시 후 다시 시도해 주세요.');
+          } finally {
+            if (submitButton) {
+              submitButton.disabled = false;
+              submitButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
           }
         }
       </script>
