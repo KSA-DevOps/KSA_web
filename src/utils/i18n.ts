@@ -13,7 +13,7 @@ export const translations: Translations = {
     'nav.events': '행사',
     'nav.board': '게시판',
     'nav.clubs': '동아리',
-    'nav.report': '문의하기',
+    'nav.report': '건의하기',
     'nav.login': 'Login',
 
     'nav.contact': '연락처',
@@ -33,8 +33,8 @@ export const translations: Translations = {
     'nav.events.enquiry': '문의',
     
     // Board Menu
-    'nav.board.career': '채용게시판',
-    'nav.board.suggestions': '학생 제안 게시판',
+    'nav.board.career': '채용정보 게시판',
+    'nav.board.suggestions': '건의사항 게시판',
     
     // Clubs Menu
     'nav.clubs.coming': 'Coming Soon',
@@ -67,7 +67,7 @@ export const translations: Translations = {
     'events.enquiry.subtitle': 'Event Inquiries',
     
     // Board sub-pages
-    'board.career.subtitle': 'Career and Internship Opportunities',
+    'board.career.subtitle': '채용 및 인턴십 정보를 확인하실 수 있습니다.',
     
     // Clubs page
     'clubs.title': '동아리',
@@ -239,13 +239,13 @@ export const translations: Translations = {
     'constitution.article11.5': '모든 징수된 벌금은 임원진의 합의에 따라 사용된다.',
     'constitution.inquiry.title': '회칙 관련 문의',
     'constitution.inquiry.desc': '회칙에 대한 질문이나 개정 제안이 있으시면 언제든지 연락해 주세요.',
-    'constitution.inquiry.button': '문의하기',
+    'constitution.inquiry.button': '건의하기',
     'constitution.amendment.button': '개정 제안',
     'constitution.navigation.title': '다른 페이지 보기',
     
     // Board page
     'board.title': '게시판',
-    'board.career.title': '채용게시판',
+    'board.career.title': '채용정보 게시판',
     'board.career.desc': '채용 정보와 인턴십 기회를 확인하세요',
     
     // Report page (신문고)
@@ -353,7 +353,7 @@ export const translations: Translations = {
     'nav.events.enquiry': 'Enquiry',
     
     // Board Menu
-    'nav.board.career': 'Career Board',
+    'nav.board.career': 'Career Information Board',
     'nav.board.suggestions': 'Campus Suggestions',
     
     // Clubs Menu
@@ -557,7 +557,7 @@ export const translations: Translations = {
     
     // Board page
     'board.title': 'Board',
-    'board.career.title': 'Career Board',
+    'board.career.title': 'Career Information Board',
     'board.career.desc': 'Check out our career and internship opportunities',
     
     // Report page (신문고)
