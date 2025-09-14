@@ -14,7 +14,8 @@ export type Club = {
     | "Creative";
   subtitleKo: string;
   subtitleEn: string;
-  president: string;
+  president: string | string[]; // Allow single president or multiple presidents
+  vicePresident?: string | string[]; // Allow single vice president or multiple vice presidents
   link?: string;
   descriptionKo?: string;
   descriptionEn?: string;
@@ -70,6 +71,7 @@ export const clubs: Club[] = [
     subtitleKo: "콘텐츠 제작 동아리",
     subtitleEn: "Content Creation Club",
     president: "우동균",
+    vicePresident: "구민진",
     link: "https://www.instagram.com/ustime__/",
     descriptionKo:
       "과기대생활의 추억을 다채롭게 담아내는 한인회 원앤온리 유튜브 컨텐츠 제작 동아리 어스타임입니다",
@@ -86,7 +88,8 @@ export const clubs: Club[] = [
     category: "Service",
     subtitleKo: "봉사 동아리",
     subtitleEn: "Volunteer Club",
-    president: "김민서",
+    president: ["이윤진", "김민서"],
+    vicePresident: "박규리",
     link: "https://www.instagram.com/sosu_hkust/",
     descriptionKo:
       "안녕하세요, 봉사동아리 SOSU 입니다! 저희 SOSU는 다양한 봉사 활동을 통해 지역 사회에 기여하고, 함께 성장하는 경험을 만들어가고자 합니다. 봉사를 통해 단순한 나눔을 넘어, 새로운 사람들과의 소중한 인연을 맺고, 따뜻한 추억을 쌓아 나중에 값진 기억으로 남을 선행을 같이 만들어갑시다. 앞으로도 더 다양한 활동과 프로그램을 준비 중이니 많은 기대 부탁드려요! 여러분과 함께하는 모든 순간이 특별하고 의미 있는 시간으로 남길 바랍니다. 궁금한 점이 있으시면 언제든지 저희 인스타그램 @sosu_hkust 로 문의해 주세요.",
@@ -171,7 +174,7 @@ export const clubs: Club[] = [
     category: "Music",
     subtitleKo: "밴드 동아리",
     subtitleEn: "Band Club",
-    president: "윤지선",
+    president: ["윤지선", "서용호"],
     link: "https://www.instagram.com/clearwaterband_hkust/",
     descriptionKo:
       "청수밴드는 변치 않는 열정을 가지고 장르와 국가에 국한되지 않는 다양한 음악들을 합주하고 공연하는 홍콩과기대의 한인밴드입니다!",
@@ -189,6 +192,7 @@ export const clubs: Club[] = [
     subtitleKo: "밴드 동아리",
     subtitleEn: "Band Club",
     president: "이준엽",
+    vicePresident: "오진택",
     link: "https://www.instagram.com/hkustband.ksa/",
     descriptionKo: "안녕하세요, 전통이 깊은 밴드 흐쿠스트입니다!",
     descriptionEn: "Hello, we're a band with a deep tradition, 흐쿠스트!",
@@ -198,7 +202,7 @@ export const clubs: Club[] = [
     nameKo: "사피엔티아",
     nameEn: "SAPIENTIA",
     emoji: "🌿",
-    logo: "/images/club-logos/sapienta-logo.svg",
+    logo: "/images/club-logos/sapientia-logo.svg",
     bgColor: "pink",
     category: "Academic",
     subtitleKo: "바이오 랩미팅 동아리",
@@ -209,5 +213,23 @@ export const clubs: Club[] = [
       "사피엔티아는 생물 관련 다양한 분야를 탐구하는 학술 동아리입니다. 바이오 학생이라면 필수인 랩 테크닉을 팀원들과 함께 연구하고, 흥미로운 바이오 주제에 대한 논문 분석 및 발표, 인스타 피드 게시 등 다양한 활동을 진행합니다.",
     descriptionEn:
       "Sapientia is an academic club that explores various fields related to living things. Bio students work with their team members on essential lab techniques, analyze and present papers on interesting bio topics, and post Instagram feeds.",
+  },
+  {
+    key: "simplified",
+    nameKo: "Simplified",
+    nameEn: "Simplified",
+    emoji: "📰",
+    logo: "/images/club-logos/simplified-logo.svg",
+    bgColor: "blue",
+    category: "Business",
+    subtitleKo: "경제 매거진 동아리",
+    subtitleEn: "Economic Magazine Club",
+    president: "강정원",
+    vicePresident: "이은수",
+    link: "https://www.instagram.com/simplified_kor/",
+    descriptionKo:
+      "안녕하세요, 저희는 Simplified입니다. 매일 몇백 개의 쏟아지는 뉴스 속 세상에서 가장 유익하고 정확성 있는 경제 뉴스와 매거진을 소셜 미디어 플랫폼과 자체 웹사이트에서 전달하고자 합니다. 모든 독자들이 경제를 쉽게 이해할 수 있도록 함께 하는 것이 저희 매거진의 목표입니다.",
+    descriptionEn:
+      "Hello, we are Simplified. We aim to deliver the most beneficial and accurate economic news and magazines from hundreds of daily news in the world through social media platforms and our own website. Our magazine's goal is to help all readers understand economics easily.",
   },
 ];

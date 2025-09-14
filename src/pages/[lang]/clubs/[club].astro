@@ -109,25 +109,51 @@ if (!club) {
           </p>
         </div>
 
-        <!-- President Information -->
+        <!-- Leadership Information -->
         <div class="mb-8">
-          <div class="mx-auto max-w-md">
-            <div class="rounded-lg bg-white p-6 shadow-sm">
-              <div class="flex h-full items-center justify-center text-center">
-                <div>
-                  <div
-                    class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-blue-100 to-purple-100 shadow-sm"
-                  >
-                    <span class="text-xl">👤</span>
+          <div class="mx-auto max-w-4xl">
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <!-- President -->
+              <div
+                class={`rounded-lg bg-white p-6 shadow-sm ${!club.vicePresident ? "md:col-span-2 md:mx-auto" : ""}`}
+              >
+                <div
+                  class="flex h-full items-center justify-center text-center"
+                >
+                  <div>
+                    <h4 class="mb-2 text-lg font-semibold text-gray-800">
+                      {currentLang === "ko" ? "부장" : "President"}
+                    </h4>
+                    <p class="text-base text-gray-600">
+                      {
+                        Array.isArray(club.president)
+                          ? club.president.join(", ")
+                          : club.president || "-"
+                      }
+                    </p>
                   </div>
-                  <h4 class="mb-2 text-lg font-semibold text-gray-800">
-                    {currentLang === "ko" ? "회장" : "President"}
-                  </h4>
-                  <p class="text-base text-gray-600">
-                    {club.president || "-"}
-                  </p>
                 </div>
               </div>
+
+              <!-- Vice President -->
+              {
+                club.vicePresident && (
+                  <div class="rounded-lg bg-white p-6 shadow-sm">
+                    <div class="flex h-full items-center justify-center text-center">
+                      <div>
+                        <h4 class="mb-2 text-lg font-semibold text-gray-800">
+                          {currentLang === "ko" ? "차장" : "Vice President"}
+                        </h4>
+                        <p class="text-base text-gray-600">
+                          {Array.isArray(club.vicePresident)
+                            ? club.vicePresident.join(", ")
+                            : club.vicePresident}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              }
             </div>
           </div>
         </div>
