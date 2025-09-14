@@ -100,7 +100,7 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
               class="club-card group"
               data-category={club.category}
             >
-              <div class="flex h-full min-h-[350px] flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
+              <div class="flex h-full flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
                 <div class="mb-4 text-center">
                   {club.logo ? (
                     <div class="mx-auto mb-4 flex h-32 w-32 items-center justify-center transition-transform group-hover:scale-105">
@@ -125,14 +125,30 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
                     {currentLang === "ko" ? club.subtitleKo : club.subtitleEn}
                   </p>
                 </div>
-                <div class="mt-0.5 space-y-0.5">
-                  <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-700">
-                      {currentLang === "ko" ? "회장" : "President"}
-                    </span>
-                    <span class="text-sm text-gray-600">
-                      {club.president || "-"}
-                    </span>
+                <div class="mt-auto space-y-1">
+                  <div class="flex min-h-[2.5rem] flex-col space-y-1">
+                    <div class="flex items-center justify-between">
+                      <span class="text-sm font-medium text-gray-700">
+                        {currentLang === "ko" ? "부장" : "President"}
+                      </span>
+                      <span class="text-sm text-gray-600">
+                        {Array.isArray(club.president)
+                          ? club.president.join(", ")
+                          : club.president || "-"}
+                      </span>
+                    </div>
+                    {club.vicePresident && (
+                      <div class="flex items-center justify-between">
+                        <span class="text-sm font-medium text-gray-700">
+                          {currentLang === "ko" ? "차장" : "Vice President"}
+                        </span>
+                        <span class="text-sm text-gray-600">
+                          {Array.isArray(club.vicePresident)
+                            ? club.vicePresident.join(", ")
+                            : club.vicePresident}
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <div class="border-t border-gray-100 pt-1">
                     <span class="text-xs text-gray-500 transition-colors group-hover:text-teal-500">
@@ -163,7 +179,7 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
                       class="club-card group"
                       data-category={club.category}
                     >
-                      <div class="flex h-full min-h-[350px] flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
+                      <div class="flex h-full flex-col rounded-xl border border-gray-100 bg-white px-6 pt-6 pb-1 shadow-lg transition-all duration-300 group-hover:-translate-y-1 hover:shadow-xl">
                         <div class="mb-4 text-center">
                           {club.logo ? (
                             <div class="mx-auto mb-4 flex h-32 w-32 items-center justify-center transition-transform group-hover:scale-105">
@@ -192,14 +208,32 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
                               : club.subtitleEn}
                           </p>
                         </div>
-                        <div class="mt-0.5 space-y-0.5">
-                          <div class="flex items-center justify-between">
-                            <span class="text-sm font-medium text-gray-700">
-                              {currentLang === "ko" ? "회장" : "President"}
-                            </span>
-                            <span class="text-sm text-gray-600">
-                              {club.president || "-"}
-                            </span>
+                        <div class="mt-auto space-y-1">
+                          <div class="flex min-h-[2.5rem] flex-col space-y-1">
+                            <div class="flex items-center justify-between">
+                              <span class="text-sm font-medium text-gray-700">
+                                {currentLang === "ko" ? "부장" : "President"}
+                              </span>
+                              <span class="text-sm text-gray-600">
+                                {Array.isArray(club.president)
+                                  ? club.president.join(", ")
+                                  : club.president || "-"}
+                              </span>
+                            </div>
+                            {club.vicePresident && (
+                              <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-gray-700">
+                                  {currentLang === "ko"
+                                    ? "차장"
+                                    : "Vice President"}
+                                </span>
+                                <span class="text-sm text-gray-600">
+                                  {Array.isArray(club.vicePresident)
+                                    ? club.vicePresident.join(", ")
+                                    : club.vicePresident}
+                                </span>
+                              </div>
+                            )}
                           </div>
                           <div class="border-t border-gray-100 pt-1">
                             <span class="text-xs text-gray-500 transition-colors group-hover:text-teal-500">
