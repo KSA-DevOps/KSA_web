@@ -183,13 +183,12 @@ export function getMainTemperature(
   currentWeather: CurrentWeatherReport | null,
 ): number | null {
   if (!currentWeather?.temperature?.data) return null;
-
   // Try to get Tai Po temperature first (school area)
-  const taiPoTemp = currentWeather.temperature.data.find(
-    (temp) => temp.place === "Tai Po",
+  const tkoTemp = currentWeather.temperature.data.find(
+    (temp) => temp.place === "Tseung Kwan O",
   );
 
-  return taiPoTemp?.value || currentWeather.temperature.data[0]?.value || null;
+  return tkoTemp?.value || currentWeather.temperature.data[0]?.value || null;
 }
 
 export function getMainHumidity(
