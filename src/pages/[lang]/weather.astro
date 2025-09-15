@@ -1,0 +1,395 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+import { getAllWeatherData, getMainTemperature, getMainHumidity, formatUpdateTime, getWeatherIcon, getWeatherWarningInfoWithMock, translateDayName, formatForecastDate, getActiveWarnings, getWarningDisplayInfo, getWarningSeverityStyles } from "@utils/hongkong-weather";
+
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+// Get weather data
+const weatherData = await getAllWeatherData();
+const mainTemp = getMainTemperature(weatherData.currentWeather);
+const mainHumidity = getMainHumidity(weatherData.currentWeather);
+---
+
+<BaseLayout lang={currentLang}>
+  <!-- Hero Section -->
+  <section class="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-blue-50 to-cyan-50 pt-header">
+    <div class="absolute inset-0 bg-black/10"></div>
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+      <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+        {currentLang === 'ko' ? '홍콩 날씨 정보' : 'Hong Kong Weather'}
+      </h1>
+      <p class="text-lg md:text-xl text-gray-600 mb-6">
+        {currentLang === 'ko' 
+          ? '홍콩 거주 한국 학생들을 위한 실시간 날씨 정보' 
+          : 'Real-time weather information for Korean students in Hong Kong'}
+      </p>
+      
+      {weatherData.currentWeather && (
+        <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg inline-block">
+          <div class="flex items-center justify-center gap-4">
+            <span class="text-3xl">{getWeatherIcon(weatherData.currentWeather.icon?.[0] || 50)}</span>
+            {mainTemp && (
+              <div class="text-center">
+                <div class="text-3xl font-bold text-gray-800">{mainTemp}°C</div>
+                <div class="text-sm text-gray-600">
+                  {currentLang === 'ko' ? '학교 지역 기온' : 'School Area Temperature'}
+                </div>
+              </div>
+            )}
+            {mainHumidity && (
+              <div class="text-center">
+                <div class="text-3xl font-bold text-blue-600">{mainHumidity}%</div>
+                <div class="text-sm text-gray-600">
+                  {currentLang === 'ko' ? '습도' : 'Humidity'}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Today's Weather Description -->
+  {weatherData.localForecast && (
+    <section class="py-8 bg-gradient-to-r from-blue-50 to-sky-50">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">
+            {currentLang === 'ko' ? '🌤️ 오늘의 날씨' : '🌤️ Today\'s Weather'}
+          </h2>
+          
+          <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
+            {/* Today's Forecast */}
+            {weatherData.localForecast.forecastDesc && (
+              <div class="mb-4">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
+                  <span class="mr-2">📋</span>
+                  {currentLang === 'ko' ? '오늘의 예보' : 'Today\'s Forecast'}
+                </h3>
+                <p class="text-gray-700 leading-relaxed bg-sky-50 rounded-lg p-4">
+                  {weatherData.localForecast.forecastDesc}
+                </p>
+              </div>
+            )}
+            
+            {/* Fire Danger Warning Info */}
+            {weatherData.localForecast.fireDangerWarning && (
+              <div class="mb-4">
+                <h3 class="text-lg font-semibold text-orange-800 mb-2 flex items-center">
+                  <span class="mr-2">🔥</span>
+                  {currentLang === 'ko' ? '화재 위험 정보' : 'Fire Danger Information'}
+                </h3>
+                <p class="text-orange-800 leading-relaxed bg-orange-50 rounded-lg p-4 border border-orange-200">
+                  {weatherData.localForecast.fireDangerWarning}
+                </p>
+              </div>
+            )}
+            
+            {/* Tropical Cyclone Info */}
+            {weatherData.localForecast.tcInfo && (
+              <div class="mb-4">
+                <h3 class="text-lg font-semibold text-red-800 mb-2 flex items-center">
+                  <span class="mr-2">🌪️</span>
+                  {currentLang === 'ko' ? '태풍 정보' : 'Tropical Cyclone Information'}
+                </h3>
+                <p class="text-red-800 leading-relaxed bg-red-50 rounded-lg p-4 border border-red-200">
+                  {weatherData.localForecast.tcInfo}
+                </p>
+              </div>
+            )}
+            
+            <div class="mt-4 text-center text-sm text-gray-500">
+              {currentLang === 'ko' ? '업데이트:' : 'Last Updated:'} 
+              {formatUpdateTime(weatherData.localForecast.updateTime, currentLang)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Comprehensive Weather Warning Section -->
+  {(() => {
+    const activeWarnings = getActiveWarnings(weatherData.warningInfo);
+    return activeWarnings.length > 0 ? (
+      <section class="py-8 bg-gradient-to-r from-red-50 to-orange-50">
+        <div class="container mx-auto px-4">
+          <h2 class="text-2xl font-bold text-center mb-6 text-red-800">
+            {currentLang === 'ko' ? '🚨 기상 경보 발령' : '🚨 Weather Warnings in Effect'}
+          </h2>
+          
+          <div class="max-w-6xl mx-auto grid gap-6 md:grid-cols-2">
+            {activeWarnings.map(({key, warning}) => {
+              const displayInfo = getWarningDisplayInfo(key, currentLang);
+              if (!displayInfo) return null;
+              
+              const severityStyles = getWarningSeverityStyles(displayInfo.severity);
+              
+              return (
+                <div class={`${severityStyles} border-l-4 rounded-lg p-6 shadow-lg`}>
+                  <div class="flex items-center mb-3">
+                    <span class="text-2xl mr-3">{displayInfo.emoji}</span>
+                    <div>
+                      <h3 class="text-lg font-bold">{displayInfo.name}</h3>
+                      <p class="text-sm opacity-80">{warning.name}</p>
+                    </div>
+                  </div>
+                  
+                  {warning.type && (
+                    <div class="mb-3">
+                      <span class="font-semibold">{currentLang === 'ko' ? '종류:' : 'Type:'}</span>
+                      <span class="ml-2">{warning.type}</span>
+                    </div>
+                  )}
+                  
+                  {warning.code && (
+                    <div class="mb-3">
+                      <span class="font-semibold">{currentLang === 'ko' ? '신호:' : 'Signal:'}</span>
+                      <span class="ml-2 px-2 py-1 bg-black/10 rounded font-mono text-sm">
+                        {warning.code}
+                      </span>
+                    </div>
+                  )}
+                  
+                  {warning.contents && warning.contents.length > 0 && (
+                    <div class="mb-3">
+                      <span class="font-semibold block mb-1">
+                        {currentLang === 'ko' ? '경고 내용:' : 'Warning Details:'}
+                      </span>
+                      <div class="bg-black/5 rounded p-3 text-sm">
+                        {warning.contents[0].text}
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div class="text-xs opacity-70">
+                    {currentLang === 'ko' ? '발령:' : 'Issued:'} 
+                    {warning.issueTime ? formatUpdateTime(warning.issueTime, currentLang) : 'N/A'}
+                    {warning.updateTime && warning.updateTime !== warning.issueTime && (
+                      <span class="ml-4">
+                        {currentLang === 'ko' ? '업데이트:' : 'Updated:'} 
+                        {formatUpdateTime(warning.updateTime, currentLang)}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          
+          <div class="mt-6 text-center">
+            <a href="https://www.hko.gov.hk/en/wxinfo/warn.htm" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+              <span class="mr-2">🔗</span>
+              {currentLang === 'ko' ? '홍콩 천문대에서 자세히 보기' : 'View All Warnings on HK Observatory'}
+            </a>
+          </div>
+        </div>
+      </section>
+    ) : (
+      <section class="py-8 bg-green-50">
+        <div class="container mx-auto px-4">
+          <div class="bg-green-100 border-l-4 border-green-500 p-4 rounded-lg max-w-4xl mx-auto">
+            <h3 class="text-lg font-semibold text-green-800 mb-2">
+              {currentLang === 'ko' ? '✅ 기상 경보 없음' : '✅ No Weather Warnings'}
+            </h3>
+            <p class="text-green-700">
+              {currentLang === 'ko' 
+                ? '현재 발령된 기상 경보가 없습니다. 날씨가 안정적입니다.' 
+                : 'No weather warnings currently in effect. Weather conditions are stable.'}
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  })()}
+
+  <!-- 9-Day Forecast -->
+  {weatherData.nineDayForecast && (
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+          {currentLang === 'ko' ? '9일 후 날씨 예보' : '9-Day Weather Forecast'}
+        </h2>
+        
+        <div class="max-w-7xl mx-auto">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {weatherData.nineDayForecast.weatherForecast.map((forecast, index) => (
+              <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div class="text-center mb-4">
+                  <div class="text-lg font-bold text-gray-800">{translateDayName(forecast.week, currentLang)}</div>
+                  <div class="text-sm text-gray-600">{formatForecastDate(forecast.forecastDate, currentLang)}</div>
+                </div>
+                
+                <div class="mb-4">
+                  <div class="text-3xl text-center mb-2">
+                    {getWeatherIcon(Number(forecast.ForecastIcon) || 50)}
+                  </div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800">
+                      {forecast.forecastMaxtemp.value}°{forecast.forecastMaxtemp.unit}
+                      <span class="text-lg text-gray-500 font-normal">
+                        /{forecast.forecastMintemp.value}°{forecast.forecastMintemp.unit}
+                      </span>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                      {currentLang === 'ko' ? '최고/최저' : 'High/Low'}
+                    </div>
+                    <div class="text-sm text-gray-600 mt-1">
+                      {currentLang === 'ko' ? '습도:' : 'Humidity:'} 
+                      {forecast.forecastMaxrh.value}-{forecast.forecastMinrh.value}%
+                    </div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div class="text-sm text-gray-700 mb-2">
+                    <strong>{currentLang === 'ko' ? '날씨:' : 'Weather:'}</strong> {forecast.forecastWeather}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Current Temperature and Conditions -->
+  {weatherData.currentWeather && (
+    <section class="py-12 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+          {currentLang === 'ko' ? '현재 기상 상황' : 'Current Weather Conditions'}
+        </h2>
+        
+        <div class="max-w-6xl mx-auto">
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Temperature Section -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+                🌡️ {currentLang === 'ko' ? '지역별 기온' : 'Temperature by Area'}
+              </h3>
+              <div class="grid grid-cols-2 gap-4 max-h-96 overflow-y-auto">
+                {weatherData.currentWeather.temperature.data.slice(0, 12).map((temp) => (
+                  <div class="bg-blue-50 rounded-lg p-3">
+                    <div class="font-medium text-gray-800">{temp.place}</div>
+                    <div class="text-2xl font-bold text-blue-600">{temp.value}°{temp.unit}</div>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-4 text-sm text-gray-500">
+                {formatUpdateTime(weatherData.currentWeather.temperature.recordTime, currentLang)}
+              </div>
+            </div>
+
+            <!-- Humidity Data -->
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+                💧 {currentLang === 'ko' ? '습도' : 'Humidity'}
+              </h3>
+              
+              {weatherData.currentWeather.humidity.data.map((humidity) => (
+                <div class="bg-cyan-50 rounded-lg p-4 mb-4">
+                  <div class="font-medium text-gray-800">{humidity.place}</div>
+                  <div class="text-3xl font-bold text-cyan-600">{humidity.value} {humidity.unit}</div>
+                </div>
+              ))}
+              
+              <div class="mt-4 text-sm text-gray-500">
+                {formatUpdateTime(weatherData.currentWeather.updateTime, currentLang)}
+              </div>
+            </div>
+          </div>
+
+          <!-- Rainfall Data -->
+          {weatherData.currentWeather.rainfall.data.some(r => r.max > 0) && (
+            <div class="bg-white rounded-2xl p-6 shadow-lg">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+                🌧️ {currentLang === 'ko' ? '강우량 정보' : 'Rainfall Information'}
+              </h3>
+              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {weatherData.currentWeather.rainfall.data.filter(r => r.max > 0).map((rainfall) => (
+                  <div class="bg-blue-50 rounded-lg p-3">
+                    <div class="font-medium text-gray-800">{rainfall.place}</div>
+                    <div class="text-lg font-bold text-blue-600">{rainfall.max} {rainfall.unit}</div>
+                  </div>
+                ))}
+              </div>
+              <div class="mt-4 text-sm text-gray-500">
+                {formatUpdateTime(weatherData.currentWeather.rainfall.startTime, currentLang)} - 
+                {formatUpdateTime(weatherData.currentWeather.rainfall.endTime, currentLang)}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Special Weather Tips -->
+  {weatherData.specialTips?.swt && weatherData.specialTips.swt.length > 0 && (
+    <section class="py-12 bg-yellow-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-8 text-gray-800">
+          {currentLang === 'ko' ? '🌟 특별 날씨 정보' : '🌟 Special Weather Tips'}
+        </h2>
+        
+        <div class="max-w-4xl mx-auto">
+          <div class="space-y-6">
+            {weatherData.specialTips.swt.map((tip, index) => (
+              <div class="bg-white rounded-xl p-6 shadow-lg border-l-4 border-yellow-400">
+                <p class="text-gray-700 leading-relaxed mb-3">{tip.desc}</p>
+                <div class="text-sm text-gray-500">
+                  {formatUpdateTime(tip.updateTime, currentLang)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Footer Information -->
+  <section class="py-8 bg-gray-100">
+    <div class="container mx-auto px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <h3 class="text-lg font-semibold mb-4 text-gray-800">
+          {currentLang === 'ko' ? '데이터 출처' : 'Data Source'}
+        </h3>
+        <p class="text-gray-600 mb-4">
+          {currentLang === 'ko' 
+            ? '모든 날씨 정보는 홍콩 천문대(Hong Kong Observatory)에서 제공됩니다.' 
+            : 'All weather information is provided by the Hong Kong Observatory.'}
+        </p>
+        <div class="space-y-2 text-sm text-gray-500">
+          <div>
+            {currentLang === 'ko' ? '마지막 업데이트: ' : 'Last Updated: '}
+            {formatUpdateTime(weatherData.lastUpdate, currentLang)}
+          </div>
+          <div>
+            <a href="https://www.hko.gov.hk/" target="_blank" rel="noopener noreferrer" 
+               class="text-blue-600 hover:text-blue-800 underline">
+              {currentLang === 'ko' ? '홍콩 천문대 공식 웹사이트' : 'Hong Kong Observatory Official Website'}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
