@@ -104,8 +104,8 @@ export const clubs: Club[] = [
     logo: "/images/club-logos/kriss-logo.svg",
     bgColor: "purple",
     category: "Business",
-    subtitleKo: "금융 & 투자 전략 동아리",
-    subtitleEn: "Finance & Investment Strategy Club",
+    subtitleKo: "금융 & 투자 전략 학회",
+    subtitleEn: "Finance & Investment Strategy Association",
     president: "박재현",
     link: "https://www.instagram.com/kriss_official1/",
     descriptionKo:
@@ -124,6 +124,7 @@ export const clubs: Club[] = [
     subtitleKo: "마케팅 동아리",
     subtitleEn: "Marketing Club",
     president: "문강현",
+    vicePresident: "김진섭",
     link: "https://www.instagram.com/markust.ksa/",
     descriptionKo:
       "마커스트는 마케팅에 관심이 있는 학생들이 모여 실무 경험을 쌓고 마케팅 전략을 학습하는 동아리입니다. 실제 프로젝트를 통해 브랜딩, 광고, 디지털 마케팅 등 다양한 분야의 경험을 제공합니다.",
@@ -207,7 +208,7 @@ export const clubs: Club[] = [
     category: "Academic",
     subtitleKo: "바이오 랩미팅 동아리",
     subtitleEn: "Bio Lab Meeting Club",
-    president: "최경서",
+    president: ["최경서", "전승윤"],
     link: "https://www.instagram.com/sapientia.hkust/",
     descriptionKo:
       "사피엔티아는 생물 관련 다양한 분야를 탐구하는 학술 동아리입니다. 바이오 학생이라면 필수인 랩 테크닉을 팀원들과 함께 연구하고, 흥미로운 바이오 주제에 대한 논문 분석 및 발표, 인스타 피드 게시 등 다양한 활동을 진행합니다.",

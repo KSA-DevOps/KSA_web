@@ -129,7 +129,11 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
                   <div class="flex min-h-[2.5rem] flex-col space-y-1">
                     <div class="flex items-center justify-between">
                       <span class="text-sm font-medium text-gray-700">
-                        {currentLang === "ko" ? "부장" : "President"}
+                        {currentLang === "ko"
+                          ? club.key === "kriss"
+                            ? "학회장"
+                            : "부장"
+                          : "President"}
                       </span>
                       <span class="text-sm text-gray-600">
                         {Array.isArray(club.president)
@@ -212,7 +216,11 @@ const categoryTranslations: Record<string, { ko: string; en: string }> = {
                           <div class="flex min-h-[2.5rem] flex-col space-y-1">
                             <div class="flex items-center justify-between">
                               <span class="text-sm font-medium text-gray-700">
-                                {currentLang === "ko" ? "부장" : "President"}
+                                {currentLang === "ko"
+                                  ? club.key === "kriss"
+                                    ? "학회장"
+                                    : "부장"
+                                  : "President"}
                               </span>
                               <span class="text-sm text-gray-600">
                                 {Array.isArray(club.president)
