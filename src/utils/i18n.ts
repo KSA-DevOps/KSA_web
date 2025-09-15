@@ -1,4 +1,4 @@
-export type Language = 'ko' | 'en';
+export type Language = "ko" | "en";
 
 export interface Translations {
   ko: Record<string, string>;
@@ -8,636 +8,850 @@ export interface Translations {
 export const translations: Translations = {
   ko: {
     // Navigation
-    'nav.home': '홈',
-    'nav.about': '학생회',
-    'nav.events': '행사',
-    'nav.board': '게시판',
-    'nav.clubs': '동아리',
-    'nav.report': '건의하기',
-    'nav.login': 'Login',
+    "nav.home": "홈",
+    "nav.about": "학생회",
+    "nav.events": "행사",
+    "nav.board": "게시판",
+    "nav.clubs": "동아리",
+    "nav.weather": "홍콩날씨",
+    "nav.report": "건의하기",
+    "nav.login": "Login",
 
-    'nav.contact': '연락처',
-    'nav.suggestion': '신문고',
-    
+    "nav.contact": "연락처",
+    "nav.suggestion": "신문고",
+
     // About Us Menu
-    'nav.about.constitution': '학생회칙',
-    'nav.about.presidents': '회장단',
-    'nav.about.executives': '임원진',
-    'nav.about.subcommittee': '소위원회',
-    
-    // Events Menu
-    'nav.events.annual': '연례행사',
-    'nav.events.career': '커리어',
-    'nav.events.news': '소식',
-    'nav.events.culture': '문화',
-    'nav.events.enquiry': '문의',
-    
-    // Board Menu
-    'nav.board.career': '채용정보 게시판',
-    'nav.board.suggestions': '건의사항 게시판',
-    
-    // Clubs Menu
-    'nav.clubs.coming': 'Coming Soon',
-    
-    // Executive Committee page
-    'exco.title': '회장단',
-    'exco.subtitle': 'Korean Students\' Association 2025 - 2026 Executive Committee',
-    'exco.president': 'President',
-    'exco.president.korean': '회장',
-    'exco.vice.president': 'Vice President',
-    'exco.vice.president.korean': '부회장',
-    'exco.secretary': 'Secretary',
-    'exco.secretary.korean': '서기',
-    'exco.treasurer': 'Treasurer',
-    'exco.treasurer.korean': '회계',
-    
-    // Subcommittee page
-    'subcommittee.title': '소위원회',
-    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Subcommittee',
-    'subcommittee.coming': 'Coming Soon',
-    
-    // Events sub-pages
-    'events.annual.title': '연례행사',
-    'events.annual.subtitle': 'Annual Events and Activities',
-    'events.career.title': '커리어',
-    'events.career.subtitle': 'Career Development Events',
-    'events.culture.title': '문화',
-    'events.culture.subtitle': 'Cultural Events and Activities',
-    'events.enquiry.title': '문의',
-    'events.enquiry.subtitle': 'Event Inquiries',
-    
-    // Board sub-pages
-    'board.career.subtitle': '채용 및 인턴십 정보를 확인하실 수 있습니다.',
-    
-    // Clubs page
-    'clubs.title': '동아리',
-    'clubs.subtitle': 'KSA Clubs and Organizations',
-    'clubs.coming': 'Coming Soon',
-    
-    // Login page
-    'login.title': 'Login',
-    'login.subtitle': 'Member Login',
-    'login.email': 'Email',
-    'login.password': 'Password',
-    'login.submit': 'Login',
-    'login.forgot': 'Forgot Password?',
-    
-    // Home page
-    'home.title': 'Korean Students\' Association',
-    'home.subtitle': 'The Hong Kong University of Science and Technology Students\' Union',
-    'home.mission': '"회원들의 이익을 최우선으로 하고 국제 사회에서 한국 문화를 전파하는 것을 목적으로 합니다."',
-    'home.about.button': '소개',
-    'home.events.button': '행사',
-    'home.quick.links': '빠른 링크',
-    'home.about.card': '소개',
-    'home.about.desc': '학생회 소개와 임원진을 알아보세요',
-    'home.events.card': '행사',
-    'home.events.desc': '다가오는 행사와 활동을 확인하세요',
+    "nav.about.constitution": "학생회칙",
+    "nav.about.presidents": "회장단",
+    "nav.about.executives": "임원진",
+    "nav.about.subcommittee": "소위원회",
 
-    'home.suggestion.card': '신문고',
-    'home.suggestion.desc': '건의사항과 피드백을 제출하세요',
-    'home.contact.title': '연락하기',
-    'home.contact.desc': '질문이나 참여하고 싶으신가요? 언제든 연락해 주세요!',
-    'home.contact.button': '연락처',
-    'home.submit.button': '건의사항 제출',
-    'home.intro.title': '소개 / Introduction',
-    'home.intro.korean': '홍콩과학기술대학교 (이하 홍콩과기대) 한인학생회 페이지에 오신 것을 환영합니다.\n\n홍콩과기대 한인학생회는 홍콩과기대 내에서 한국 문화를 전파하고, 회원들에게 한국 문화에 대한 이해를 습득 및 강화하며 한국 전통 문화에 대한 대중적 인식을 높일 기회의 장을 마련하며, 회원들에게 동호 활동 및 이벤트 등을 통해 다양한 교류가 원활하게 이루어질 수 있도록 기회의 장을 마련하며, 회원들의 복지 향상에 힘쓰며 회원들의 목소리를 대변하기 위한 학생단체입니다.\n\n방문해 주신 여러분 모두를 다시 한번 환영합니다.\n\n저희 홍콩과기대 한인학생회와 뜻깊은 교류를 이어나가실 수 있기를 바랍니다.',
-    'home.intro.english': 'Welcome to the website of Korean Students\' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students\' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.',
-    'home.contacts.title': '연락처 / Contacts',
-    'home.contacts.facebook.page': 'Official Facebook Page',
-    'home.contacts.facebook.group': 'Official Facebook Group',
-    'home.contacts.internal.email': 'Internal Email',
-    'home.contacts.external.email': 'External Email',
-    'home.contacts.mailbox': 'Mailbox',
-    'home.contacts.follow.updates': 'Follow to get updates!',
-    'home.contacts.member.group': 'Member exclusive group! (KOR)',
-    
+    // Events Menu
+    "nav.events.annual": "연례행사",
+    "nav.events.career": "커리어",
+    "nav.events.news": "소식",
+    "nav.events.culture": "문화",
+    "nav.events.enquiry": "문의",
+
+    // Board Menu
+    "nav.board.career": "채용정보 게시판",
+    "nav.board.suggestions": "건의사항 게시판",
+
+    // Clubs Menu
+    "nav.clubs.coming": "Coming Soon",
+
+    // Executive Committee page
+    "exco.title": "회장단",
+    "exco.subtitle":
+      "Korean Students' Association 2025 - 2026 Executive Committee",
+    "exco.president": "President",
+    "exco.president.korean": "회장",
+    "exco.vice.president": "Vice President",
+    "exco.vice.president.korean": "부회장",
+    "exco.secretary": "Secretary",
+    "exco.secretary.korean": "서기",
+    "exco.treasurer": "Treasurer",
+    "exco.treasurer.korean": "회계",
+
+    // Subcommittee page
+    "subcommittee.title": "소위원회",
+    "subcommittee.subtitle":
+      "Korean Students' Association 2025 - 2026 Subcommittee",
+    "subcommittee.coming": "Coming Soon",
+
+    // Events sub-pages
+    "events.annual.title": "연례행사",
+    "events.annual.subtitle": "Annual Events and Activities",
+    "events.career.title": "커리어",
+    "events.career.subtitle": "Career Development Events",
+    "events.culture.title": "문화",
+    "events.culture.subtitle": "Cultural Events and Activities",
+    "events.enquiry.title": "문의",
+    "events.enquiry.subtitle": "Event Inquiries",
+
+    // Board sub-pages
+    "board.career.subtitle": "채용 및 인턴십 정보를 확인하실 수 있습니다.",
+
+    // Clubs page
+    "clubs.title": "동아리",
+    "clubs.subtitle": "KSA Clubs and Organizations",
+    "clubs.coming": "Coming Soon",
+
+    // Login page
+    "login.title": "Login",
+    "login.subtitle": "Member Login",
+    "login.email": "Email",
+    "login.password": "Password",
+    "login.submit": "Login",
+    "login.forgot": "Forgot Password?",
+
+    // Home page
+    "home.title": "Korean Students' Association",
+    "home.subtitle":
+      "The Hong Kong University of Science and Technology Students' Union",
+    "home.mission":
+      '"회원들의 이익을 최우선으로 하고 국제 사회에서 한국 문화를 전파하는 것을 목적으로 합니다."',
+    "home.about.button": "소개",
+    "home.events.button": "행사",
+    "home.quick.links": "빠른 링크",
+    "home.about.card": "소개",
+    "home.about.desc": "학생회 소개와 임원진을 알아보세요",
+    "home.events.card": "행사",
+    "home.events.desc": "다가오는 행사와 활동을 확인하세요",
+
+    "home.suggestion.card": "신문고",
+    "home.suggestion.desc": "건의사항과 피드백을 제출하세요",
+    "home.contact.title": "연락하기",
+    "home.contact.desc": "질문이나 참여하고 싶으신가요? 언제든 연락해 주세요!",
+    "home.contact.button": "연락처",
+    "home.submit.button": "건의사항 제출",
+    "home.intro.title": "소개 / Introduction",
+    "home.intro.korean":
+      "홍콩과학기술대학교 (이하 홍콩과기대) 한인학생회 페이지에 오신 것을 환영합니다.\n\n홍콩과기대 한인학생회는 홍콩과기대 내에서 한국 문화를 전파하고, 회원들에게 한국 문화에 대한 이해를 습득 및 강화하며 한국 전통 문화에 대한 대중적 인식을 높일 기회의 장을 마련하며, 회원들에게 동호 활동 및 이벤트 등을 통해 다양한 교류가 원활하게 이루어질 수 있도록 기회의 장을 마련하며, 회원들의 복지 향상에 힘쓰며 회원들의 목소리를 대변하기 위한 학생단체입니다.\n\n방문해 주신 여러분 모두를 다시 한번 환영합니다.\n\n저희 홍콩과기대 한인학생회와 뜻깊은 교류를 이어나가실 수 있기를 바랍니다.",
+    "home.intro.english":
+      "Welcome to the website of Korean Students' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.",
+    "home.contacts.title": "연락처 / Contacts",
+    "home.contacts.facebook.page": "Official Facebook Page",
+    "home.contacts.facebook.group": "Official Facebook Group",
+    "home.contacts.internal.email": "Internal Email",
+    "home.contacts.external.email": "External Email",
+    "home.contacts.mailbox": "Mailbox",
+    "home.contacts.follow.updates": "Follow to get updates!",
+    "home.contacts.member.group": "Member exclusive group! (KOR)",
+
     // About page
-    'about.title': '소개',
-    'about.mission': '"회원들의 이익을 최우선으로 하고 국제 사회에서 한국 문화를 전파하는 것을 목적으로 합니다."',
-    'about.association': '우리 학생회',
-    'about.greeting': '친애하는 홍콩과기대 한인학생 여러분!',
-    'about.intro1': '홍콩과기대 한인 학생회가 출범한지 어느덧 7년이 지났습니다. 저희 학생회는 현재 홍콩 과기대에 재학 중인 학부생, 교환학생 및 대학원생들의 학생들간 교류와 홍콩 현지 문화에 적응하는데 도움을 주고자 여러 방면에서 노력하고 있습니다.',
-    'about.intro2': '저희 홍콩과기대 한인학생회에는 지금까지 500여 명에 달하는 멤버들이 속해 있으며 그 수가 매년 늘어나고 있는 추세입니다. 이와 같은 현상에 대비해 저희는 학생들의 편의를 위해 신입생환영회, 엠티, Career Talk 등 다양한 이벤트를 단독적으로 기획 및 진행하고 있으며, 근래에는 홍콩 전체에 한인 유학생 수가 증가함에 따라 설립된 홍콩총한인학생회와의 밀접한 교류와 협력을 통해 한인 유학생들에게 최대한 많은 지원을 하려고 노력하고 있습니다.',
-    'about.signature': '제 7대 홍콩과기대 한인학생회 회장 김동범 올림',
-    'about.executive.title': '임원진',
-    'about.constitution.title': '회칙',
-    'about.constitution.article1': '제1조: 목적',
-    'about.constitution.article1.desc': '홍콩과학기술대학교 한인학생회(KSA)는 한국 문화를 홍보하고, 한국 학생들 간의 네트워킹을 촉진하며, 학업 및 사회 활동을 위한 지원을 제공하는 것을 목적으로 합니다.',
-    'about.constitution.article2': '제2조: 회원',
-    'about.constitution.article2.desc': '홍콩과학기술대학교에 재학 중인 모든 한국 학생은 자동으로 KSA 회원이 됩니다. 한국 문화에 관심이 있는 비한국 학생들도 가입할 수 있습니다.',
-    'about.constitution.article3': '제3조: 임원진',
-    'about.constitution.article3.desc': '임원진은 1학년 동안 봉사하는 선출된 회원들로 구성됩니다. 행사 조직, 커뮤니케이션 관리, 협회 대표를 담당합니다.',
-    'about.constitution.button': '전체 회칙 보기',
-    'about.get.involved.title': '참여하기',
-    'about.get.involved.desc': '행사에 참여하거나 임원진이 되고 싶으신가요? 언제든 연락해 주세요!',
-    'about.contact.button': '연락처',
-    'about.events.button': '행사 보기',
-    
+    "about.title": "소개",
+    "about.mission":
+      '"회원들의 이익을 최우선으로 하고 국제 사회에서 한국 문화를 전파하는 것을 목적으로 합니다."',
+    "about.association": "우리 학생회",
+    "about.greeting": "친애하는 홍콩과기대 한인학생 여러분!",
+    "about.intro1":
+      "홍콩과기대 한인 학생회가 출범한지 어느덧 7년이 지났습니다. 저희 학생회는 현재 홍콩 과기대에 재학 중인 학부생, 교환학생 및 대학원생들의 학생들간 교류와 홍콩 현지 문화에 적응하는데 도움을 주고자 여러 방면에서 노력하고 있습니다.",
+    "about.intro2":
+      "저희 홍콩과기대 한인학생회에는 지금까지 500여 명에 달하는 멤버들이 속해 있으며 그 수가 매년 늘어나고 있는 추세입니다. 이와 같은 현상에 대비해 저희는 학생들의 편의를 위해 신입생환영회, 엠티, Career Talk 등 다양한 이벤트를 단독적으로 기획 및 진행하고 있으며, 근래에는 홍콩 전체에 한인 유학생 수가 증가함에 따라 설립된 홍콩총한인학생회와의 밀접한 교류와 협력을 통해 한인 유학생들에게 최대한 많은 지원을 하려고 노력하고 있습니다.",
+    "about.signature": "제 7대 홍콩과기대 한인학생회 회장 김동범 올림",
+    "about.executive.title": "임원진",
+    "about.constitution.title": "회칙",
+    "about.constitution.article1": "제1조: 목적",
+    "about.constitution.article1.desc":
+      "홍콩과학기술대학교 한인학생회(KSA)는 한국 문화를 홍보하고, 한국 학생들 간의 네트워킹을 촉진하며, 학업 및 사회 활동을 위한 지원을 제공하는 것을 목적으로 합니다.",
+    "about.constitution.article2": "제2조: 회원",
+    "about.constitution.article2.desc":
+      "홍콩과학기술대학교에 재학 중인 모든 한국 학생은 자동으로 KSA 회원이 됩니다. 한국 문화에 관심이 있는 비한국 학생들도 가입할 수 있습니다.",
+    "about.constitution.article3": "제3조: 임원진",
+    "about.constitution.article3.desc":
+      "임원진은 1학년 동안 봉사하는 선출된 회원들로 구성됩니다. 행사 조직, 커뮤니케이션 관리, 협회 대표를 담당합니다.",
+    "about.constitution.button": "전체 회칙 보기",
+    "about.get.involved.title": "참여하기",
+    "about.get.involved.desc":
+      "행사에 참여하거나 임원진이 되고 싶으신가요? 언제든 연락해 주세요!",
+    "about.contact.button": "연락처",
+    "about.events.button": "행사 보기",
+
     // Constitution page
-    'constitution.title': '학생회칙',
-    'constitution.subtitle': 'Korean Students\' Association, HKUSTSU 2025 - 2026 Constitution',
-    'constitution.table.of.contents': '목차',
-    'constitution.article1.title': '제1장 총칙',
-    'constitution.article1.1': '본 회의 영문 정식명칭은 "Korean Students\' Association, HKUSTSU"이다.',
-    'constitution.article1.2': '본 회의 중문 정식명칭은 "香港科技大学韩人学生会"이다.',
-    'constitution.article1.3': '본 회의 약칭은 영문으로 "KSA, HKUSTSU", 중문으로 "韩人会"이다.',
-    'constitution.article1.4': '본 회는 홍콩과기대 학생회에만 소속되며, 홍콩과기대 내 다른 소속을 신청하지 않는다.',
-    'constitution.article1.5': '공식 언어는 영어와 한국어이며, 동등한 지위를 가진다. 불일치가 있을 경우, 별도로 명시되지 않는 한 영문 버전을 참조한다.',
-    'constitution.article1.6': '본 회의 각 세션은 정기총회 종료와 함께 시작되며, 다음 정기총회 종료와 함께 종료된다.',
-    'constitution.article2.title': '제2장 목적',
-    'constitution.article2.1': '홍콩과기대에서 한국 문화를 전파하고 홍보한다.',
-    'constitution.article2.2': '회원들에게 한국 문화를 알리고, 한국 문화에 대한 이해를 증진하며, 한국 전통 문화에 대한 대중적 인식을 높일 기회를 제공한다.',
-    'constitution.article2.3': '본 회가 주선하는 활동에 참여하고 경험을 공유함으로써 한국 문화에 대한 유사한 취향을 가진 회원들이 서로를 더 잘 알 수 있는 기회를 제공한다.',
-    'constitution.article2.4': '대다수 회원의 복지를 증진하고 근본적 이익을 대변한다.',
-    'constitution.article2.5': '회원들이 학업 및 여가 목적으로 다른 회원들과 소통할 수 있는 더 많은 기회를 제공한다.',
-    'constitution.article3.title': '제3장 회원',
-    'constitution.article3.1': '본 회는 다음 유형의 회원으로 구성된다: 1. 정회원 2. 후원회원',
-    'constitution.article3.2': '홍콩과기대 학생회 정회원인 모든 학부생 및 대학원생은 본 회의 정회원 자격을 가진다.',
-    'constitution.article3.3': '위 조항에 포함되지 않는 모든 신청자(예: 교환학생)는 본 회의 후원회원 자격을 가진다.',
-    'constitution.article3.4': '회원의 권리: 모든 회원은 본 회의 모든 기능에 참여할 권리와 본 회 총회에 참석할 권리를 가진다.',
-    'constitution.article3.5': '홍콩과기대 학생회 정회원만이 본 회 임원진이 될 자격을 가진다.',
-    'constitution.article3.6': '정회원만이 임원진에 항의하고, 모든 법정 선거 및 총회에서 투표하고, 선거에 출마하고, 선거에 지명되고, 본 회 선거 결과에 대해 불만을 제기할 권리를 가진다.',
-    'constitution.article3.7': '정회원만이 본 회의 공식 담당자가 될 권리를 가진다.',
-    'constitution.article3.8': '모든 회원은 환불 불가능한 규정된 회비를 납부해야 하며, 이는 현재 세션의 임원진이 결정한다.',
-    'constitution.article3.9': '모든 회원은 본 회의 회칙과 총회(정기총회 및 임시총회 포함)에서 통과된 결의를 준수해야 한다.',
-    'constitution.article3.10': '비한국인 회원은 학기당 최소 2개의 행사에 참여할 수 있다.',
-    'constitution.article4.title': '제4장 총회',
-    'constitution.article4.1': '정기총회는 매 학년도 봄학기 1주차 시작부터 6주차 종료까지 사이에 개최된다.',
-    'constitution.article4.2': '정기총회의 정족수는 본 회 전체 정회원의 15% 이상으로 구성된다.',
-    'constitution.article4.3': '정기총회에서 내린 모든 결정은 본 회의 최고 권위를 가진다.',
-    'constitution.article4.4': '결의는 정족수의 80%가 지지할 때만 통과될 수 있다.',
-    'constitution.article4.5': '정기총회 공식 통지와 의제는 회의 3일 전에 모든 회원에게 게시되고 발송된다.',
-    'constitution.article4.6': '임시총회는 현재 세션의 회장이 소집하거나, 최소 4명의 임원진 또는 전체 정회원의 1/3의 요청에 따라 소집된다.',
-    'constitution.article4.7': '총회에서 내린 모든 결정은 회의 개시 후 3일 이내에 회원들에게 게시되고 발송된다.',
-    'constitution.article5.title': '제5장 선거',
-    'constitution.article5.1': '새로운 임원진은 새로운 회장이 선정한다.',
-    'constitution.article5.2': '새로운 담당자 선정은 매 학년도 봄학기 말까지 실시된다.',
-    'constitution.article5.3': '선정에 대한 공식 통지는 회원들에게 1주일 전에 발송되어야 한다.',
-    'constitution.article5.4': '선정에 대한 불만 제기 기한은 통지 후 24시간이다.',
-    'constitution.article5.5': '모든 불만은 현재 임원진이 1주일 이내에 처리하며, 임원진이 결정한 추가 조치는 모든 회원에게 보고된다.',
-    'constitution.article6.title': '제6장 재정',
-    'constitution.article6.1': '회계연도 세션은 임원진 세션에 해당한다.',
-    'constitution.article6.2': '재정담당자와 회장은 공동으로 재정 계좌를 보유해야 한다.',
-    'constitution.article6.3': '연간 재정 보고서는 재정담당자가 작성하며 정기총회에서 제출된다.',
-    'constitution.article6.4': '본 회는 학생회 외부에서 대출을 신청하거나 수락하지 않는다.',
-    'constitution.article6.5': '재정담당자는 회계장부를 보관할 책임이 있다.',
-    'constitution.article6.6': '모든 영수증은 구매 후 3일 이내에 재정담당자에게 제출되어야 한다.',
-    'constitution.article6.7': '회비는 행사, 기능 및 기타 활동을 포함한 KSA의 일상 운영을 위한 자금 조달 목적으로 징수된다.',
-    'constitution.article6.8': 'KSA가 주최하는 행사 및 기능의 수익은 위와 동일한 목적으로 조직에 배치될 수 있다.',
-    'constitution.article6.9': '후원금은 요청되거나 수령된 경우 특별 행사 또는 기능 자금 조달에만 사용된다.',
-    'constitution.article6.10': '재정담당자는 각 정기총회에서 재정 사항에 대한 보고를 해야 한다.',
-    'constitution.article7.title': '제7장 임원진',
-    'constitution.article7.1': '임원진은 6월 1일부터 다음 해까지 직무를 수행한다.',
-    'constitution.article7.2': '담당자 수는 최소 4명이어야 한다.',
-    'constitution.article7.3': '임원진은 다음 10명의 회원으로 구성된다:',
-    'constitution.article7.3.1': '회장: 본 회의 최고 경영자이자 대표자로서 본 회의 행정을 담당하고 본 회의 모든 임원진 회의를 주재한다.',
-    'constitution.article7.3.2': '내무부회장: 회장의 직무 수행을 보조하며, 본 회의 모든 내부 조정을 담당하고, 회장 부재 시 본 회 내부에서 회장의 직무를 수행한다.',
-    'constitution.article7.3.3': '외무부회장: 회장의 직무 수행을 보조하며, 본 회의 모든 외부 사무를 담당하고, 회장 부재 시 본 회 외부에서 회장의 직무를 수행한다.',
-    'constitution.article7.3.4': '외무담당자: 다른 대학과의 소통 및 양호한 관계 유지를 담당한다.',
-    'constitution.article7.3.5': '재정담당자: 본 회의 모든 재정 사무를 담당하며, 행사 계획이 재정적으로 수용 가능한지 결정하는 책임도 있다.',
-    'constitution.article7.3.6': '내무담당자: 임원진 회의 조율, KSA 내 동아리 관리, 내무부회장을 지원하는 기타 활동을 담당한다.',
-    'constitution.article7.3.7': '마케팅담당자: 포스터, 전단, 공지 등을 통한 본 회 및 활동 홍보를 포함한 본 회의 모든 마케팅 활동에 관한 사무를 담당한다.',
-    'constitution.article7.3.8': '운영담당자: 예약 및 설정뿐만 아니라 모든 임원진 회의 기록을 포함한 모든 행사의 운영을 담당한다.',
-    'constitution.article7.3.9': 'IT개발팀장: IT개발팀을 이끌고 KSA 웹사이트 개발을 담당한다.',
-    'constitution.article7.3.10': 'IT개발담당자: IT개발팀장을 보조하여 KSA 웹사이트 개발을 담당한다.',
-    'constitution.article8.title': '제8장 사임 및 해산',
-    'constitution.article8.1': '임원진 회원이 사임을 원할 경우, 사임이 승인될 행사 최소 1개월 전에 본 회 임원진에 서면 사임 요청을 제출해야 한다.',
-    'constitution.article8.2': '회장이 사임할 경우, 새로운 회장을 선출하기 위해 임시총회가 소집되며, 내무부회장은 새로운 회장이 선출될 때까지 임시회장으로 활동한다.',
-    'constitution.article8.3': '회장 외의 임원진 회원이 사임할 경우, 사임을 승인하기 위해 임시총회가 소집된다.',
-    'constitution.article8.4': '회장 외의 임원진의 공석은 임원진이 임명한 본 회 정회원으로 채우거나 공석으로 둘 수 있다.',
-    'constitution.article8.5': '임원진 회원의 변경 또는 사임 승인 후 7일 이내에 공식 통지가 게시된다.',
-    'constitution.article8.6': '임원진의 절반이 사임할 경우 임원진은 자동으로 해산된다.',
-    'constitution.article8.7': '본 회의 해산은 총회 또는 국민투표에서 3/4 다수로 통과된 결의에 의해서만 이루어진다.',
-    'constitution.article8.8': '해산 후, 임원진 회원들은 해산된 단체의 모든 사무에 책임을 진다.',
-    'constitution.article8.9': '해산 통지는 공식 통지 구역에 24시간 동안 연속 7일 이상 게시된다.',
-    'constitution.article9.title': '제9장 개정',
-    'constitution.article9.1': '회칙은 정기총회에서 개정에 동의하는 투표의 2/3로만 개정될 수 있다.',
-    'constitution.article9.2': '제안된 개정안은 정기총회 최소 2주 전에 모든 회원에게 통지되어야 한다.',
-    'constitution.article9.3': '회칙의 모든 개정은 정기총회 후 1일 이내에 모든 정회원에게 게시되고 발송된다.',
-    'constitution.article10.title': '제10장 KSA 서브 클럽',
-    'constitution.article10.1': 'KSA 서브 클럽은 학생들의 삶을 풍요롭게 하기 위해 KSA가 자금을 지원하고 관리하는 클럽이다.',
-    'constitution.article10.2': 'KSA 서브 클럽으로 등록되려면 클럽이 다음 기준을 충족해야 한다:',
-    'constitution.article10.2.1': '10명 이상의 KSA 학생이 정기적으로 활동에 참여한다.',
-    'constitution.article10.2.2': '자금 사용에 관한 연간 계획 및 보고서를 KSA 임원진에 제출한다.',
-    'constitution.article10.2.3': '그룹의 설립은 KSA 임원진 회의에서 승인된다.',
-    'constitution.article10.3': '현재 등록된 KSA 서브 클럽: 축구팀, 밴드, 농구팀, SOSU, KRISS, MARKUST, SAPIENTIA, USTIME, Simplified Magazine, Merge Feat, Muldong-Muldong',
-    'constitution.article10.4': '참여 요구사항: KSA 서브 클럽 참가자는 한국학생회 회원이어야 한다.',
-    'constitution.article10.5': 'KSA 임원진은 참가자 수와 한국학생회에 대한 전반적인 기여도를 바탕으로 각 서브 클럽에 부여할 적절한 자금 금액을 결정할 재량권을 가진다.',
-    'constitution.article10.6': 'KSA 자금으로 구매한 장기 자산의 상태는 매 학기 말에 KSA 임원진이 검사한다.',
-    'constitution.article10.7': 'KSA 임원진은 한국 학생들이 주최하는 행사(20명 이상의 한국 참가자)의 장소 예약을 후원할 수 있다.',
-    'constitution.article10.8': '각 서브 클럽은 등록된 회원 명단과 함께 월간 보고서를 KSA 임원진에 제출해야 한다.',
-    'constitution.article11.title': '제11장 임원진의 의무',
-    'constitution.article11.1': 'KSA 주간 회의 출석은 모든 임원진 회원에게 필수이다.',
-    'constitution.article11.2': '개인은 아래 나열된 특별한 상황에서만 특별 승인을 요청할 수 있다:',
-    'constitution.article11.2.1': '• 취업 면접',
-    'constitution.article11.2.2': '• 시험 / 보충 수업',
-    'constitution.article11.2.3': '• 가족 긴급사태',
-    'constitution.article11.2.4': '• 의료 긴급사태',
-    'constitution.article11.3': '승인 없이 3회 결석하거나 사전 통지가 없는 경우 해당 직위에서 해임되며, 해임은 임시총회에서 논의된다.',
-    'constitution.article11.4': '지각은 100 HKD 벌금이 부과된다. 모든 예정된 행사에서 1시간 이상 늦게 도착하는 것은 100 HKD 벌금과 함께 결석으로 간주된다.',
-    'constitution.article11.5': '모든 징수된 벌금은 임원진의 합의에 따라 사용된다.',
-    'constitution.inquiry.title': '회칙 관련 문의',
-    'constitution.inquiry.desc': '회칙에 대한 질문이나 개정 제안이 있으시면 언제든지 연락해 주세요.',
-    'constitution.inquiry.button': '건의하기',
-    'constitution.amendment.button': '개정 제안',
-    'constitution.navigation.title': '다른 페이지 보기',
-    
+    "constitution.title": "학생회칙",
+    "constitution.subtitle":
+      "Korean Students' Association, HKUSTSU 2025 - 2026 Constitution",
+    "constitution.table.of.contents": "목차",
+    "constitution.article1.title": "제1장 총칙",
+    "constitution.article1.1":
+      '본 회의 영문 정식명칭은 "Korean Students\' Association, HKUSTSU"이다.',
+    "constitution.article1.2":
+      '본 회의 중문 정식명칭은 "香港科技大学韩人学生会"이다.',
+    "constitution.article1.3":
+      '본 회의 약칭은 영문으로 "KSA, HKUSTSU", 중문으로 "韩人会"이다.',
+    "constitution.article1.4":
+      "본 회는 홍콩과기대 학생회에만 소속되며, 홍콩과기대 내 다른 소속을 신청하지 않는다.",
+    "constitution.article1.5":
+      "공식 언어는 영어와 한국어이며, 동등한 지위를 가진다. 불일치가 있을 경우, 별도로 명시되지 않는 한 영문 버전을 참조한다.",
+    "constitution.article1.6":
+      "본 회의 각 세션은 정기총회 종료와 함께 시작되며, 다음 정기총회 종료와 함께 종료된다.",
+    "constitution.article2.title": "제2장 목적",
+    "constitution.article2.1": "홍콩과기대에서 한국 문화를 전파하고 홍보한다.",
+    "constitution.article2.2":
+      "회원들에게 한국 문화를 알리고, 한국 문화에 대한 이해를 증진하며, 한국 전통 문화에 대한 대중적 인식을 높일 기회를 제공한다.",
+    "constitution.article2.3":
+      "본 회가 주선하는 활동에 참여하고 경험을 공유함으로써 한국 문화에 대한 유사한 취향을 가진 회원들이 서로를 더 잘 알 수 있는 기회를 제공한다.",
+    "constitution.article2.4":
+      "대다수 회원의 복지를 증진하고 근본적 이익을 대변한다.",
+    "constitution.article2.5":
+      "회원들이 학업 및 여가 목적으로 다른 회원들과 소통할 수 있는 더 많은 기회를 제공한다.",
+    "constitution.article3.title": "제3장 회원",
+    "constitution.article3.1":
+      "본 회는 다음 유형의 회원으로 구성된다: 1. 정회원 2. 후원회원",
+    "constitution.article3.2":
+      "홍콩과기대 학생회 정회원인 모든 학부생 및 대학원생은 본 회의 정회원 자격을 가진다.",
+    "constitution.article3.3":
+      "위 조항에 포함되지 않는 모든 신청자(예: 교환학생)는 본 회의 후원회원 자격을 가진다.",
+    "constitution.article3.4":
+      "회원의 권리: 모든 회원은 본 회의 모든 기능에 참여할 권리와 본 회 총회에 참석할 권리를 가진다.",
+    "constitution.article3.5":
+      "홍콩과기대 학생회 정회원만이 본 회 임원진이 될 자격을 가진다.",
+    "constitution.article3.6":
+      "정회원만이 임원진에 항의하고, 모든 법정 선거 및 총회에서 투표하고, 선거에 출마하고, 선거에 지명되고, 본 회 선거 결과에 대해 불만을 제기할 권리를 가진다.",
+    "constitution.article3.7":
+      "정회원만이 본 회의 공식 담당자가 될 권리를 가진다.",
+    "constitution.article3.8":
+      "모든 회원은 환불 불가능한 규정된 회비를 납부해야 하며, 이는 현재 세션의 임원진이 결정한다.",
+    "constitution.article3.9":
+      "모든 회원은 본 회의 회칙과 총회(정기총회 및 임시총회 포함)에서 통과된 결의를 준수해야 한다.",
+    "constitution.article3.10":
+      "비한국인 회원은 학기당 최소 2개의 행사에 참여할 수 있다.",
+    "constitution.article4.title": "제4장 총회",
+    "constitution.article4.1":
+      "정기총회는 매 학년도 봄학기 1주차 시작부터 6주차 종료까지 사이에 개최된다.",
+    "constitution.article4.2":
+      "정기총회의 정족수는 본 회 전체 정회원의 15% 이상으로 구성된다.",
+    "constitution.article4.3":
+      "정기총회에서 내린 모든 결정은 본 회의 최고 권위를 가진다.",
+    "constitution.article4.4":
+      "결의는 정족수의 80%가 지지할 때만 통과될 수 있다.",
+    "constitution.article4.5":
+      "정기총회 공식 통지와 의제는 회의 3일 전에 모든 회원에게 게시되고 발송된다.",
+    "constitution.article4.6":
+      "임시총회는 현재 세션의 회장이 소집하거나, 최소 4명의 임원진 또는 전체 정회원의 1/3의 요청에 따라 소집된다.",
+    "constitution.article4.7":
+      "총회에서 내린 모든 결정은 회의 개시 후 3일 이내에 회원들에게 게시되고 발송된다.",
+    "constitution.article5.title": "제5장 선거",
+    "constitution.article5.1": "새로운 임원진은 새로운 회장이 선정한다.",
+    "constitution.article5.2":
+      "새로운 담당자 선정은 매 학년도 봄학기 말까지 실시된다.",
+    "constitution.article5.3":
+      "선정에 대한 공식 통지는 회원들에게 1주일 전에 발송되어야 한다.",
+    "constitution.article5.4":
+      "선정에 대한 불만 제기 기한은 통지 후 24시간이다.",
+    "constitution.article5.5":
+      "모든 불만은 현재 임원진이 1주일 이내에 처리하며, 임원진이 결정한 추가 조치는 모든 회원에게 보고된다.",
+    "constitution.article6.title": "제6장 재정",
+    "constitution.article6.1": "회계연도 세션은 임원진 세션에 해당한다.",
+    "constitution.article6.2":
+      "재정담당자와 회장은 공동으로 재정 계좌를 보유해야 한다.",
+    "constitution.article6.3":
+      "연간 재정 보고서는 재정담당자가 작성하며 정기총회에서 제출된다.",
+    "constitution.article6.4":
+      "본 회는 학생회 외부에서 대출을 신청하거나 수락하지 않는다.",
+    "constitution.article6.5": "재정담당자는 회계장부를 보관할 책임이 있다.",
+    "constitution.article6.6":
+      "모든 영수증은 구매 후 3일 이내에 재정담당자에게 제출되어야 한다.",
+    "constitution.article6.7":
+      "회비는 행사, 기능 및 기타 활동을 포함한 KSA의 일상 운영을 위한 자금 조달 목적으로 징수된다.",
+    "constitution.article6.8":
+      "KSA가 주최하는 행사 및 기능의 수익은 위와 동일한 목적으로 조직에 배치될 수 있다.",
+    "constitution.article6.9":
+      "후원금은 요청되거나 수령된 경우 특별 행사 또는 기능 자금 조달에만 사용된다.",
+    "constitution.article6.10":
+      "재정담당자는 각 정기총회에서 재정 사항에 대한 보고를 해야 한다.",
+    "constitution.article7.title": "제7장 임원진",
+    "constitution.article7.1":
+      "임원진은 6월 1일부터 다음 해까지 직무를 수행한다.",
+    "constitution.article7.2": "담당자 수는 최소 4명이어야 한다.",
+    "constitution.article7.3": "임원진은 다음 10명의 회원으로 구성된다:",
+    "constitution.article7.3.1":
+      "회장: 본 회의 최고 경영자이자 대표자로서 본 회의 행정을 담당하고 본 회의 모든 임원진 회의를 주재한다.",
+    "constitution.article7.3.2":
+      "내무부회장: 회장의 직무 수행을 보조하며, 본 회의 모든 내부 조정을 담당하고, 회장 부재 시 본 회 내부에서 회장의 직무를 수행한다.",
+    "constitution.article7.3.3":
+      "외무부회장: 회장의 직무 수행을 보조하며, 본 회의 모든 외부 사무를 담당하고, 회장 부재 시 본 회 외부에서 회장의 직무를 수행한다.",
+    "constitution.article7.3.4":
+      "외무담당자: 다른 대학과의 소통 및 양호한 관계 유지를 담당한다.",
+    "constitution.article7.3.5":
+      "재정담당자: 본 회의 모든 재정 사무를 담당하며, 행사 계획이 재정적으로 수용 가능한지 결정하는 책임도 있다.",
+    "constitution.article7.3.6":
+      "내무담당자: 임원진 회의 조율, KSA 내 동아리 관리, 내무부회장을 지원하는 기타 활동을 담당한다.",
+    "constitution.article7.3.7":
+      "마케팅담당자: 포스터, 전단, 공지 등을 통한 본 회 및 활동 홍보를 포함한 본 회의 모든 마케팅 활동에 관한 사무를 담당한다.",
+    "constitution.article7.3.8":
+      "운영담당자: 예약 및 설정뿐만 아니라 모든 임원진 회의 기록을 포함한 모든 행사의 운영을 담당한다.",
+    "constitution.article7.3.9":
+      "IT개발팀장: IT개발팀을 이끌고 KSA 웹사이트 개발을 담당한다.",
+    "constitution.article7.3.10":
+      "IT개발담당자: IT개발팀장을 보조하여 KSA 웹사이트 개발을 담당한다.",
+    "constitution.article8.title": "제8장 사임 및 해산",
+    "constitution.article8.1":
+      "임원진 회원이 사임을 원할 경우, 사임이 승인될 행사 최소 1개월 전에 본 회 임원진에 서면 사임 요청을 제출해야 한다.",
+    "constitution.article8.2":
+      "회장이 사임할 경우, 새로운 회장을 선출하기 위해 임시총회가 소집되며, 내무부회장은 새로운 회장이 선출될 때까지 임시회장으로 활동한다.",
+    "constitution.article8.3":
+      "회장 외의 임원진 회원이 사임할 경우, 사임을 승인하기 위해 임시총회가 소집된다.",
+    "constitution.article8.4":
+      "회장 외의 임원진의 공석은 임원진이 임명한 본 회 정회원으로 채우거나 공석으로 둘 수 있다.",
+    "constitution.article8.5":
+      "임원진 회원의 변경 또는 사임 승인 후 7일 이내에 공식 통지가 게시된다.",
+    "constitution.article8.6":
+      "임원진의 절반이 사임할 경우 임원진은 자동으로 해산된다.",
+    "constitution.article8.7":
+      "본 회의 해산은 총회 또는 국민투표에서 3/4 다수로 통과된 결의에 의해서만 이루어진다.",
+    "constitution.article8.8":
+      "해산 후, 임원진 회원들은 해산된 단체의 모든 사무에 책임을 진다.",
+    "constitution.article8.9":
+      "해산 통지는 공식 통지 구역에 24시간 동안 연속 7일 이상 게시된다.",
+    "constitution.article9.title": "제9장 개정",
+    "constitution.article9.1":
+      "회칙은 정기총회에서 개정에 동의하는 투표의 2/3로만 개정될 수 있다.",
+    "constitution.article9.2":
+      "제안된 개정안은 정기총회 최소 2주 전에 모든 회원에게 통지되어야 한다.",
+    "constitution.article9.3":
+      "회칙의 모든 개정은 정기총회 후 1일 이내에 모든 정회원에게 게시되고 발송된다.",
+    "constitution.article10.title": "제10장 KSA 서브 클럽",
+    "constitution.article10.1":
+      "KSA 서브 클럽은 학생들의 삶을 풍요롭게 하기 위해 KSA가 자금을 지원하고 관리하는 클럽이다.",
+    "constitution.article10.2":
+      "KSA 서브 클럽으로 등록되려면 클럽이 다음 기준을 충족해야 한다:",
+    "constitution.article10.2.1":
+      "10명 이상의 KSA 학생이 정기적으로 활동에 참여한다.",
+    "constitution.article10.2.2":
+      "자금 사용에 관한 연간 계획 및 보고서를 KSA 임원진에 제출한다.",
+    "constitution.article10.2.3": "그룹의 설립은 KSA 임원진 회의에서 승인된다.",
+    "constitution.article10.3":
+      "현재 등록된 KSA 서브 클럽: 축구팀, 밴드, 농구팀, SOSU, KRISS, MARKUST, SAPIENTIA, USTIME, Simplified Magazine, Merge Feat, Muldong-Muldong",
+    "constitution.article10.4":
+      "참여 요구사항: KSA 서브 클럽 참가자는 한국학생회 회원이어야 한다.",
+    "constitution.article10.5":
+      "KSA 임원진은 참가자 수와 한국학생회에 대한 전반적인 기여도를 바탕으로 각 서브 클럽에 부여할 적절한 자금 금액을 결정할 재량권을 가진다.",
+    "constitution.article10.6":
+      "KSA 자금으로 구매한 장기 자산의 상태는 매 학기 말에 KSA 임원진이 검사한다.",
+    "constitution.article10.7":
+      "KSA 임원진은 한국 학생들이 주최하는 행사(20명 이상의 한국 참가자)의 장소 예약을 후원할 수 있다.",
+    "constitution.article10.8":
+      "각 서브 클럽은 등록된 회원 명단과 함께 월간 보고서를 KSA 임원진에 제출해야 한다.",
+    "constitution.article11.title": "제11장 임원진의 의무",
+    "constitution.article11.1":
+      "KSA 주간 회의 출석은 모든 임원진 회원에게 필수이다.",
+    "constitution.article11.2":
+      "개인은 아래 나열된 특별한 상황에서만 특별 승인을 요청할 수 있다:",
+    "constitution.article11.2.1": "• 취업 면접",
+    "constitution.article11.2.2": "• 시험 / 보충 수업",
+    "constitution.article11.2.3": "• 가족 긴급사태",
+    "constitution.article11.2.4": "• 의료 긴급사태",
+    "constitution.article11.3":
+      "승인 없이 3회 결석하거나 사전 통지가 없는 경우 해당 직위에서 해임되며, 해임은 임시총회에서 논의된다.",
+    "constitution.article11.4":
+      "지각은 100 HKD 벌금이 부과된다. 모든 예정된 행사에서 1시간 이상 늦게 도착하는 것은 100 HKD 벌금과 함께 결석으로 간주된다.",
+    "constitution.article11.5":
+      "모든 징수된 벌금은 임원진의 합의에 따라 사용된다.",
+    "constitution.inquiry.title": "회칙 관련 문의",
+    "constitution.inquiry.desc":
+      "회칙에 대한 질문이나 개정 제안이 있으시면 언제든지 연락해 주세요.",
+    "constitution.inquiry.button": "건의하기",
+    "constitution.amendment.button": "개정 제안",
+    "constitution.navigation.title": "다른 페이지 보기",
+
     // Board page
-    'board.title': '게시판',
-    'board.career.title': '채용정보 게시판',
-    'board.career.desc': '채용 정보와 인턴십 기회를 확인하세요',
-    
+    "board.title": "게시판",
+    "board.career.title": "채용정보 게시판",
+    "board.career.desc": "채용 정보와 인턴십 기회를 확인하세요",
+
     // Report page (신문고)
-    'report.title': '학생회 신문고',
-    'report.subtitle': '건의사항이나 피드백을 제출해 주세요',
-    'report.form.email': '학교 이메일',
-    'report.form.email.placeholder': 'your.email@connect.ust.hk',
-    'report.form.subject': '제목',
-    'report.form.subject.placeholder': '건의사항 제목을 입력하세요',
-    'report.form.message': '건의사항',
-    'report.form.message.placeholder': '상세한 건의사항을 입력해 주세요...',
-    'report.form.submit': '제출하기',
-    'report.form.success': '건의사항이 성공적으로 제출되었습니다.',
-    'report.form.error': '제출 중 오류가 발생했습니다. 다시 시도해 주세요.',
-    
+    "report.title": "학생회 신문고",
+    "report.subtitle": "건의사항이나 피드백을 제출해 주세요",
+    "report.form.email": "학교 이메일",
+    "report.form.email.placeholder": "your.email@connect.ust.hk",
+    "report.form.subject": "제목",
+    "report.form.subject.placeholder": "건의사항 제목을 입력하세요",
+    "report.form.message": "건의사항",
+    "report.form.message.placeholder": "상세한 건의사항을 입력해 주세요...",
+    "report.form.submit": "제출하기",
+    "report.form.success": "건의사항이 성공적으로 제출되었습니다.",
+    "report.form.error": "제출 중 오류가 발생했습니다. 다시 시도해 주세요.",
+
     // Photos page
-    'photos.title': '사진 갤러리',
-    'photos.subtitle': 'KSA 행사와 활동의 추억과 순간들을 담아보세요',
-    'photos.share.title': '사진 공유하기',
-    'photos.share.desc': '행사 사진이 있으신가요? KSA 커뮤니티와 공유해 보세요!',
-    'photos.submit.button': '사진 제출',
-    'photos.events.button': '행사 보기',
-    'photos.highlights.title': '최근 하이라이트',
-    'photos.photos.count': '500+ 사진',
-    'photos.photos.desc': '행사와 활동에서 포착한 순간들',
-    'photos.events.count': '20+ 행사',
-    'photos.events.desc': '학년도 내내 기록된 행사들',
-    
+    "photos.title": "사진 갤러리",
+    "photos.subtitle": "KSA 행사와 활동의 추억과 순간들을 담아보세요",
+    "photos.share.title": "사진 공유하기",
+    "photos.share.desc":
+      "행사 사진이 있으신가요? KSA 커뮤니티와 공유해 보세요!",
+    "photos.submit.button": "사진 제출",
+    "photos.events.button": "행사 보기",
+    "photos.highlights.title": "최근 하이라이트",
+    "photos.photos.count": "500+ 사진",
+    "photos.photos.desc": "행사와 활동에서 포착한 순간들",
+    "photos.events.count": "20+ 행사",
+    "photos.events.desc": "학년도 내내 기록된 행사들",
+
     // Contact page
-    'contact.title': '연락처',
-    'contact.subtitle': 'KSA 임원진과 연락하세요. 언제든 도움을 드릴 준비가 되어 있습니다!',
-    'contact.info.title': '연락처 정보',
-    'contact.executive.title': '임원진',
-    'contact.president.title': '회장',
-    'contact.vice.president.title': '부회장',
-    'contact.suggestion.title': '질문 및 건의사항',
-    'contact.suggestion.desc': '질문 및 건의사항을 아래 링크로 보내주시길 바랍니다. 익명성이 보장되며 1주일 단위로 한인학생회 페이스북 그룹을 통해 답변을 해드리도록 하겠습니다.',
-    'contact.suggestion.button': '신문고 제출하기',
-    'contact.facebook.button': 'Facebook 그룹',
-    'contact.hours.title': '업무 시간',
-    'contact.general.title': '일반 문의',
-    'contact.general.desc': '보통 24-48시간 내에 답변드립니다',
-    'contact.urgent.title': '긴급 사안',
-    'contact.urgent.desc': '긴급한 문제는 직접 연락해 주세요',
-    'contact.get.involved.title': '참여하기',
-    'contact.get.involved.desc': '행사에 참여하거나 임원진이 되고 싶으신가요? 언제든 연락해 주세요!',
-    'contact.contact.button': '연락처',
-    'contact.suggestion.submit.button': '건의사항 제출',
-    
+    "contact.title": "연락처",
+    "contact.subtitle":
+      "KSA 임원진과 연락하세요. 언제든 도움을 드릴 준비가 되어 있습니다!",
+    "contact.info.title": "연락처 정보",
+    "contact.executive.title": "임원진",
+    "contact.president.title": "회장",
+    "contact.vice.president.title": "부회장",
+    "contact.suggestion.title": "질문 및 건의사항",
+    "contact.suggestion.desc":
+      "질문 및 건의사항을 아래 링크로 보내주시길 바랍니다. 익명성이 보장되며 1주일 단위로 한인학생회 페이스북 그룹을 통해 답변을 해드리도록 하겠습니다.",
+    "contact.suggestion.button": "신문고 제출하기",
+    "contact.facebook.button": "Facebook 그룹",
+    "contact.hours.title": "업무 시간",
+    "contact.general.title": "일반 문의",
+    "contact.general.desc": "보통 24-48시간 내에 답변드립니다",
+    "contact.urgent.title": "긴급 사안",
+    "contact.urgent.desc": "긴급한 문제는 직접 연락해 주세요",
+    "contact.get.involved.title": "참여하기",
+    "contact.get.involved.desc":
+      "행사에 참여하거나 임원진이 되고 싶으신가요? 언제든 연락해 주세요!",
+    "contact.contact.button": "연락처",
+    "contact.suggestion.submit.button": "건의사항 제출",
+
     // Suggestion page
-    'suggestion.title': '신문고',
-    'suggestion.subtitle': '질문 및 건의사항을 제출해주세요. 익명성이 보장되며 1주일 단위로 한인학생회 페이스북 그룹을 통해 답변을 드리겠습니다.',
-    'suggestion.email.label': 'HKUST 이메일 주소 *',
-    'suggestion.email.placeholder': 'yourname@connect.ust.hk',
-    'suggestion.email.help': 'HKUST 이메일 주소(@connect.ust.hk)만 허용됩니다',
-    'suggestion.anonymous.label': '익명으로 제출',
-    'suggestion.content.label': '건의사항/질문 *',
-    'suggestion.content.placeholder': '건의사항, 질문 또는 피드백을 공유해 주세요...',
-    'suggestion.submit.button': '건의사항 제출',
-    'suggestion.how.title': '작동 방식',
-    'suggestion.how.item1': '• 건의사항은 KSA 임원진이 검토합니다',
-    'suggestion.how.item2': '• 답변은 1주일 내에 Facebook 그룹에 게시됩니다',
-    'suggestion.how.item3': '• 익명 제출은 완전히 기밀입니다',
-    'suggestion.how.item4': '• 모든 종류의 피드백과 건의사항을 환영합니다',
-    'suggestion.contact.text': '즉시 도움이 필요하신가요?',
-    'suggestion.contact.link': '직접 연락하기',
-    
+    "suggestion.title": "신문고",
+    "suggestion.subtitle":
+      "질문 및 건의사항을 제출해주세요. 익명성이 보장되며 1주일 단위로 한인학생회 페이스북 그룹을 통해 답변을 드리겠습니다.",
+    "suggestion.email.label": "HKUST 이메일 주소 *",
+    "suggestion.email.placeholder": "yourname@connect.ust.hk",
+    "suggestion.email.help": "HKUST 이메일 주소(@connect.ust.hk)만 허용됩니다",
+    "suggestion.anonymous.label": "익명으로 제출",
+    "suggestion.content.label": "건의사항/질문 *",
+    "suggestion.content.placeholder":
+      "건의사항, 질문 또는 피드백을 공유해 주세요...",
+    "suggestion.submit.button": "건의사항 제출",
+    "suggestion.how.title": "작동 방식",
+    "suggestion.how.item1": "• 건의사항은 KSA 임원진이 검토합니다",
+    "suggestion.how.item2": "• 답변은 1주일 내에 Facebook 그룹에 게시됩니다",
+    "suggestion.how.item3": "• 익명 제출은 완전히 기밀입니다",
+    "suggestion.how.item4": "• 모든 종류의 피드백과 건의사항을 환영합니다",
+    "suggestion.contact.text": "즉시 도움이 필요하신가요?",
+    "suggestion.contact.link": "직접 연락하기",
+
     // Common
-    'common.learn.more': '자세히 보기',
-    'common.view.more': '더 보기',
-    'common.submit': '제출',
-    'common.cancel': '취소',
-    'common.back': '뒤로',
-    'common.next': '다음',
-    'common.previous': '이전',
-    'common.loading': '로딩 중...',
-    'common.error': '오류가 발생했습니다',
-    'common.success': '성공적으로 완료되었습니다',
-    'common.copyright': '© HKUSTKSA 2025'
+    "common.learn.more": "자세히 보기",
+    "common.view.more": "더 보기",
+    "common.submit": "제출",
+    "common.cancel": "취소",
+    "common.back": "뒤로",
+    "common.next": "다음",
+    "common.previous": "이전",
+    "common.loading": "로딩 중...",
+    "common.error": "오류가 발생했습니다",
+    "common.success": "성공적으로 완료되었습니다",
+    "common.copyright": "© HKUSTKSA 2025",
   },
   en: {
     // Navigation
-    'nav.home': 'Home',
-    'nav.about': 'About Us',
-    'nav.events': 'Events',
-    'nav.board': 'Board',
-    'nav.clubs': 'Clubs',
-    'nav.report': 'Contact',
-    'nav.login': 'Login',
+    "nav.home": "Home",
+    "nav.about": "About Us",
+    "nav.events": "Events",
+    "nav.board": "Board",
+    "nav.clubs": "Clubs",
+    "nav.weather": "HK Weather",
+    "nav.report": "Contact",
+    "nav.login": "Login",
 
-    'nav.contact': 'Contact',
-    'nav.suggestion': 'Suggestion Box',
-    
+    "nav.contact": "Contact",
+    "nav.suggestion": "Suggestion Box",
+
     // About Us Menu
-    'nav.about.constitution': 'Constitution',
-    'nav.about.presidents': 'Presidents',
-    'nav.about.executives': 'Executives',
-    'nav.about.subcommittee': 'Subcommittee',
-    
-    // Events Menu
-    'nav.events.annual': 'Annual Events',
-    'nav.events.career': 'Career',
-    'nav.events.news': 'News',
-    'nav.events.culture': 'Culture',
-    'nav.events.enquiry': 'Enquiry',
-    
-    // Board Menu
-    'nav.board.career': 'Career Information Board',
-    'nav.board.suggestions': 'Campus Suggestions',
-    
-    // Clubs Menu
-    'nav.clubs.coming': 'Coming Soon',
-    
-    // Executive Committee page
-    'exco.title': 'Executive Committee',
-    'exco.subtitle': 'Korean Students\' Association 2025 - 2026 Executive Committee',
-    'exco.president': 'President',
-    'exco.president.korean': 'President',
-    'exco.vice.president': 'Vice President',
-    'exco.vice.president.korean': 'Vice President',
-    'exco.secretary': 'Secretary',
-    'exco.secretary.korean': 'Secretary',
-    'exco.treasurer': 'Treasurer',
-    'exco.treasurer.korean': 'Treasurer',
-    
-    // Subcommittee page
-    'subcommittee.title': 'Subcommittee',
-    'subcommittee.subtitle': 'Korean Students\' Association 2025 - 2026 Subcommittee',
-    'subcommittee.coming': 'Coming Soon',
-    
-    // Events sub-pages
-    'events.annual.title': 'Annual Events',
-    'events.annual.subtitle': 'Annual Events and Activities',
-    'events.career.title': 'Career',
-    'events.career.subtitle': 'Career Development Events',
-    'events.culture.title': 'Culture',
-    'events.culture.subtitle': 'Cultural Events and Activities',
-    'events.enquiry.title': 'Enquiry',
-    'events.enquiry.subtitle': 'Event Inquiries',
-    
-    // Board sub-pages
-    'board.career.subtitle': 'Career and Internship Opportunities',
-    
-    // Clubs page
-    'clubs.title': 'Clubs',
-    'clubs.subtitle': 'KSA Clubs and Organizations',
-    'clubs.coming': 'Coming Soon',
-    
-    // Home page
-    'home.title': 'HKUST KSA',
-    'home.subtitle': '홍콩과학기술대학교 한인학생회',
-    'home.mission': '"To best serve the interests of our members and to spread Korean culture in an international community."',
-    'home.about.button': 'About Us',
-    'home.events.button': 'Events',
-    'home.quick.links': 'Quick Links',
-    'home.about.card': 'About Us',
-    'home.about.desc': 'Learn about our association and executive committee',
-    'home.events.card': 'Events',
-    'home.events.desc': 'Check out our upcoming events and activities',
+    "nav.about.constitution": "Constitution",
+    "nav.about.presidents": "Presidents",
+    "nav.about.executives": "Executives",
+    "nav.about.subcommittee": "Subcommittee",
 
-    'home.suggestion.card': 'Suggestion Box',
-    'home.suggestion.desc': 'Submit your suggestions and feedback',
-    'home.contact.title': 'Get in Touch',
-    'home.contact.desc': 'Have questions or want to get involved? We\'d love to hear from you!',
-    'home.contact.button': 'Contact Us',
-    'home.submit.button': 'Submit Suggestion',
-    'home.intro.title': 'Introduction',
-    'home.intro.korean': 'Welcome to the website of Korean Students\' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students\' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.',
-    'home.intro.english': 'Welcome to the website of Korean Students\' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students\' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.',
-    'home.contacts.title': 'Contacts',
-    'home.contacts.facebook.page': 'Official Facebook Page',
-    'home.contacts.facebook.group': 'Official Facebook Group',
-    'home.contacts.internal.email': 'Internal Email',
-    'home.contacts.external.email': 'External Email',
-    'home.contacts.mailbox': 'Mailbox',
-    'home.contacts.follow.updates': 'Follow to get updates!',
-    'home.contacts.member.group': 'Member exclusive group! (KOR)',
-    
+    // Events Menu
+    "nav.events.annual": "Annual Events",
+    "nav.events.career": "Career",
+    "nav.events.news": "News",
+    "nav.events.culture": "Culture",
+    "nav.events.enquiry": "Enquiry",
+
+    // Board Menu
+    "nav.board.career": "Career Information Board",
+    "nav.board.suggestions": "Campus Suggestions",
+
+    // Clubs Menu
+    "nav.clubs.coming": "Coming Soon",
+
+    // Executive Committee page
+    "exco.title": "Executive Committee",
+    "exco.subtitle":
+      "Korean Students' Association 2025 - 2026 Executive Committee",
+    "exco.president": "President",
+    "exco.president.korean": "President",
+    "exco.vice.president": "Vice President",
+    "exco.vice.president.korean": "Vice President",
+    "exco.secretary": "Secretary",
+    "exco.secretary.korean": "Secretary",
+    "exco.treasurer": "Treasurer",
+    "exco.treasurer.korean": "Treasurer",
+
+    // Subcommittee page
+    "subcommittee.title": "Subcommittee",
+    "subcommittee.subtitle":
+      "Korean Students' Association 2025 - 2026 Subcommittee",
+    "subcommittee.coming": "Coming Soon",
+
+    // Events sub-pages
+    "events.annual.title": "Annual Events",
+    "events.annual.subtitle": "Annual Events and Activities",
+    "events.career.title": "Career",
+    "events.career.subtitle": "Career Development Events",
+    "events.culture.title": "Culture",
+    "events.culture.subtitle": "Cultural Events and Activities",
+    "events.enquiry.title": "Enquiry",
+    "events.enquiry.subtitle": "Event Inquiries",
+
+    // Board sub-pages
+    "board.career.subtitle": "Career and Internship Opportunities",
+
+    // Clubs page
+    "clubs.title": "Clubs",
+    "clubs.subtitle": "KSA Clubs and Organizations",
+    "clubs.coming": "Coming Soon",
+
+    // Home page
+    "home.title": "HKUST KSA",
+    "home.subtitle": "홍콩과학기술대학교 한인학생회",
+    "home.mission":
+      '"To best serve the interests of our members and to spread Korean culture in an international community."',
+    "home.about.button": "About Us",
+    "home.events.button": "Events",
+    "home.quick.links": "Quick Links",
+    "home.about.card": "About Us",
+    "home.about.desc": "Learn about our association and executive committee",
+    "home.events.card": "Events",
+    "home.events.desc": "Check out our upcoming events and activities",
+
+    "home.suggestion.card": "Suggestion Box",
+    "home.suggestion.desc": "Submit your suggestions and feedback",
+    "home.contact.title": "Get in Touch",
+    "home.contact.desc":
+      "Have questions or want to get involved? We'd love to hear from you!",
+    "home.contact.button": "Contact Us",
+    "home.submit.button": "Submit Suggestion",
+    "home.intro.title": "Introduction",
+    "home.intro.korean":
+      "Welcome to the website of Korean Students' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.",
+    "home.intro.english":
+      "Welcome to the website of Korean Students' Association (hereby KSA) of the Hong Kong University of Science and Technology (hereby HKUST) Students' Union.\n\nKSA has been established under 4 main objectives stated in our constitution:\n\nTo spread and promote Korean culture in HKUST, To provide opportunities for members to know Korean cultures, to enhance their understandings of Korean culture and to raise public awareness of Korean traditional culture, To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience, and To enhance the welfare and to represent the fundamental interests of the majority of members.\n\nWe again welcome all of you who have visited our website on behalf of KSA, HKUSTSU.\n\nWe sincerely hope you may establish meaningful relationship with our Association.",
+    "home.contacts.title": "Contacts",
+    "home.contacts.facebook.page": "Official Facebook Page",
+    "home.contacts.facebook.group": "Official Facebook Group",
+    "home.contacts.internal.email": "Internal Email",
+    "home.contacts.external.email": "External Email",
+    "home.contacts.mailbox": "Mailbox",
+    "home.contacts.follow.updates": "Follow to get updates!",
+    "home.contacts.member.group": "Member exclusive group! (KOR)",
+
     // About page
-    'about.title': 'About Us',
-    'about.mission': '"To best serve the interests of our members and to spread Korean culture in an international community."',
-    'about.association': 'Our Association',
-    'about.greeting': 'Dear HKUST Korean students!',
-    'about.intro1': 'It has been 7 years since the HKUST Korean Students\' Association was established. Our student association is currently working in various ways to help undergraduate students, exchange students, and graduate students studying at HKUST to interact with each other and adapt to Hong Kong\'s local culture.',
-    'about.intro2': 'Our HKUST Korean Students\' Association currently has about 500 members, and the number is increasing every year. In response to this phenomenon, we are planning and conducting various events such as freshman welcome parties, MTs, and Career Talks for the convenience of students, and recently, as the number of Korean international students in Hong Kong has increased, we are working to provide maximum support to Korean international students through close exchange and cooperation with the Hong Kong Korean Students\' Association, which was established.',
-    'about.signature': 'Sincerely, DongBum Kim, 7th President of HKUST Korean Students\' Association',
-    'about.executive.title': 'Executive Committee',
-    'about.constitution.title': 'Constitution',
-    'about.constitution.article1': 'Article 1: Purpose',
-    'about.constitution.article1.desc': 'The Korean Students\' Association (KSA) at HKUST aims to promote Korean culture, facilitate networking among Korean students, and provide support for academic and social activities.',
-    'about.constitution.article2': 'Article 2: Membership',
-    'about.constitution.article2.desc': 'All Korean students enrolled at HKUST are automatically members of KSA. Non-Korean students interested in Korean culture are also welcome to join.',
-    'about.constitution.article3': 'Article 3: Executive Committee',
-    'about.constitution.article3.desc': 'The Executive Committee consists of elected members who serve for one academic year. They are responsible for organizing events, managing communications, and representing the association.',
-    'about.constitution.button': 'View Full Constitution',
-    'about.get.involved.title': 'Get Involved',
-    'about.get.involved.desc': 'Want to join our events or become part of the executive committee? We\'d love to hear from you!',
-    'about.contact.button': 'Contact Us',
-    'about.events.button': 'View Events',
-    
+    "about.title": "About Us",
+    "about.mission":
+      '"To best serve the interests of our members and to spread Korean culture in an international community."',
+    "about.association": "Our Association",
+    "about.greeting": "Dear HKUST Korean students!",
+    "about.intro1":
+      "It has been 7 years since the HKUST Korean Students' Association was established. Our student association is currently working in various ways to help undergraduate students, exchange students, and graduate students studying at HKUST to interact with each other and adapt to Hong Kong's local culture.",
+    "about.intro2":
+      "Our HKUST Korean Students' Association currently has about 500 members, and the number is increasing every year. In response to this phenomenon, we are planning and conducting various events such as freshman welcome parties, MTs, and Career Talks for the convenience of students, and recently, as the number of Korean international students in Hong Kong has increased, we are working to provide maximum support to Korean international students through close exchange and cooperation with the Hong Kong Korean Students' Association, which was established.",
+    "about.signature":
+      "Sincerely, DongBum Kim, 7th President of HKUST Korean Students' Association",
+    "about.executive.title": "Executive Committee",
+    "about.constitution.title": "Constitution",
+    "about.constitution.article1": "Article 1: Purpose",
+    "about.constitution.article1.desc":
+      "The Korean Students' Association (KSA) at HKUST aims to promote Korean culture, facilitate networking among Korean students, and provide support for academic and social activities.",
+    "about.constitution.article2": "Article 2: Membership",
+    "about.constitution.article2.desc":
+      "All Korean students enrolled at HKUST are automatically members of KSA. Non-Korean students interested in Korean culture are also welcome to join.",
+    "about.constitution.article3": "Article 3: Executive Committee",
+    "about.constitution.article3.desc":
+      "The Executive Committee consists of elected members who serve for one academic year. They are responsible for organizing events, managing communications, and representing the association.",
+    "about.constitution.button": "View Full Constitution",
+    "about.get.involved.title": "Get Involved",
+    "about.get.involved.desc":
+      "Want to join our events or become part of the executive committee? We'd love to hear from you!",
+    "about.contact.button": "Contact Us",
+    "about.events.button": "View Events",
+
     // Constitution page
-    'constitution.title': 'Constitution',
-    'constitution.subtitle': 'Korean Students\' Association, HKUSTSU 2025 - 2026 Constitution',
-    'constitution.table.of.contents': 'Table of Contents',
-    'constitution.article1.title': 'Article 1: General',
-    'constitution.article1.1': 'The English full name of the society shall be "Korean Students\' Association, HKUSTSU".',
-    'constitution.article1.2': 'The Chinese full name of the Society shall be "香港科技大学韩人学生会".',
-    'constitution.article1.3': 'The short form of the name of the society shall be "KSA, HKUSTSU" in English and "韩人会" in Chinese.',
-    'constitution.article1.4': 'The society is only affiliated to HKUST Students\' Union and shall not apply for any other affiliations within HKUST.',
-    'constitution.article1.5': 'The official languages are English and Korean, and they should enjoy equal status. In case of discrepancy, unless otherwise stated, the English version shall be referred to.',
-    'constitution.article1.6': 'Each session of the society shall commence with the conclusion of the Annual General Meeting and shall terminate with the conclusion of the next Annual General Meeting.',
-    'constitution.article2.title': 'Article 2: Objectives',
-    'constitution.article2.1': 'To spread and promote Korean culture in HKUST.',
-    'constitution.article2.2': 'To provide opportunities for members to know Korean cultures, to enhance their understanding of Korean culture and to raise public awareness of Korean traditional culture.',
-    'constitution.article2.3': 'To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience.',
-    'constitution.article2.4': 'To enhance the welfare and to represent the fundamental interests of most members.',
-    'constitution.article2.5': 'To provide more opportunities for members to reach out to other members for both academic and leisure purposes.',
-    'constitution.article3.title': 'Article 3: Membership',
-    'constitution.article3.1': 'The Society shall consist of the following types of members: 1. Full Members 2. Patron Members',
-    'constitution.article3.2': 'All undergraduates and postgraduates at HKUST shall be eligible for Full Membership of the society if they are Full Members of HKUSTSU.',
-    'constitution.article3.3': 'All applicants not covered by the above clauses (e.g., Exchange students) shall be eligible for Patron Membership of the society.',
-    'constitution.article3.4': 'Right of Members: All members shall have the right to all functions of the society and to attend the general meetings of the Society.',
-    'constitution.article3.5': 'Only Full Members of the Students\' Union shall be eligible to be on the Executive Committees of the Society.',
-    'constitution.article3.6': 'Only Full members shall have the right to raise their appeals to the Executive Committees, to vote at all statutory elections and general meetings of the Society, to stand for election, to be nominated to an election, and to complain about the result of the elections of the Society.',
-    'constitution.article3.7': 'Only Full members shall have the right to become official bearers of the Society.',
-    'constitution.article3.8': 'All members shall pay the non-refundable prescribed membership fee, which shall be determined by the executive committee of the current session.',
-    'constitution.article3.9': 'All members shall abide by the Constitutions of the Society and the resolutions passed by the General Meeting (including the AGM and the EGM) of the Society.',
-    'constitution.article3.10': 'Non-Korean members will be granted at least two events per semester.',
-    'constitution.article4.title': 'Article 4: The General Meeting',
-    'constitution.article4.1': 'An Annual General Meeting shall be commenced between the start of the first week and the end of the 6th week of the spring semester in each Academic Year, inclusively.',
-    'constitution.article4.2': 'The quorum for the Annual General Meeting shall consist of no less than 15% of all full members of the society.',
-    'constitution.article4.3': 'All the decisions made in the Annual General Meeting shall pose the highest authority in the Society.',
-    'constitution.article4.4': 'A resolution can be passed only if 80% of the quorum supports it.',
-    'constitution.article4.5': 'An official notice and the agenda of the Annual General Meeting of the Society shall be posted and sent to all members three days in advance of the meeting.',
-    'constitution.article4.6': 'All Extraordinary General Meetings shall be convened by the President of the present session or upon the requisition of at least 4 Executive Committee Members or upon the requisition of 1/3 total Full Members.',
-    'constitution.article4.7': 'All the decisions made at the general meetings shall be posted and sent to members within 3 days after the commencement of the meetings.',
-    'constitution.article5.title': 'Article 5: Executive Committees\' Selection Process',
-    'constitution.article5.1': 'New executive committee is selected by the new president.',
-    'constitution.article5.2': 'The selection of the new office bearers shall be held by the end of the spring semester of each Academic Year.',
-    'constitution.article5.3': 'Public notice about the selection should be sent to members one week in advance.',
-    'constitution.article5.4': 'The time limit for filing complaints about the selection is 24 hours after the notice.',
-    'constitution.article5.5': 'All complaints shall be handled by the current executive committee within one week, and any further action decided by the executive committee shall be reported to all members.',
-    'constitution.article6.title': 'Article 6: Finance',
-    'constitution.article6.1': 'The session of the financial year corresponds to the session of the Executive Committee.',
-    'constitution.article6.2': 'The financial manager and president must hold the financial account jointly.',
-    'constitution.article6.3': 'The annual financial report shall be prepared by the Financial Manager and presented in the Annual General Meeting.',
-    'constitution.article6.4': 'The Society shall not apply or accept any loans outside the Students\' Union.',
-    'constitution.article6.5': 'The Financial Manager shall be responsible for keeping the books of account.',
-    'constitution.article6.6': 'All receipts shall be handed to the financial manager 3 days after the purchase.',
-    'constitution.article6.7': 'A Membership Fee shall be collected for the purpose of funding Events, Functions, and miscellaneous activities, including day-to-day operations of the KSA.',
-    'constitution.article6.8': 'Proceeds from Events and Functions held by the KSA may be placed with the organization for the same purposes as described above.',
-    'constitution.article6.9': 'Sponsorship shall, if sought or received, only be used to fund special Events or Functions.',
-    'constitution.article6.10': 'A report on monetary matters is to be given at each Annual Meeting by the Financial Manager.',
-    'constitution.article7.title': 'Article 7: The Executive Committee',
-    'constitution.article7.1': 'The Executive Committee shall hold office from the first day of June until that of the following year.',
-    'constitution.article7.2': 'The number of office bearers shall be at least four.',
-    'constitution.article7.3': 'The Executive Committee shall consist of the following 10 members:',
-    'constitution.article7.3.1': 'The President, who shall be the chief executive and the representative of the Society, shall be responsible for the administration of the Society and shall preside over all Executive Committee Meetings of the Society.',
-    'constitution.article7.3.2': 'The Internal Vice-President, who shall assist the President in carrying out his/her duties and, in addition, is responsible for all internal coordination of the Society, and shall, in the absence of the president, carry out the duties of the president inside the Society.',
-    'constitution.article7.3.3': 'The External Vice-President, who shall assist the President in carrying out his/her duties and, in addition, be responsible for all external matters of the Society, and shall, in the absence of the president, carry out the duties of the president outside the Society.',
-    'constitution.article7.3.4': 'The External Manager shall be responsible for communicating with other universities and maintaining good relationships with them.',
-    'constitution.article7.3.5': 'The Financial Manager, who shall be responsible for all financial matters of the Society and is also responsible for deciding whether event plans are financially acceptable.',
-    'constitution.article7.3.6': 'The Internal Manager, who shall be responsible for aligning committee meetings, managing clubs within KSA, and other activities in terms of supporting the Internal Vice-President.',
-    'constitution.article7.3.7': 'The Marketing Manager shall be responsible for all matters concerning the marketing activities of the Society, including publicizing the Society and its activity by means such as posters, leaflets, and notices.',
-    'constitution.article7.3.8': 'Operational Manager shall be responsible for the operations of any events, including booking and setting up as well as recording every committee meeting.',
-    'constitution.article7.3.9': 'The IT Development Head shall be responsible for leading the IT Development team and developing the KSA website.',
-    'constitution.article7.3.10': 'The IT Development Manager shall be responsible for assisting the IT Development Head in developing the KSA website.',
-    'constitution.article8.title': 'Article 8: Resignation and Dissolution',
-    'constitution.article8.1': 'In case any Executive Committee Member wishes to resign, he/she must present a written request of resignation to the Executive Committee of the Society at least one month before the event in which the resignation shall be approved.',
-    'constitution.article8.2': 'Should the President resign, an Extraordinary General Meeting shall be convened to elect a new President, and the Internal Vice-President shall act as the Acting President until the new President is elected.',
-    'constitution.article8.3': 'Should any Executive Committee Member other than the President resign, an Extraordinary General Meeting shall be convened to approve the resignation.',
-    'constitution.article8.4': 'Any vacancies in the Executive Committee other than the President can either be filled by any Full Member of the Society appointed by the Executive Committee or kept vacant.',
-    'constitution.article8.5': 'A public notice shall be posted within seven days after the approval of any change or resignation of Executive Committee Member(s).',
-    'constitution.article8.6': 'The Executive Committee shall be automatically dismissed when half of the Committee\'s Members resign from office.',
-    'constitution.article8.7': 'The dissolution of the Society shall only be passed by a resolution made in a General Meeting or Referendum with a three-quarter majority.',
-    'constitution.article8.8': 'After dissolution, members of the Executive Committee shall be responsible for all matters of the dissolved body.',
-    'constitution.article8.9': 'Notice of dissolution shall be posted in the Official Notice Area within 24 hours for not less than seven consecutive days.',
-    'constitution.article9.title': 'Article 9: Amendment',
-    'constitution.article9.1': 'The constitution can only be amended in the Annual General Meeting with two-thirds of votes that agree on the amendment.',
-    'constitution.article9.2': 'The proposed amendment shall be notified to all members at least two weeks in advance of the Annual General Meeting.',
-    'constitution.article9.3': 'Any amendment of the constitution shall be posted and sent to all full members within one day after the Annual General Meeting.',
-    'constitution.article10.title': 'Article 10: KSA Sub Club',
-    'constitution.article10.1': 'KSA Sub-Clubs are clubs funded and managed by KSA to enrich students\' life.',
-    'constitution.article10.2': 'To be registered as KSA Sub-Club, a club should meet the following criteria:',
-    'constitution.article10.2.1': 'Ten or more KSA students participate in activities on a regular basis.',
-    'constitution.article10.2.2': 'Submits an annual plan and report regarding the usage of funds to the KSA Executive committee.',
-    'constitution.article10.2.3': 'The establishment of the group is granted by the KSA Executive Committee meeting.',
-    'constitution.article10.3': 'Currently Registered KSA Sub-Club: Soccer Team, Band, Basketball Team, SOSU, KRISS, MARKUST, SAPIENTIA, USTIME, Simplified Magazine, Merge Feat, Muldong-Muldong',
-    'constitution.article10.4': 'Participation Requirement: Participants of the KSA sub-club should be a member of the Korean Students\' Association.',
-    'constitution.article10.5': 'KSA Executive Committee has the discretion to determine the appropriate amount of funds that will be granted to each sub-club, based on the number of participants and overall contribution to the Korean Students\' Association.',
-    'constitution.article10.6': 'Status of long-term assets purchased with KSA funds will be inspected by KSA EXCO at the end of each semester.',
-    'constitution.article10.7': 'The KSA executive committee can sponsor the venue booking for events organized by Korean students (with over 20 Korean participants) on a best-effort basis only if the event is considered to serve the objectives of KSA.',
-    'constitution.article10.8': 'Each sub-club is required to submit a monthly report with a registered member list to KSA EXCO.',
-    'constitution.article11.title': 'Article 11: Executive Committee\'s Commitment',
-    'constitution.article11.1': 'The KSA weekly meeting attendance is compulsory for all executive committee members.',
-    'constitution.article11.2': 'Individuals may request special approval for an absence under special circumstances listed below only if individuals request his or her approval 1 day before the commencement of the meeting with proof:',
-    'constitution.article11.2.1': '• Job Interview',
-    'constitution.article11.2.2': '• Exam / Make-up Class',
-    'constitution.article11.2.3': '• Family Urgency',
-    'constitution.article11.2.4': '• Medical Emergency',
-    'constitution.article11.3': 'Three absences without approval or any type of prior notification will be subjected to a dismissal from his or her position, and his or her dismissal shall be discussed during the Extraordinary General Meeting.',
-    'constitution.article11.4': 'Any tardy will be subjected to a 100 HKD penalty. Any late arrival of more than 1 hour for all scheduled events will be regarded as an absence with a 100 HKD penalty.',
-    'constitution.article11.5': 'All collected penalties shall be used under the committee\'s agreement.',
-    'constitution.inquiry.title': 'Constitution Inquiries',
-    'constitution.inquiry.desc': 'If you have questions about the constitution or suggestions for amendments, please feel free to contact us anytime.',
-    'constitution.inquiry.button': 'Contact Us',
-    'constitution.amendment.button': 'Amendment Proposal',
-    'constitution.navigation.title': 'View Other Pages',
-    
+    "constitution.title": "Constitution",
+    "constitution.subtitle":
+      "Korean Students' Association, HKUSTSU 2025 - 2026 Constitution",
+    "constitution.table.of.contents": "Table of Contents",
+    "constitution.article1.title": "Article 1: General",
+    "constitution.article1.1":
+      'The English full name of the society shall be "Korean Students\' Association, HKUSTSU".',
+    "constitution.article1.2":
+      'The Chinese full name of the Society shall be "香港科技大学韩人学生会".',
+    "constitution.article1.3":
+      'The short form of the name of the society shall be "KSA, HKUSTSU" in English and "韩人会" in Chinese.',
+    "constitution.article1.4":
+      "The society is only affiliated to HKUST Students' Union and shall not apply for any other affiliations within HKUST.",
+    "constitution.article1.5":
+      "The official languages are English and Korean, and they should enjoy equal status. In case of discrepancy, unless otherwise stated, the English version shall be referred to.",
+    "constitution.article1.6":
+      "Each session of the society shall commence with the conclusion of the Annual General Meeting and shall terminate with the conclusion of the next Annual General Meeting.",
+    "constitution.article2.title": "Article 2: Objectives",
+    "constitution.article2.1": "To spread and promote Korean culture in HKUST.",
+    "constitution.article2.2":
+      "To provide opportunities for members to know Korean cultures, to enhance their understanding of Korean culture and to raise public awareness of Korean traditional culture.",
+    "constitution.article2.3":
+      "To provide opportunities to members who have similar tastes in Korean culture to know better about each other by attending activities arranged by the society and by sharing experience.",
+    "constitution.article2.4":
+      "To enhance the welfare and to represent the fundamental interests of most members.",
+    "constitution.article2.5":
+      "To provide more opportunities for members to reach out to other members for both academic and leisure purposes.",
+    "constitution.article3.title": "Article 3: Membership",
+    "constitution.article3.1":
+      "The Society shall consist of the following types of members: 1. Full Members 2. Patron Members",
+    "constitution.article3.2":
+      "All undergraduates and postgraduates at HKUST shall be eligible for Full Membership of the society if they are Full Members of HKUSTSU.",
+    "constitution.article3.3":
+      "All applicants not covered by the above clauses (e.g., Exchange students) shall be eligible for Patron Membership of the society.",
+    "constitution.article3.4":
+      "Right of Members: All members shall have the right to all functions of the society and to attend the general meetings of the Society.",
+    "constitution.article3.5":
+      "Only Full Members of the Students' Union shall be eligible to be on the Executive Committees of the Society.",
+    "constitution.article3.6":
+      "Only Full members shall have the right to raise their appeals to the Executive Committees, to vote at all statutory elections and general meetings of the Society, to stand for election, to be nominated to an election, and to complain about the result of the elections of the Society.",
+    "constitution.article3.7":
+      "Only Full members shall have the right to become official bearers of the Society.",
+    "constitution.article3.8":
+      "All members shall pay the non-refundable prescribed membership fee, which shall be determined by the executive committee of the current session.",
+    "constitution.article3.9":
+      "All members shall abide by the Constitutions of the Society and the resolutions passed by the General Meeting (including the AGM and the EGM) of the Society.",
+    "constitution.article3.10":
+      "Non-Korean members will be granted at least two events per semester.",
+    "constitution.article4.title": "Article 4: The General Meeting",
+    "constitution.article4.1":
+      "An Annual General Meeting shall be commenced between the start of the first week and the end of the 6th week of the spring semester in each Academic Year, inclusively.",
+    "constitution.article4.2":
+      "The quorum for the Annual General Meeting shall consist of no less than 15% of all full members of the society.",
+    "constitution.article4.3":
+      "All the decisions made in the Annual General Meeting shall pose the highest authority in the Society.",
+    "constitution.article4.4":
+      "A resolution can be passed only if 80% of the quorum supports it.",
+    "constitution.article4.5":
+      "An official notice and the agenda of the Annual General Meeting of the Society shall be posted and sent to all members three days in advance of the meeting.",
+    "constitution.article4.6":
+      "All Extraordinary General Meetings shall be convened by the President of the present session or upon the requisition of at least 4 Executive Committee Members or upon the requisition of 1/3 total Full Members.",
+    "constitution.article4.7":
+      "All the decisions made at the general meetings shall be posted and sent to members within 3 days after the commencement of the meetings.",
+    "constitution.article5.title":
+      "Article 5: Executive Committees' Selection Process",
+    "constitution.article5.1":
+      "New executive committee is selected by the new president.",
+    "constitution.article5.2":
+      "The selection of the new office bearers shall be held by the end of the spring semester of each Academic Year.",
+    "constitution.article5.3":
+      "Public notice about the selection should be sent to members one week in advance.",
+    "constitution.article5.4":
+      "The time limit for filing complaints about the selection is 24 hours after the notice.",
+    "constitution.article5.5":
+      "All complaints shall be handled by the current executive committee within one week, and any further action decided by the executive committee shall be reported to all members.",
+    "constitution.article6.title": "Article 6: Finance",
+    "constitution.article6.1":
+      "The session of the financial year corresponds to the session of the Executive Committee.",
+    "constitution.article6.2":
+      "The financial manager and president must hold the financial account jointly.",
+    "constitution.article6.3":
+      "The annual financial report shall be prepared by the Financial Manager and presented in the Annual General Meeting.",
+    "constitution.article6.4":
+      "The Society shall not apply or accept any loans outside the Students' Union.",
+    "constitution.article6.5":
+      "The Financial Manager shall be responsible for keeping the books of account.",
+    "constitution.article6.6":
+      "All receipts shall be handed to the financial manager 3 days after the purchase.",
+    "constitution.article6.7":
+      "A Membership Fee shall be collected for the purpose of funding Events, Functions, and miscellaneous activities, including day-to-day operations of the KSA.",
+    "constitution.article6.8":
+      "Proceeds from Events and Functions held by the KSA may be placed with the organization for the same purposes as described above.",
+    "constitution.article6.9":
+      "Sponsorship shall, if sought or received, only be used to fund special Events or Functions.",
+    "constitution.article6.10":
+      "A report on monetary matters is to be given at each Annual Meeting by the Financial Manager.",
+    "constitution.article7.title": "Article 7: The Executive Committee",
+    "constitution.article7.1":
+      "The Executive Committee shall hold office from the first day of June until that of the following year.",
+    "constitution.article7.2":
+      "The number of office bearers shall be at least four.",
+    "constitution.article7.3":
+      "The Executive Committee shall consist of the following 10 members:",
+    "constitution.article7.3.1":
+      "The President, who shall be the chief executive and the representative of the Society, shall be responsible for the administration of the Society and shall preside over all Executive Committee Meetings of the Society.",
+    "constitution.article7.3.2":
+      "The Internal Vice-President, who shall assist the President in carrying out his/her duties and, in addition, is responsible for all internal coordination of the Society, and shall, in the absence of the president, carry out the duties of the president inside the Society.",
+    "constitution.article7.3.3":
+      "The External Vice-President, who shall assist the President in carrying out his/her duties and, in addition, be responsible for all external matters of the Society, and shall, in the absence of the president, carry out the duties of the president outside the Society.",
+    "constitution.article7.3.4":
+      "The External Manager shall be responsible for communicating with other universities and maintaining good relationships with them.",
+    "constitution.article7.3.5":
+      "The Financial Manager, who shall be responsible for all financial matters of the Society and is also responsible for deciding whether event plans are financially acceptable.",
+    "constitution.article7.3.6":
+      "The Internal Manager, who shall be responsible for aligning committee meetings, managing clubs within KSA, and other activities in terms of supporting the Internal Vice-President.",
+    "constitution.article7.3.7":
+      "The Marketing Manager shall be responsible for all matters concerning the marketing activities of the Society, including publicizing the Society and its activity by means such as posters, leaflets, and notices.",
+    "constitution.article7.3.8":
+      "Operational Manager shall be responsible for the operations of any events, including booking and setting up as well as recording every committee meeting.",
+    "constitution.article7.3.9":
+      "The IT Development Head shall be responsible for leading the IT Development team and developing the KSA website.",
+    "constitution.article7.3.10":
+      "The IT Development Manager shall be responsible for assisting the IT Development Head in developing the KSA website.",
+    "constitution.article8.title": "Article 8: Resignation and Dissolution",
+    "constitution.article8.1":
+      "In case any Executive Committee Member wishes to resign, he/she must present a written request of resignation to the Executive Committee of the Society at least one month before the event in which the resignation shall be approved.",
+    "constitution.article8.2":
+      "Should the President resign, an Extraordinary General Meeting shall be convened to elect a new President, and the Internal Vice-President shall act as the Acting President until the new President is elected.",
+    "constitution.article8.3":
+      "Should any Executive Committee Member other than the President resign, an Extraordinary General Meeting shall be convened to approve the resignation.",
+    "constitution.article8.4":
+      "Any vacancies in the Executive Committee other than the President can either be filled by any Full Member of the Society appointed by the Executive Committee or kept vacant.",
+    "constitution.article8.5":
+      "A public notice shall be posted within seven days after the approval of any change or resignation of Executive Committee Member(s).",
+    "constitution.article8.6":
+      "The Executive Committee shall be automatically dismissed when half of the Committee's Members resign from office.",
+    "constitution.article8.7":
+      "The dissolution of the Society shall only be passed by a resolution made in a General Meeting or Referendum with a three-quarter majority.",
+    "constitution.article8.8":
+      "After dissolution, members of the Executive Committee shall be responsible for all matters of the dissolved body.",
+    "constitution.article8.9":
+      "Notice of dissolution shall be posted in the Official Notice Area within 24 hours for not less than seven consecutive days.",
+    "constitution.article9.title": "Article 9: Amendment",
+    "constitution.article9.1":
+      "The constitution can only be amended in the Annual General Meeting with two-thirds of votes that agree on the amendment.",
+    "constitution.article9.2":
+      "The proposed amendment shall be notified to all members at least two weeks in advance of the Annual General Meeting.",
+    "constitution.article9.3":
+      "Any amendment of the constitution shall be posted and sent to all full members within one day after the Annual General Meeting.",
+    "constitution.article10.title": "Article 10: KSA Sub Club",
+    "constitution.article10.1":
+      "KSA Sub-Clubs are clubs funded and managed by KSA to enrich students' life.",
+    "constitution.article10.2":
+      "To be registered as KSA Sub-Club, a club should meet the following criteria:",
+    "constitution.article10.2.1":
+      "Ten or more KSA students participate in activities on a regular basis.",
+    "constitution.article10.2.2":
+      "Submits an annual plan and report regarding the usage of funds to the KSA Executive committee.",
+    "constitution.article10.2.3":
+      "The establishment of the group is granted by the KSA Executive Committee meeting.",
+    "constitution.article10.3":
+      "Currently Registered KSA Sub-Club: Soccer Team, Band, Basketball Team, SOSU, KRISS, MARKUST, SAPIENTIA, USTIME, Simplified Magazine, Merge Feat, Muldong-Muldong",
+    "constitution.article10.4":
+      "Participation Requirement: Participants of the KSA sub-club should be a member of the Korean Students' Association.",
+    "constitution.article10.5":
+      "KSA Executive Committee has the discretion to determine the appropriate amount of funds that will be granted to each sub-club, based on the number of participants and overall contribution to the Korean Students' Association.",
+    "constitution.article10.6":
+      "Status of long-term assets purchased with KSA funds will be inspected by KSA EXCO at the end of each semester.",
+    "constitution.article10.7":
+      "The KSA executive committee can sponsor the venue booking for events organized by Korean students (with over 20 Korean participants) on a best-effort basis only if the event is considered to serve the objectives of KSA.",
+    "constitution.article10.8":
+      "Each sub-club is required to submit a monthly report with a registered member list to KSA EXCO.",
+    "constitution.article11.title":
+      "Article 11: Executive Committee's Commitment",
+    "constitution.article11.1":
+      "The KSA weekly meeting attendance is compulsory for all executive committee members.",
+    "constitution.article11.2":
+      "Individuals may request special approval for an absence under special circumstances listed below only if individuals request his or her approval 1 day before the commencement of the meeting with proof:",
+    "constitution.article11.2.1": "• Job Interview",
+    "constitution.article11.2.2": "• Exam / Make-up Class",
+    "constitution.article11.2.3": "• Family Urgency",
+    "constitution.article11.2.4": "• Medical Emergency",
+    "constitution.article11.3":
+      "Three absences without approval or any type of prior notification will be subjected to a dismissal from his or her position, and his or her dismissal shall be discussed during the Extraordinary General Meeting.",
+    "constitution.article11.4":
+      "Any tardy will be subjected to a 100 HKD penalty. Any late arrival of more than 1 hour for all scheduled events will be regarded as an absence with a 100 HKD penalty.",
+    "constitution.article11.5":
+      "All collected penalties shall be used under the committee's agreement.",
+    "constitution.inquiry.title": "Constitution Inquiries",
+    "constitution.inquiry.desc":
+      "If you have questions about the constitution or suggestions for amendments, please feel free to contact us anytime.",
+    "constitution.inquiry.button": "Contact Us",
+    "constitution.amendment.button": "Amendment Proposal",
+    "constitution.navigation.title": "View Other Pages",
+
     // Board page
-    'board.title': 'Board',
-    'board.career.title': 'Career Information Board',
-    'board.career.desc': 'Check out our career and internship opportunities',
-    
+    "board.title": "Board",
+    "board.career.title": "Career Information Board",
+    "board.career.desc": "Check out our career and internship opportunities",
+
     // Report page (신문고)
-    'report.title': 'Report',
-    'report.subtitle': 'Submit your suggestions and feedback',
-    'report.form.email': 'School Email',
-    'report.form.email.placeholder': 'your.email@connect.ust.hk',
-    'report.form.subject': 'Subject',
-    'report.form.subject.placeholder': 'Enter your subject',
-    'report.form.message': 'Message',
-    'report.form.message.placeholder': 'Please enter your detailed message...',
-    'report.form.submit': 'Submit',
-    'report.form.success': 'Your suggestion has been submitted successfully.',
-    'report.form.error': 'An error occurred while submitting. Please try again.',
-    
+    "report.title": "Report",
+    "report.subtitle": "Submit your suggestions and feedback",
+    "report.form.email": "School Email",
+    "report.form.email.placeholder": "your.email@connect.ust.hk",
+    "report.form.subject": "Subject",
+    "report.form.subject.placeholder": "Enter your subject",
+    "report.form.message": "Message",
+    "report.form.message.placeholder": "Please enter your detailed message...",
+    "report.form.submit": "Submit",
+    "report.form.success": "Your suggestion has been submitted successfully.",
+    "report.form.error":
+      "An error occurred while submitting. Please try again.",
+
     // Photos page
-    'photos.title': 'Photo Gallery',
-    'photos.subtitle': 'Capture the memories and moments from our KSA events and activities',
-    'photos.share.title': 'Share Your Photos',
-    'photos.share.desc': 'Have photos from our events? Share them with the KSA community!',
-    'photos.submit.button': 'Submit Photos',
-    'photos.events.button': 'View Events',
-    'photos.highlights.title': 'Recent Highlights',
-    'photos.photos.count': '500+ Photos',
-    'photos.photos.desc': 'Captured moments from our events and activities',
-    'photos.events.count': '20+ Events',
-    'photos.events.desc': 'Events documented throughout the academic year',
-    
+    "photos.title": "Photo Gallery",
+    "photos.subtitle":
+      "Capture the memories and moments from our KSA events and activities",
+    "photos.share.title": "Share Your Photos",
+    "photos.share.desc":
+      "Have photos from our events? Share them with the KSA community!",
+    "photos.submit.button": "Submit Photos",
+    "photos.events.button": "View Events",
+    "photos.highlights.title": "Recent Highlights",
+    "photos.photos.count": "500+ Photos",
+    "photos.photos.desc": "Captured moments from our events and activities",
+    "photos.events.count": "20+ Events",
+    "photos.events.desc": "Events documented throughout the academic year",
+
     // Contact page
-    'contact.title': 'Contact Us',
-    'contact.subtitle': 'Get in touch with the KSA executive committee. We\'re here to help!',
-    'contact.info.title': 'Contact Information',
-    'contact.executive.title': 'Executive Committee',
-    'contact.president.title': 'President',
-    'contact.vice.president.title': 'Vice President',
-    'contact.suggestion.title': 'Questions & Suggestions',
-    'contact.suggestion.desc': 'Please send your questions and suggestions through the link below. Anonymity is guaranteed and responses will be provided through the Korean Students\' Association Facebook group on a weekly basis.',
-    'contact.suggestion.button': 'Submit Suggestion',
-    'contact.facebook.button': 'Facebook Group',
-    'contact.hours.title': 'Office Hours',
-    'contact.general.title': 'General Inquiries',
-    'contact.general.desc': 'We typically respond within 24-48 hours',
-    'contact.urgent.title': 'Urgent Matters',
-    'contact.urgent.desc': 'For urgent issues, please contact directly',
-    'contact.get.involved.title': 'Get Involved',
-    'contact.get.involved.desc': 'Want to join our events or become part of the executive committee? We\'d love to hear from you!',
-    'contact.contact.button': 'Contact Us',
-    'contact.suggestion.submit.button': 'Submit Suggestion',
-    
+    "contact.title": "Contact Us",
+    "contact.subtitle":
+      "Get in touch with the KSA executive committee. We're here to help!",
+    "contact.info.title": "Contact Information",
+    "contact.executive.title": "Executive Committee",
+    "contact.president.title": "President",
+    "contact.vice.president.title": "Vice President",
+    "contact.suggestion.title": "Questions & Suggestions",
+    "contact.suggestion.desc":
+      "Please send your questions and suggestions through the link below. Anonymity is guaranteed and responses will be provided through the Korean Students' Association Facebook group on a weekly basis.",
+    "contact.suggestion.button": "Submit Suggestion",
+    "contact.facebook.button": "Facebook Group",
+    "contact.hours.title": "Office Hours",
+    "contact.general.title": "General Inquiries",
+    "contact.general.desc": "We typically respond within 24-48 hours",
+    "contact.urgent.title": "Urgent Matters",
+    "contact.urgent.desc": "For urgent issues, please contact directly",
+    "contact.get.involved.title": "Get Involved",
+    "contact.get.involved.desc":
+      "Want to join our events or become part of the executive committee? We'd love to hear from you!",
+    "contact.contact.button": "Contact Us",
+    "contact.suggestion.submit.button": "Submit Suggestion",
+
     // Suggestion page
-    'suggestion.title': 'Suggestion Box',
-    'suggestion.subtitle': 'Please submit your questions and suggestions. Anonymity is guaranteed and responses will be provided through the Korean Students\' Association Facebook group on a weekly basis.',
-    'suggestion.email.label': 'HKUST Email Address *',
-    'suggestion.email.placeholder': 'yourname@connect.ust.hk',
-    'suggestion.email.help': 'Only HKUST email addresses (@connect.ust.hk) are accepted',
-    'suggestion.anonymous.label': 'Submit anonymously',
-    'suggestion.content.label': 'Suggestion/Question *',
-    'suggestion.content.placeholder': 'Please share your suggestion, question, or feedback...',
-    'suggestion.submit.button': 'Submit Suggestion',
-    'suggestion.how.title': 'How it works',
-    'suggestion.how.item1': '• Your suggestion will be reviewed by the KSA executive committee',
-    'suggestion.how.item2': '• Responses will be posted on our Facebook group within a week',
-    'suggestion.how.item3': '• Anonymous submissions are completely confidential',
-    'suggestion.how.item4': '• We welcome all types of feedback and suggestions',
-    'suggestion.contact.text': 'Need immediate assistance?',
-    'suggestion.contact.link': 'Contact us directly',
-    
+    "suggestion.title": "Suggestion Box",
+    "suggestion.subtitle":
+      "Please submit your questions and suggestions. Anonymity is guaranteed and responses will be provided through the Korean Students' Association Facebook group on a weekly basis.",
+    "suggestion.email.label": "HKUST Email Address *",
+    "suggestion.email.placeholder": "yourname@connect.ust.hk",
+    "suggestion.email.help":
+      "Only HKUST email addresses (@connect.ust.hk) are accepted",
+    "suggestion.anonymous.label": "Submit anonymously",
+    "suggestion.content.label": "Suggestion/Question *",
+    "suggestion.content.placeholder":
+      "Please share your suggestion, question, or feedback...",
+    "suggestion.submit.button": "Submit Suggestion",
+    "suggestion.how.title": "How it works",
+    "suggestion.how.item1":
+      "• Your suggestion will be reviewed by the KSA executive committee",
+    "suggestion.how.item2":
+      "• Responses will be posted on our Facebook group within a week",
+    "suggestion.how.item3":
+      "• Anonymous submissions are completely confidential",
+    "suggestion.how.item4":
+      "• We welcome all types of feedback and suggestions",
+    "suggestion.contact.text": "Need immediate assistance?",
+    "suggestion.contact.link": "Contact us directly",
+
     // Common
-    'common.learn.more': 'Learn More',
-    'common.view.more': 'View More',
-    'common.submit': 'Submit',
-    'common.cancel': 'Cancel',
-    'common.back': 'Back',
-    'common.next': 'Next',
-    'common.previous': 'Previous',
-    'common.loading': 'Loading...',
-    'common.error': 'An error occurred',
-    'common.success': 'Successfully completed',
-    'common.copyright': '© HKUSTKSA 2025'
-  }
+    "common.learn.more": "Learn More",
+    "common.view.more": "View More",
+    "common.submit": "Submit",
+    "common.cancel": "Cancel",
+    "common.back": "Back",
+    "common.next": "Next",
+    "common.previous": "Previous",
+    "common.loading": "Loading...",
+    "common.error": "An error occurred",
+    "common.success": "Successfully completed",
+    "common.copyright": "© HKUSTKSA 2025",
+  },
 };
 
 export function getTranslation(key: string, lang: Language): string {
@@ -646,23 +860,23 @@ export function getTranslation(key: string, lang: Language): string {
 
 export function getCurrentLanguage(url: URL): Language {
   const pathname = url.pathname;
-  if (pathname.startsWith('/en/') || pathname === '/en') return 'en';
-  if (pathname.startsWith('/ko/') || pathname === '/ko') return 'ko';
-  return 'ko'; // 기본값은 한국어
+  if (pathname.startsWith("/en/") || pathname === "/en") return "en";
+  if (pathname.startsWith("/ko/") || pathname === "/ko") return "ko";
+  return "ko"; // 기본값은 한국어
 }
 
 export function getLanguageFromPath(pathname: string): Language {
-  if (pathname.startsWith('/en/') || pathname === '/en') return 'en';
-  if (pathname.startsWith('/ko/') || pathname === '/ko') return 'ko';
-  return 'ko';
+  if (pathname.startsWith("/en/") || pathname === "/en") return "en";
+  if (pathname.startsWith("/ko/") || pathname === "/ko") return "ko";
+  return "ko";
 }
 
 export function addLanguageToPath(pathname: string, lang: Language): string {
   // 이미 언어 경로가 있는 경우 (예: /ko, /en, /ko/about, /en/about)
-  if (pathname.startsWith('/en') || pathname.startsWith('/ko')) {
+  if (pathname.startsWith("/en") || pathname.startsWith("/ko")) {
     return pathname.replace(/^\/(en|ko)/, `/${lang}`);
   }
   // trailingSlash: "never" 설정에 맞게 슬래시 제거
   const cleanPath = pathname === "/" ? "" : pathname;
   return `/${lang}${cleanPath}`;
-} 
+}

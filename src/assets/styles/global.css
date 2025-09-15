@@ -34,7 +34,9 @@
   --color-teal-400: oklch(0.79 0.07 21.3);
   --color-teal-500: oklch(0.67 0.1 21.3);
   --color-teal-600: oklch(0.55 0.12 21.3);
-  --color-teal-700: oklch(0.42 0.129 21.3); /* Target RGB(163, 29, 29) converted to OKLCH */
+  --color-teal-700: oklch(
+    0.42 0.129 21.3
+  ); /* Target RGB(163, 29, 29) converted to OKLCH */
   --color-teal-800: oklch(0.35 0.12 21.3);
   --color-teal-900: oklch(0.25 0.09 21.3);
   --color-teal-950: oklch(0.15 0.06 21.3);
@@ -45,7 +47,8 @@
 }
 
 @theme inline {
-  --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards) linear infinite;
+  --animate-scroll: scroll var(--duration, 40s) var(--direction, forwards)
+    linear infinite;
 
   @keyframes scroll {
     to {
@@ -95,7 +98,7 @@
 
   /* Ensure proper spacing for fixed header */
   .pt-header {
-    padding-top: 100px;
+    padding-top: 120px;
   }
 
   /* Navbar height consistency */
