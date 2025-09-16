@@ -38,25 +38,6 @@ if (!club) {
   lang={currentLang}
   title={`${currentLang === "ko" ? club.nameKo : club.nameEn} - ${getTranslation("clubs.title", currentLang)}`}
 >
-  <!-- Breadcrumb -->
-  <section class="bg-gray-50 py-4">
-    <div class="container mx-auto px-4">
-      <nav class="text-sm text-gray-600">
-        <a href={`/${currentLang}`} class="hover:text-teal-600"
-          >{getTranslation("nav.home", currentLang)}</a
-        >
-        <span class="mx-2">></span>
-        <a href={`/${currentLang}/clubs`} class="hover:text-teal-600"
-          >{getTranslation("nav.clubs", currentLang)}</a
-        >
-        <span class="mx-2">></span>
-        <span class="text-gray-800"
-          >{currentLang === "ko" ? club.nameKo : club.nameEn}</span
-        >
-      </nav>
-    </div>
-  </section>
-
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-br from-teal-50 to-blue-50 py-20">
     <div class="pt-header container mx-auto px-4">
