@@ -86,9 +86,9 @@ export const translations: Translations = {
     "login.forgot": "Forgot Password?",
 
     // Home page
-    "home.title": "Korean Students' Association",
+    "home.title": "홍콩과학기술대학교 한인학생회",
     "home.subtitle":
-      "The Hong Kong University of Science and Technology Students' Union",
+      "The Hong Kong University of Science and Technology \nKorean Students' Association",
     "home.mission":
       '"회원들의 이익을 최우선으로 하고 국제 사회에서 한국 문화를 전파하는 것을 목적으로 합니다."',
     "home.about.button": "소개",
@@ -98,6 +98,15 @@ export const translations: Translations = {
     "home.about.desc": "학생회 소개와 임원진을 알아보세요",
     "home.events.card": "행사",
     "home.events.desc": "다가오는 행사와 활동을 확인하세요",
+
+    "home.news.card": "소식",
+    "home.news.desc": "최신 공지사항 및 뉴스",
+    "home.annual.card": "연례행사",
+    "home.annual.desc": "연례행사 안내",
+    "home.clubs.card": "동아리",
+    "home.clubs.desc": "학생 동아리 및 모임 정보",
+    "home.suggestions.card": "건의하기",
+    "home.suggestions.desc": "건의사항과 피드백을 제출하세요",
 
     "home.suggestion.card": "신문고",
     "home.suggestion.desc": "건의사항과 피드백을 제출하세요",
@@ -498,7 +507,7 @@ export const translations: Translations = {
 
     // Home page
     "home.title": "HKUST KSA",
-    "home.subtitle": "홍콩과학기술대학교 한인학생회",
+    "home.subtitle": "The Hong Kong University of Science and Technology \nKorean Students' Association",
     "home.mission":
       '"To best serve the interests of our members and to spread Korean culture in an international community."',
     "home.about.button": "About Us",
@@ -511,6 +520,14 @@ export const translations: Translations = {
 
     "home.suggestion.card": "Suggestion Box",
     "home.suggestion.desc": "Submit your suggestions and feedback",
+    "home.news.card": "News",
+    "home.news.desc": "Latest announcements and news",
+    "home.annual.card": "Annual Events",
+    "home.annual.desc": "Annual events and activities",
+    "home.clubs.card": "Clubs",
+    "home.clubs.desc": "Student clubs and groups",
+    "home.suggestions.card": "Suggestions",
+    "home.suggestions.desc": "Submit your suggestions and feedback",
     "home.contact.title": "Get in Touch",
     "home.contact.desc":
       "Have questions or want to get involved? We'd love to hear from you!",
