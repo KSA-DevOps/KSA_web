@@ -23,27 +23,13 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
         {getTranslation("home.title", currentLang)}
       </h1>
       <p
-        class="mx-auto mb-8 max-w-3xl text-xl text-white drop-shadow-lg md:text-2xl"
+        class="mx-auto mb-8 max-w-3xl text-xl text-white drop-shadow-lg md:text-2xl whitespace-pre-line"
       >
         {getTranslation("home.subtitle", currentLang)}
       </p>
-      <p class="mb-12 text-lg text-white/90 drop-shadow-lg">
+      <!-- <p class="mb-12 text-lg text-white/90 drop-shadow-lg">
         {getTranslation("home.mission", currentLang)}
-      </p>
-      <div class="flex flex-col justify-center gap-4 sm:flex-row">
-        <a
-          href={`/${currentLang}/board/career`}
-          class="rounded-lg bg-white px-8 py-3 font-semibold text-teal-800 transition-colors hover:bg-gray-100"
-        >
-          커리어
-        </a>
-        <a
-          href={`/${currentLang}/events/news`}
-          class="rounded-lg bg-white px-8 py-3 font-semibold text-teal-800 transition-colors hover:bg-gray-100"
-        >
-          소식
-        </a>
-      </div>
+      </p> -->
     </div>
   </section>
 
@@ -54,32 +40,7 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
         {getTranslation("home.quick.links", currentLang)}
       </h2>
       <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-        <a href={`/${currentLang}/board/career`} class="group">
-          <div
-            class="rounded-xl bg-teal-50 p-8 text-center transition-colors hover:bg-teal-100"
-          >
-            <div
-              class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-600 transition-colors group-hover:bg-teal-700"
-            >
-              <svg
-                class="h-8 w-8 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2h8z"
-                ></path>
-              </svg>
-            </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">커리어</h3>
-            <p class="text-gray-600">진로 정보 및 커리어 가이드</p>
-          </div>
-        </a>
-
+        <!-- 소식 / News -->
         <a href={`/${currentLang}/events/news`} class="group">
           <div
             class="rounded-xl bg-teal-50 p-8 text-center transition-colors hover:bg-teal-100"
@@ -101,12 +62,13 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">소식</h3>
-            <p class="text-gray-600">최신 공지사항 및 뉴스</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.news.card", currentLang)}</h3>
+            <p class="text-gray-600">{getTranslation("home.news.desc", currentLang)}</p>
           </div>
         </a>
 
-        <a href={`/${currentLang}/board/career`} class="group">
+        <!-- 연례행사 / Annual Events -->
+        <a href={`/${currentLang}/events/annual`} class="group">
           <div
             class="rounded-xl bg-teal-50 p-8 text-center transition-colors hover:bg-teal-100"
           >
@@ -123,17 +85,16 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  d="M8 7V3m8 4V3m-9 8h10m2 8H5a2 2 0 01-2-2V9a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2z"
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">
-              채용정보 게시판
-            </h3>
-            <p class="text-gray-600">인턴십 및 취업 정보</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.annual.card", currentLang)}</h3>
+            <p class="text-gray-600">{getTranslation("home.annual.desc", currentLang)}</p>
           </div>
         </a>
 
+        <!-- 동아리 / Clubs -->
         <a href={`/${currentLang}/clubs`} class="group">
           <div
             class="rounded-xl bg-teal-50 p-8 text-center transition-colors hover:bg-teal-100"
@@ -155,8 +116,35 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">동아리</h3>
-            <p class="text-gray-600">학생 동아리 및 모임 정보</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.clubs.card", currentLang)}</h3>
+            <p class="text-gray-600">{getTranslation("home.clubs.desc", currentLang)}</p>
+          </div>
+        </a>
+
+        <!-- 건의하기 / Suggestions -->
+        <a href={`/${currentLang}/contact`} class="group">
+          <div
+            class="rounded-xl bg-teal-50 p-8 text-center transition-colors hover:bg-teal-100"
+          >
+            <div
+              class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-teal-600 transition-colors group-hover:bg-teal-700"
+            >
+              <svg
+                class="h-8 w-8 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 10h11M9 21V3m12 6h-5m5 6h-5m0 6h5"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.suggestions.card", currentLang)}</h3>
+            <p class="text-gray-600">{getTranslation("home.suggestions.desc", currentLang)}</p>
           </div>
         </a>
       </div>
