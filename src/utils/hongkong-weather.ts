@@ -11,18 +11,45 @@ import type {
 const WEATHER_API_BASE =
   "https://data.weather.gov.hk/weatherAPI/opendata/weather.php";
 
-// Simple in-memory cache for weather data
+// Simple in-memory cache for weather data with hourly updates
 interface WeatherCache {
   data: HongKongWeatherData | null;
   timestamp: number;
-  ttl: number; // Time to live in milliseconds
+  lastHourlyUpdate: number; // Track the last hourly update time
 }
 
 const weatherCache: WeatherCache = {
   data: null,
   timestamp: 0,
-  ttl: 10 * 60 * 1000, // 10 minutes cache
+  lastHourlyUpdate: 0,
 };
+
+// Calculate the next hour mark (e.g., if it's 9:30, next update is at 10:00)
+function getNextHourMark(currentTime: Date): Date {
+  const nextHour = new Date(currentTime);
+  nextHour.setHours(nextHour.getHours() + 1);
+  nextHour.setMinutes(0);
+  nextHour.setSeconds(0);
+  nextHour.setMilliseconds(0);
+  return nextHour;
+}
+
+// Check if we've passed the hour mark since last update
+function shouldUpdateAtHourMark(): boolean {
+  const now = new Date();
+  const currentHour = new Date(now);
+  currentHour.setMinutes(0);
+  currentHour.setSeconds(0);
+  currentHour.setMilliseconds(0);
+
+  const lastUpdateHour = new Date(weatherCache.lastHourlyUpdate);
+  lastUpdateHour.setMinutes(0);
+  lastUpdateHour.setSeconds(0);
+  lastUpdateHour.setMilliseconds(0);
+
+  // Update if we haven't updated this hour yet
+  return currentHour.getTime() > lastUpdateHour.getTime();
+}
 
 // Fetch Local Weather Forecast
 export async function getLocalWeatherForecast(): Promise<LocalWeatherForecast | null> {
@@ -118,14 +145,44 @@ export async function getWeatherWarningInfoWithMock(
   return await getWeatherWarningInfo();
 }
 
-// Get All Weather Data
+// Get All Weather Data with hourly updates
 export async function getAllWeatherData(): Promise<HongKongWeatherData> {
   const now = Date.now();
+  const currentTime = new Date();
 
-  // Check if cached data is still valid
-  if (weatherCache.data && now - weatherCache.timestamp < weatherCache.ttl) {
+  // Check if we should update based on hourly schedule
+  const needsHourlyUpdate = shouldUpdateAtHourMark();
+
+  // Debug logging
+  console.log("🔍 Hourly Weather Update Check:");
+  console.log("Current time:", currentTime.toISOString());
+  console.log(
+    "Current hour mark:",
+    new Date(
+      currentTime.getFullYear(),
+      currentTime.getMonth(),
+      currentTime.getDate(),
+      currentTime.getHours(),
+    ).toISOString(),
+  );
+  console.log(
+    "Last hourly update:",
+    weatherCache.lastHourlyUpdate
+      ? new Date(weatherCache.lastHourlyUpdate).toISOString()
+      : "Never",
+  );
+  console.log("Needs hourly update:", needsHourlyUpdate);
+  console.log("Has cached data:", !!weatherCache.data);
+
+  // Use cached data if we don't need an hourly update
+  if (weatherCache.data && !needsHourlyUpdate) {
+    console.log("✅ Using cached data (next update at top of next hour)");
     return weatherCache.data;
   }
+
+  console.log(
+    "🌐 Fetching fresh data from Hong Kong Observatory (hourly update)...",
+  );
 
   // Fetch fresh data if cache is expired or empty
   const [
@@ -151,9 +208,14 @@ export async function getAllWeatherData(): Promise<HongKongWeatherData> {
     lastUpdate: new Date().toISOString(),
   };
 
-  // Update cache
+  // Update cache with fresh data and current hourly timestamp
   weatherCache.data = weatherData;
   weatherCache.timestamp = now;
+  weatherCache.lastHourlyUpdate = now;
+
+  const nextHour = getNextHourMark(currentTime);
+  console.log("✅ Fresh data cached at:", new Date().toISOString());
+  console.log("🔄 Next scheduled update at:", nextHour.toISOString());
 
   return weatherData;
 }
@@ -162,20 +224,41 @@ export async function getAllWeatherData(): Promise<HongKongWeatherData> {
 export function clearWeatherCache(): void {
   weatherCache.data = null;
   weatherCache.timestamp = 0;
+  weatherCache.lastHourlyUpdate = 0;
+  console.log("🗑️ Weather cache cleared");
 }
 
 export function getWeatherCacheStatus(): {
   cached: boolean;
   age: number;
-  ttl: number;
+  lastHourlyUpdate: string | null;
+  nextScheduledUpdate: string;
+  minutesUntilNextUpdate: number;
 } {
-  const now = Date.now();
-  const age = now - weatherCache.timestamp;
+  const now = new Date();
+  const age = Date.now() - weatherCache.timestamp;
+  const nextHour = getNextHourMark(now);
+  const minutesUntilNext = Math.max(
+    0,
+    Math.round((nextHour.getTime() - now.getTime()) / 1000 / 60),
+  );
+
   return {
     cached: weatherCache.data !== null,
-    age,
-    ttl: weatherCache.ttl,
+    age: Math.round(age / 1000 / 60), // Age in minutes
+    lastHourlyUpdate: weatherCache.lastHourlyUpdate
+      ? new Date(weatherCache.lastHourlyUpdate).toISOString()
+      : null,
+    nextScheduledUpdate: nextHour.toISOString(),
+    minutesUntilNextUpdate: minutesUntilNext,
   };
+}
+
+// Force a fresh update regardless of hourly schedule (for testing)
+export async function forceWeatherUpdate(): Promise<HongKongWeatherData> {
+  console.log("🔄 Forcing weather update...");
+  weatherCache.lastHourlyUpdate = 0; // Reset to force update
+  return await getAllWeatherData();
 }
 
 // Utility functions for weather data processing
