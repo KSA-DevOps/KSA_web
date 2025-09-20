@@ -298,7 +298,18 @@ export function formatUpdateTime(
   lang: "ko" | "en" = "en",
 ): string {
   try {
+    // Check if timeStr is valid
+    if (!timeStr || typeof timeStr !== "string") {
+      return lang === "ko" ? "시간 정보 없음" : "No time information";
+    }
+
     const date = new Date(timeStr);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return lang === "ko" ? "잘못된 시간 형식" : "Invalid time format";
+    }
+
     if (lang === "ko") {
       return date.toLocaleString("ko-KR", {
         year: "numeric",
@@ -319,7 +330,8 @@ export function formatUpdateTime(
       });
     }
   } catch (error) {
-    return timeStr;
+    console.warn("Error formatting time:", timeStr, error);
+    return lang === "ko" ? "시간 형식 오류" : "Time format error";
   }
 }
 
