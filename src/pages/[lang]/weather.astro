@@ -1,7 +1,7 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
 import { getTranslation } from "@utils/i18n";
-import { getAllWeatherData, getMainTemperature, getMainHumidity, formatUpdateTime, getWeatherIcon, getWeatherWarningInfoWithMock, translateDayName, formatForecastDate, getActiveWarnings, getWarningDisplayInfo, getWarningSeverityStyles } from "@utils/hongkong-weather";
+import { getAllWeatherData, getMainTemperature, getMainHumidity, formatUpdateTime, getWeatherIcon, getWeatherWarningInfoWithMock, translateDayName, formatForecastDate, getActiveWarnings, getWarningDisplayInfo, getWarningDisplayInfoWithSignal, getWarningSeverityStyles } from "@utils/hongkong-weather";
 
 // Static paths for language routes
 export function getStaticPaths() {
@@ -15,7 +15,7 @@ export function getStaticPaths() {
 const { lang } = Astro.params;
 const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 
-// Get weather data
+// Use cached weather data (localStorage handles hourly updates from landing page)
 const weatherData = await getAllWeatherData();
 const mainTemp = getMainTemperature(weatherData.currentWeather);
 const mainHumidity = getMainHumidity(weatherData.currentWeather);
@@ -67,7 +67,7 @@ const mainHumidity = getMainHumidity(weatherData.currentWeather);
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">
-            {currentLang === 'ko' ? '🌤️ 오늘의 날씨' : '🌤️ Today\'s Weather'}
+            {currentLang === 'ko' ? '오늘의 날씨' : 'Today\'s Weather'}
           </h2>
           
           <div class="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
@@ -130,15 +130,15 @@ const mainHumidity = getMainHumidity(weatherData.currentWeather);
             {currentLang === 'ko' ? '🚨 기상 경보 발령' : '🚨 Weather Warnings in Effect'}
           </h2>
           
-          <div class="max-w-6xl mx-auto grid gap-6 md:grid-cols-2">
+          <div class={`max-w-6xl mx-auto grid gap-6 ${activeWarnings.length === 1 ? 'justify-center' : 'md:grid-cols-2'}`}>
             {activeWarnings.map(({key, warning}) => {
-              const displayInfo = getWarningDisplayInfo(key, currentLang);
+              const displayInfo = getWarningDisplayInfoWithSignal(key, warning.code || key, currentLang);
               if (!displayInfo) return null;
               
               const severityStyles = getWarningSeverityStyles(displayInfo.severity);
               
               return (
-                <div class={`${severityStyles} border-l-4 rounded-lg p-6 shadow-lg`}>
+                <div class={`${severityStyles} border-l-4 rounded-lg p-6 shadow-lg ${activeWarnings.length === 1 ? 'max-w-2xl' : ''}`}>
                   <div class="flex items-center mb-3">
                     <span class="text-2xl mr-3">{displayInfo.emoji}</span>
                     <div>
@@ -187,16 +187,6 @@ const mainHumidity = getMainHumidity(weatherData.currentWeather);
                 </div>
               );
             })}
-          </div>
-          
-          <div class="mt-6 text-center">
-            <a href="https://www.hko.gov.hk/en/wxinfo/warn.htm" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
-              <span class="mr-2">🔗</span>
-              {currentLang === 'ko' ? '홍콩 천문대에서 자세히 보기' : 'View All Warnings on HK Observatory'}
-            </a>
           </div>
         </div>
       </section>
@@ -377,10 +367,21 @@ const mainHumidity = getMainHumidity(weatherData.currentWeather);
             ? '모든 날씨 정보는 홍콩 천문대(Hong Kong Observatory)에서 제공됩니다.' 
             : 'All weather information is provided by the Hong Kong Observatory.'}
         </p>
-        <div class="space-y-2 text-sm text-gray-500">
-          <div>
-            {currentLang === 'ko' ? '마지막 업데이트: ' : 'Last Updated: '}
-            {formatUpdateTime(weatherData.lastUpdate, currentLang)}
+        <div class="space-y-2 text-sm text-gray-500 text-center">
+          <div class="flex items-center justify-center gap-2">
+            <span class="inline-block w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+            <span>
+              {currentLang === 'ko' ? '데이터 업데이트: ' : 'Data Updated: '}
+              {formatUpdateTime(
+                weatherData.currentWeather?.updateTime || 
+                weatherData.localForecast?.updateTime || 
+                weatherData.lastUpdate, 
+                currentLang
+              )}
+            </span>
+          </div>
+          <div class="text-xs text-gray-400">
+            {currentLang === 'ko' ? '※ 착지 페이지에서 매시간 자동 업데이트' : '※ Auto-updated hourly from landing page'}
           </div>
           <div>
             <a href="https://www.hko.gov.hk/" target="_blank" rel="noopener noreferrer" 

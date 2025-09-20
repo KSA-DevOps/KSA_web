@@ -12,12 +12,14 @@ import {
   getTyphoonWarningSignal,
   getActiveWarnings,
   getWarningDisplayInfo,
+  getWarningDisplayInfoWithSignal,
 } from "@utils/hongkong-weather";
 
 const currentPath = Astro.url.pathname;
 const currentLang = getCurrentLanguage(Astro.url);
 
-// Get current weather data for navbar
+// Get current weather data for navbar - use normal caching during SSR
+// Client-side updates will be handled by browser script
 const weatherData = await getAllWeatherData();
 const currentTemp = getMainTemperature(weatherData.currentWeather);
 const weatherIconCode = weatherData.currentWeather?.icon?.[0] || 50;
@@ -28,7 +30,11 @@ const typhoonWarning = getTyphoonWarningSignal(weatherData.warningInfo);
 // Check for high-priority warnings (danger/extreme)
 const activeWarnings = getActiveWarnings(weatherData.warningInfo);
 const hasHighPriorityWarning = activeWarnings.some(({ key, warning }) => {
-  const info = getWarningDisplayInfo(key, currentLang);
+  const info = getWarningDisplayInfoWithSignal(
+    key,
+    warning.code || key,
+    currentLang,
+  );
   return info && ["extreme", "danger"].includes(info.severity);
 });
 
@@ -284,55 +290,38 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                   </a>
 
                   <!-- Weather Button for Mobile -->
-                  {
-                    currentTemp ? (
-                      <a
-                        href={addLanguageToPath("/weather", currentLang)}
-                        class={`mt-2 flex items-center gap-2 rounded-lg border p-3 font-medium transition-colors ${
-                          typhoonWarning.signal
-                            ? `${typhoonWarning.color} hover:opacity-80`
-                            : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
-                        }`}
-                      >
-                        {hasHighPriorityWarning && (
-                          <span class="animate-pulse text-red-500">⚠️</span>
-                        )}
-                        <span>{getWeatherIcon(weatherIconCode)}</span>
-                        <span>{currentTemp}°C</span>
-                        {typhoonWarning.signal && (
-                          <span class="ml-auto border-l pl-2 text-sm font-bold">
-                            {typhoonWarning.signal}
-                          </span>
-                        )}
-                        <span class="ml-auto text-sm">
-                          {currentLang === "ko" ? "날씨 보기" : "View Weather"}
-                        </span>
-                      </a>
-                    ) : (
-                      <a
-                        href={addLanguageToPath("/weather", currentLang)}
-                        class="mt-2 flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 p-3 font-medium text-gray-600 transition-colors hover:bg-gray-100"
-                      >
-                        {hasHighPriorityWarning && (
-                          <span class="animate-pulse text-red-500">⚠️</span>
-                        )}
-                        <span>🌤️</span>
-                        <span>{currentLang === "ko" ? "날씨 보기" : "View Weather"}</span>
-                      </a>
-                    )
-                  }
+                  <a
+                    href={addLanguageToPath("/weather", currentLang)}
+                    class={`mt-2 flex items-center gap-2 rounded-lg border p-3 font-medium transition-colors ${
+                      hasHighPriorityWarning
+                        ? "border-red-200 bg-red-50 text-red-800 hover:bg-red-100"
+                        : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
+                    }`}
+                  >
+                    {
+                      hasHighPriorityWarning && (
+                        <span class="animate-pulse text-red-500">⚠️</span>
+                      )
+                    }
+                    <span>{getWeatherIcon(weatherIconCode)}</span>
+                    {
+                      currentTemp && (
+                        <span class="font-semibold">{currentTemp}°C</span>
+                      )
+                    }
+                  </a>
 
                   <!-- Language Toggle for Mobile -->
                   <div class="mt-3">
-                    <div class="text-sm font-medium text-gray-700 mb-2">
+                    <div class="mb-2 text-sm font-medium text-gray-700">
                       {currentLang === "ko" ? "언어 선택" : "Language"}
                     </div>
                     <div class="flex gap-2">
                       <a
                         href={addLanguageToPath(currentPath, "ko")}
                         class={`flex-1 px-4 py-2 text-center text-sm rounded-lg font-medium transition-colors ${
-                          currentLang === "ko" 
-                            ? "bg-teal-600 text-white" 
+                          currentLang === "ko"
+                            ? "bg-teal-600 text-white"
                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                       >
@@ -341,8 +330,8 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                       <a
                         href={addLanguageToPath(currentPath, "en")}
                         class={`flex-1 px-4 py-2 text-center text-sm rounded-lg font-medium transition-colors ${
-                          currentLang === "en" 
-                            ? "bg-teal-600 text-white" 
+                          currentLang === "en"
+                            ? "bg-teal-600 text-white"
                             : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                         }`}
                       >
@@ -379,40 +368,26 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
               </a>
             </div>
             <!-- Weather Display -->
-            {
-              currentTemp ? (
-                <a
-                  href={addLanguageToPath("/weather", currentLang)}
-                  class={`flex items-center gap-1 rounded-lg border px-3 py-1 text-sm font-medium transition-colors ${
-                    typhoonWarning.signal
-                      ? `${typhoonWarning.color} hover:opacity-80`
-                      : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
-                  }`}
-                >
-                  {hasHighPriorityWarning && (
-                    <span class="mr-1 animate-pulse text-red-500">⚠️</span>
-                  )}
-                  <span>{getWeatherIcon(weatherIconCode)}</span>
-                  <span>{currentTemp}°C</span>
-                  {typhoonWarning.signal && (
-                    <span class="ml-1 border-l pl-1 text-xs font-bold">
-                      {typhoonWarning.signal}
-                    </span>
-                  )}
-                </a>
-              ) : (
-                <a
-                  href={addLanguageToPath("/weather", currentLang)}
-                  class="flex items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100"
-                >
-                  {hasHighPriorityWarning && (
-                    <span class="mr-1 animate-pulse text-red-500">⚠️</span>
-                  )}
-                  <span>🌤️</span>
-                  <span>{currentLang === "ko" ? "날씨" : "Weather"}</span>
-                </a>
-              )
-            }
+            <a
+              href={addLanguageToPath("/weather", currentLang)}
+              class={`flex items-center gap-1 rounded-lg border px-3 py-1 text-sm font-medium transition-colors ${
+                hasHighPriorityWarning
+                  ? "border-red-200 bg-red-50 text-red-800 hover:bg-red-100"
+                  : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
+              }`}
+            >
+              {
+                hasHighPriorityWarning && (
+                  <span class="mr-1 animate-pulse text-red-500">⚠️</span>
+                )
+              }
+              <span>{getWeatherIcon(weatherIconCode)}</span>
+              {
+                currentTemp && (
+                  <span class="font-semibold">{currentTemp}°C</span>
+                )
+              }
+            </a>
           </div>
         </div>
       </div>
