@@ -23,7 +23,7 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
         {getTranslation("home.title", currentLang)}
       </h1>
       <p
-        class="mx-auto mb-8 max-w-3xl text-xl text-white drop-shadow-lg md:text-2xl whitespace-pre-line"
+        class="mx-auto mb-8 max-w-3xl text-xl whitespace-pre-line text-white drop-shadow-lg md:text-2xl"
       >
         {getTranslation("home.subtitle", currentLang)}
       </p>
@@ -62,8 +62,12 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.news.card", currentLang)}</h3>
-            <p class="text-gray-600">{getTranslation("home.news.desc", currentLang)}</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">
+              {getTranslation("home.news.card", currentLang)}
+            </h3>
+            <p class="text-gray-600">
+              {getTranslation("home.news.desc", currentLang)}
+            </p>
           </div>
         </a>
 
@@ -89,8 +93,12 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.annual.card", currentLang)}</h3>
-            <p class="text-gray-600">{getTranslation("home.annual.desc", currentLang)}</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">
+              {getTranslation("home.annual.card", currentLang)}
+            </h3>
+            <p class="text-gray-600">
+              {getTranslation("home.annual.desc", currentLang)}
+            </p>
           </div>
         </a>
 
@@ -116,8 +124,12 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                 ></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.clubs.card", currentLang)}</h3>
-            <p class="text-gray-600">{getTranslation("home.clubs.desc", currentLang)}</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">
+              {getTranslation("home.clubs.card", currentLang)}
+            </h3>
+            <p class="text-gray-600">
+              {getTranslation("home.clubs.desc", currentLang)}
+            </p>
           </div>
         </a>
 
@@ -139,15 +151,78 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
                   stroke-linecap="round"
                   stroke-linejoin="round"
                   stroke-width="2"
-                  d="M3 10h11M9 21V3m12 6h-5m5 6h-5m0 6h5"
-                ></path>
+                  d="M3 10h11M9 21V3m12 6h-5m5 6h-5m0 6h5"></path>
               </svg>
             </div>
-            <h3 class="mb-2 text-xl font-semibold text-gray-800">{getTranslation("home.suggestions.card", currentLang)}</h3>
-            <p class="text-gray-600">{getTranslation("home.suggestions.desc", currentLang)}</p>
+            <h3 class="mb-2 text-xl font-semibold text-gray-800">
+              {getTranslation("home.suggestions.card", currentLang)}
+            </h3>
+            <p class="text-gray-600">
+              {getTranslation("home.suggestions.desc", currentLang)}
+            </p>
           </div>
         </a>
       </div>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  // Client-side weather update management for landing page
+  const WEATHER_TIMESTAMP_KEY = "ksa_weather_last_update";
+
+  function getLastWeatherUpdateTime(): number | null {
+    const timestamp = localStorage.getItem(WEATHER_TIMESTAMP_KEY);
+    return timestamp ? parseInt(timestamp, 10) : null;
+  }
+
+  function setLastWeatherUpdateTime(timestamp?: number): void {
+    const time = timestamp || Date.now();
+    localStorage.setItem(WEATHER_TIMESTAMP_KEY, time.toString());
+    console.log(
+      `💾 Weather timestamp saved: ${new Date(time).toLocaleString()}`,
+    );
+  }
+
+  function shouldUpdateWeatherData(): boolean {
+    const lastUpdate = getLastWeatherUpdateTime();
+    if (!lastUpdate) {
+      console.log("📅 No localStorage timestamp found - should update");
+      return true;
+    }
+
+    const now = Date.now();
+    const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+    const timeDiff = now - lastUpdate;
+    const shouldUpdate = timeDiff >= oneHour;
+
+    console.log(
+      `📅 Last weather update: ${new Date(lastUpdate).toLocaleString()}`,
+    );
+    console.log(
+      `📅 Time difference: ${Math.round(timeDiff / (60 * 1000))} minutes`,
+    );
+    console.log(`📅 Should update: ${shouldUpdate}`);
+
+    return shouldUpdate;
+  }
+
+  // Check if weather data should be updated and refresh if needed
+  function checkAndRefreshWeather() {
+    if (shouldUpdateWeatherData()) {
+      console.log("⏰ Client-side: Weather update needed, refreshing page...");
+      setLastWeatherUpdateTime();
+      // Reload the page to get fresh data
+      window.location.reload();
+    } else {
+      console.log("✅ Weather data is still fresh");
+    }
+  }
+
+  // Run the check when page loads
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", checkAndRefreshWeather);
+  } else {
+    checkAndRefreshWeather();
+  }
+</script>

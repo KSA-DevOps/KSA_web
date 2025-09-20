@@ -11,45 +11,18 @@ import type {
 const WEATHER_API_BASE =
   "https://data.weather.gov.hk/weatherAPI/opendata/weather.php";
 
-// Simple in-memory cache for weather data with hourly updates
+// Simple in-memory cache for weather data with 10-minute TTL
 interface WeatherCache {
   data: HongKongWeatherData | null;
   timestamp: number;
-  lastHourlyUpdate: number; // Track the last hourly update time
+  ttl: number; // Time to live in milliseconds
 }
 
 const weatherCache: WeatherCache = {
   data: null,
   timestamp: 0,
-  lastHourlyUpdate: 0,
+  ttl: 10 * 60 * 1000, // 10 minutes
 };
-
-// Calculate the next hour mark (e.g., if it's 9:30, next update is at 10:00)
-function getNextHourMark(currentTime: Date): Date {
-  const nextHour = new Date(currentTime);
-  nextHour.setHours(nextHour.getHours() + 1);
-  nextHour.setMinutes(0);
-  nextHour.setSeconds(0);
-  nextHour.setMilliseconds(0);
-  return nextHour;
-}
-
-// Check if we've passed the hour mark since last update
-function shouldUpdateAtHourMark(): boolean {
-  const now = new Date();
-  const currentHour = new Date(now);
-  currentHour.setMinutes(0);
-  currentHour.setSeconds(0);
-  currentHour.setMilliseconds(0);
-
-  const lastUpdateHour = new Date(weatherCache.lastHourlyUpdate);
-  lastUpdateHour.setMinutes(0);
-  lastUpdateHour.setSeconds(0);
-  lastUpdateHour.setMilliseconds(0);
-
-  // Update if we haven't updated this hour yet
-  return currentHour.getTime() > lastUpdateHour.getTime();
-}
 
 // Fetch Local Weather Forecast
 export async function getLocalWeatherForecast(): Promise<LocalWeatherForecast | null> {
@@ -109,11 +82,81 @@ export async function getWeatherWarningInfo(): Promise<WeatherWarningInfo | null
     );
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const data = await response.json();
+
+    // Handle new API format where warnings are in "details" array
+    if (data.details && Array.isArray(data.details)) {
+      const warningInfo: WeatherWarningInfo = {};
+
+      data.details.forEach((warning: any) => {
+        if (warning.warningStatementCode) {
+          const warningData: WeatherWarning = {
+            name:
+              warning.name ||
+              getWarningNameFromCode(
+                warning.warningStatementCode,
+                warning.subtype,
+              ),
+            code: warning.subtype || warning.warningStatementCode,
+            actionCode: "ISSUE", // Assume issued if present in details
+            type:
+              warning.type ||
+              getWarningTypeFromCode(
+                warning.warningStatementCode,
+                warning.subtype,
+              ),
+            issueTime: warning.issueTime,
+            updateTime: warning.updateTime,
+            expireTime: warning.expireTime,
+            contents: warning.contents
+              ? warning.contents.map((text: string) => ({ text }))
+              : [],
+          };
+
+          warningInfo[warning.warningStatementCode] = warningData;
+        }
+      });
+
+      return Object.keys(warningInfo).length > 0 ? warningInfo : null;
+    }
+
+    // Fallback for old API format
     return Object.keys(data).length > 0 ? data : null;
   } catch (error) {
     console.error("Failed to fetch weather warning info:", error);
     return null;
   }
+}
+
+// Helper function to get warning name from code and subtype
+function getWarningNameFromCode(code: string, subtype?: string): string {
+  if (code === "WTCSGNL") {
+    if (subtype === "TC1") return "Standby Signal, No. 1";
+    if (subtype === "TC3") return "Strong Wind Signal, No. 3";
+    if (subtype === "TC8NE") return "Gale or Storm Signal, No. 8 Northeast";
+    if (subtype === "TC8NW") return "Gale or Storm Signal, No. 8 Northwest";
+    if (subtype === "TC8SE") return "Gale or Storm Signal, No. 8 Southeast";
+    if (subtype === "TC8SW") return "Gale or Storm Signal, No. 8 Southwest";
+    if (subtype === "TC9") return "Increasing Gale or Storm Signal, No. 9";
+    if (subtype === "TC10") return "Hurricane Signal, No. 10";
+    return "Tropical Cyclone Warning Signal";
+  }
+  return code;
+}
+
+// Helper function to get warning type from code and subtype
+function getWarningTypeFromCode(code: string, subtype?: string): string {
+  if (code === "WTCSGNL") {
+    if (subtype === "TC1") return "Standby Signal, No. 1";
+    if (subtype === "TC3") return "Strong Wind Signal, No. 3";
+    if (subtype === "TC8NE") return "Gale or Storm Signal, No. 8 Northeast";
+    if (subtype === "TC8NW") return "Gale or Storm Signal, No. 8 Northwest";
+    if (subtype === "TC8SE") return "Gale or Storm Signal, No. 8 Southeast";
+    if (subtype === "TC8SW") return "Gale or Storm Signal, No. 8 Southwest";
+    if (subtype === "TC9") return "Increasing Gale or Storm Signal, No. 9";
+    if (subtype === "TC10") return "Hurricane Signal, No. 10";
+    return "Tropical Cyclone Warning Signal";
+  }
+  return "";
 }
 
 // Mock WTCSGNL data for testing (when no real typhoon warning is active)
@@ -145,44 +188,27 @@ export async function getWeatherWarningInfoWithMock(
   return await getWeatherWarningInfo();
 }
 
-// Get All Weather Data with hourly updates
-export async function getAllWeatherData(): Promise<HongKongWeatherData> {
+// Get All Weather Data with intelligent caching
+export async function getAllWeatherData(
+  forceRefresh: boolean = false,
+): Promise<HongKongWeatherData> {
   const now = Date.now();
-  const currentTime = new Date();
 
-  // Check if we should update based on hourly schedule
-  const needsHourlyUpdate = shouldUpdateAtHourMark();
-
-  // Debug logging
-  console.log("🔍 Hourly Weather Update Check:");
-  console.log("Current time:", currentTime.toISOString());
-  console.log(
-    "Current hour mark:",
-    new Date(
-      currentTime.getFullYear(),
-      currentTime.getMonth(),
-      currentTime.getDate(),
-      currentTime.getHours(),
-    ).toISOString(),
-  );
-  console.log(
-    "Last hourly update:",
-    weatherCache.lastHourlyUpdate
-      ? new Date(weatherCache.lastHourlyUpdate).toISOString()
-      : "Never",
-  );
-  console.log("Needs hourly update:", needsHourlyUpdate);
-  console.log("Has cached data:", !!weatherCache.data);
-
-  // Use cached data if we don't need an hourly update
-  if (weatherCache.data && !needsHourlyUpdate) {
-    console.log("✅ Using cached data (next update at top of next hour)");
+  // Check if cached data is still valid (unless forcing refresh)
+  if (
+    !forceRefresh &&
+    weatherCache.data &&
+    now - weatherCache.timestamp < weatherCache.ttl
+  ) {
+    console.log("🔄 Using cached weather data");
     return weatherCache.data;
   }
 
-  console.log(
-    "🌐 Fetching fresh data from Hong Kong Observatory (hourly update)...",
-  );
+  if (forceRefresh) {
+    console.log("🌐 Force refreshing weather data (bypassing cache)");
+  } else {
+    console.log("🌐 Cache expired, fetching fresh weather data");
+  }
 
   // Fetch fresh data if cache is expired or empty
   const [
@@ -208,14 +234,11 @@ export async function getAllWeatherData(): Promise<HongKongWeatherData> {
     lastUpdate: new Date().toISOString(),
   };
 
-  // Update cache with fresh data and current hourly timestamp
+  // Update cache with fresh data and timestamp
   weatherCache.data = weatherData;
   weatherCache.timestamp = now;
-  weatherCache.lastHourlyUpdate = now;
 
-  const nextHour = getNextHourMark(currentTime);
   console.log("✅ Fresh data cached at:", new Date().toISOString());
-  console.log("🔄 Next scheduled update at:", nextHour.toISOString());
 
   return weatherData;
 }
@@ -224,41 +247,30 @@ export async function getAllWeatherData(): Promise<HongKongWeatherData> {
 export function clearWeatherCache(): void {
   weatherCache.data = null;
   weatherCache.timestamp = 0;
-  weatherCache.lastHourlyUpdate = 0;
   console.log("🗑️ Weather cache cleared");
 }
 
 export function getWeatherCacheStatus(): {
   cached: boolean;
   age: number;
-  lastHourlyUpdate: string | null;
-  nextScheduledUpdate: string;
-  minutesUntilNextUpdate: number;
+  ttl: number;
+  expired: boolean;
 } {
-  const now = new Date();
-  const age = Date.now() - weatherCache.timestamp;
-  const nextHour = getNextHourMark(now);
-  const minutesUntilNext = Math.max(
-    0,
-    Math.round((nextHour.getTime() - now.getTime()) / 1000 / 60),
-  );
+  const now = Date.now();
+  const age = now - weatherCache.timestamp;
 
   return {
     cached: weatherCache.data !== null,
     age: Math.round(age / 1000 / 60), // Age in minutes
-    lastHourlyUpdate: weatherCache.lastHourlyUpdate
-      ? new Date(weatherCache.lastHourlyUpdate).toISOString()
-      : null,
-    nextScheduledUpdate: nextHour.toISOString(),
-    minutesUntilNextUpdate: minutesUntilNext,
+    ttl: Math.round(weatherCache.ttl / 1000 / 60), // TTL in minutes
+    expired: age >= weatherCache.ttl,
   };
 }
 
-// Force a fresh update regardless of hourly schedule (for testing)
+// Force a fresh update (for testing)
 export async function forceWeatherUpdate(): Promise<HongKongWeatherData> {
   console.log("🔄 Forcing weather update...");
-  weatherCache.lastHourlyUpdate = 0; // Reset to force update
-  return await getAllWeatherData();
+  return await getAllWeatherData(true);
 }
 
 // Utility functions for weather data processing
@@ -531,6 +543,82 @@ export function getWarningDisplayInfo(warningKey: string, lang: "ko" | "en") {
     severity: info.severity,
     color: info.color,
   };
+}
+
+// Enhanced function to get warning display info with typhoon signal specifics
+export function getWarningDisplayInfoWithSignal(
+  warningKey: string,
+  warningCode: string,
+  lang: "ko" | "en",
+) {
+  // Handle typhoon signals with different severity levels
+  if (warningKey === "WTCSGNL") {
+    let severity = "warning";
+    let emoji = "🌬️";
+    let nameKo = "태풍 경보";
+    let nameEn = "Tropical Cyclone Warning Signal";
+
+    if (warningCode === "TC1") {
+      severity = "caution";
+      emoji = "🌬️";
+      nameKo = "1호 대기 신호";
+      nameEn = "Standby Signal, No. 1";
+    } else if (warningCode === "TC3") {
+      severity = "warning";
+      emoji = "💨";
+      nameKo = "3호 강풍 신호";
+      nameEn = "Strong Wind Signal, No. 3";
+    } else if (warningCode.startsWith("TC8")) {
+      severity = "danger";
+      emoji = "🌪️";
+      nameKo = "8호 열대저압대 신호";
+      nameEn = "Gale or Storm Signal, No. 8";
+    } else if (warningCode === "TC9") {
+      severity = "danger";
+      emoji = "🌪️";
+      nameKo = "9호 열대저압대 신호";
+      nameEn = "Increasing Gale or Storm Signal, No. 9";
+    } else if (warningCode === "TC10") {
+      severity = "extreme";
+      emoji = "🌪️";
+      nameKo = "10호 허리케인 신호";
+      nameEn = "Hurricane Signal, No. 10";
+    }
+
+    return {
+      name: lang === "ko" ? nameKo : nameEn,
+      emoji,
+      severity,
+      color: getColorFromSeverity(severity),
+    };
+  }
+
+  // Use standard warning info for other warnings
+  const info =
+    WEATHER_WARNING_INFO[warningKey as keyof typeof WEATHER_WARNING_INFO];
+  if (!info) return null;
+
+  return {
+    name: lang === "ko" ? info.nameKo : info.nameEn,
+    emoji: info.emoji,
+    severity: info.severity,
+    color: info.color,
+  };
+}
+
+function getColorFromSeverity(severity: string): string {
+  switch (severity) {
+    case "extreme":
+      return "purple";
+    case "danger":
+      return "red";
+    case "warning":
+      return "orange";
+    case "caution":
+      return "yellow";
+    default:
+      return "gray";
+  }
 }
 
 export function getWarningSeverityStyles(severity: string) {
