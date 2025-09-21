@@ -1,42 +1,14 @@
 ---
 import Button from "@ui/Button.astro";
+import WeatherWidget from "../WeatherWidget.svelte";
 import {
   getTranslation,
   getCurrentLanguage,
   addLanguageToPath,
 } from "@utils/i18n";
-import {
-  getAllWeatherData,
-  getMainTemperature,
-  getWeatherIcon,
-  getTyphoonWarningSignal,
-  getActiveWarnings,
-  getWarningDisplayInfo,
-  getWarningDisplayInfoWithSignal,
-} from "@utils/hongkong-weather";
 
 const currentPath = Astro.url.pathname;
 const currentLang = getCurrentLanguage(Astro.url);
-
-// Get current weather data for navbar - use normal caching during SSR
-// Client-side updates will be handled by browser script
-const weatherData = await getAllWeatherData();
-const currentTemp = getMainTemperature(weatherData.currentWeather);
-const weatherIconCode = weatherData.currentWeather?.icon?.[0] || 50;
-
-// Get typhoon warning signal if active
-const typhoonWarning = getTyphoonWarningSignal(weatherData.warningInfo);
-
-// Check for high-priority warnings (danger/extreme)
-const activeWarnings = getActiveWarnings(weatherData.warningInfo);
-const hasHighPriorityWarning = activeWarnings.some(({ key, warning }) => {
-  const info = getWarningDisplayInfoWithSignal(
-    key,
-    warning.code || key,
-    currentLang,
-  );
-  return info && ["extreme", "danger"].includes(info.severity);
-});
 
 // KSA 메뉴 구조 (드롭다운 포함)
 const ksaMenuItems = [
@@ -292,23 +264,9 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
                   <!-- Weather Button for Mobile -->
                   <a
                     href={addLanguageToPath("/weather", currentLang)}
-                    class={`mt-2 flex items-center gap-2 rounded-lg border p-3 font-medium transition-colors ${
-                      hasHighPriorityWarning
-                        ? "border-red-200 bg-red-50 text-red-800 hover:bg-red-100"
-                        : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
-                    }`}
+                    class="mt-2 flex items-center gap-2 rounded-lg border border-blue-200 bg-blue-50 p-3 font-medium text-blue-800 transition-colors hover:bg-blue-100"
                   >
-                    {
-                      hasHighPriorityWarning && (
-                        <span class="animate-pulse text-red-500">⚠️</span>
-                      )
-                    }
-                    <span>{getWeatherIcon(weatherIconCode)}</span>
-                    {
-                      currentTemp && (
-                        <span class="font-semibold">{currentTemp}°C</span>
-                      )
-                    }
+                    <WeatherWidget client:only="svelte" lang={currentLang} />
                   </a>
 
                   <!-- Language Toggle for Mobile -->
@@ -370,23 +328,9 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
             <!-- Weather Display -->
             <a
               href={addLanguageToPath("/weather", currentLang)}
-              class={`flex items-center gap-1 rounded-lg border px-3 py-1 text-sm font-medium transition-colors ${
-                hasHighPriorityWarning
-                  ? "border-red-200 bg-red-50 text-red-800 hover:bg-red-100"
-                  : "border-blue-200 bg-blue-50 text-blue-800 hover:bg-blue-100"
-              }`}
+              class="flex items-center gap-1 rounded-lg border border-blue-200 bg-blue-50 px-3 py-1 text-sm font-medium text-blue-800 transition-colors hover:bg-blue-100"
             >
-              {
-                hasHighPriorityWarning && (
-                  <span class="mr-1 animate-pulse text-red-500">⚠️</span>
-                )
-              }
-              <span>{getWeatherIcon(weatherIconCode)}</span>
-              {
-                currentTemp && (
-                  <span class="font-semibold">{currentTemp}°C</span>
-                )
-              }
+              <WeatherWidget client:only="svelte" lang={currentLang} />
             </a>
           </div>
         </div>

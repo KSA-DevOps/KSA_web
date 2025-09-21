@@ -11,18 +11,65 @@ import type {
 const WEATHER_API_BASE =
   "https://data.weather.gov.hk/weatherAPI/opendata/weather.php";
 
-// Simple in-memory cache for weather data with 10-minute TTL
+// localStorage-based cache for weather data with 10-minute TTL
 interface WeatherCache {
   data: HongKongWeatherData | null;
   timestamp: number;
   ttl: number; // Time to live in milliseconds
 }
 
-const weatherCache: WeatherCache = {
-  data: null,
-  timestamp: 0,
-  ttl: 10 * 60 * 1000, // 10 minutes
-};
+// localStorage management utilities
+function cleanupOldCacheEntries(): void {
+  if (typeof localStorage === "undefined") return; // SSR safety
+
+  // Remove any old cache entries from previous implementations
+  const oldKeys = ["ksa_weather_last_update"];
+  oldKeys.forEach((key) => {
+    if (localStorage.getItem(key)) {
+      localStorage.removeItem(key);
+      console.log(`🧹 Cleaned up old localStorage entry: ${key}`);
+    }
+  });
+}
+
+function setWeatherCache(data: HongKongWeatherData): void {
+  if (typeof localStorage === "undefined") return; // SSR safety
+
+  try {
+    const cache: WeatherCache = {
+      data,
+      timestamp: Date.now(),
+      ttl: 10 * 60 * 1000, // 10 minutes
+    };
+
+    localStorage.setItem("hk_weather_cache", JSON.stringify(cache));
+  } catch (error) {
+    console.warn("Failed to save weather cache to localStorage:", error);
+  }
+}
+
+function getWeatherCache(): WeatherCache | null {
+  if (typeof localStorage === "undefined") return null; // SSR safety
+
+  try {
+    const cacheData = localStorage.getItem("hk_weather_cache");
+    if (!cacheData) return null;
+
+    const cache: WeatherCache = JSON.parse(cacheData);
+    return cache;
+  } catch (error) {
+    console.warn("Failed to parse weather cache from localStorage:", error);
+    localStorage.removeItem("hk_weather_cache");
+    return null;
+  }
+}
+
+function clearWeatherCacheStorage(): void {
+  if (typeof localStorage === "undefined") return; // SSR safety
+  localStorage.removeItem("hk_weather_cache");
+  // Clean up old localStorage entries from previous implementations
+  localStorage.removeItem("ksa_weather_last_update");
+}
 
 // Fetch Local Weather Forecast
 export async function getLocalWeatherForecast(): Promise<LocalWeatherForecast | null> {
@@ -188,20 +235,26 @@ export async function getWeatherWarningInfoWithMock(
   return await getWeatherWarningInfo();
 }
 
-// Get All Weather Data with intelligent caching
+// Get All Weather Data with intelligent localStorage-based caching
 export async function getAllWeatherData(
   forceRefresh: boolean = false,
 ): Promise<HongKongWeatherData> {
   const now = Date.now();
 
+  // Clean up any old localStorage entries on first run
+  cleanupOldCacheEntries();
+
   // Check if cached data is still valid (unless forcing refresh)
-  if (
-    !forceRefresh &&
-    weatherCache.data &&
-    now - weatherCache.timestamp < weatherCache.ttl
-  ) {
-    console.log("🔄 Using cached weather data");
-    return weatherCache.data;
+  if (!forceRefresh) {
+    const cachedData = getWeatherCache();
+    if (
+      cachedData &&
+      cachedData.data &&
+      now - cachedData.timestamp < cachedData.ttl
+    ) {
+      console.log("🔄 Using cached weather data from localStorage");
+      return cachedData.data;
+    }
   }
 
   if (forceRefresh) {
@@ -235,8 +288,7 @@ export async function getAllWeatherData(
   };
 
   // Update cache with fresh data and timestamp
-  weatherCache.data = weatherData;
-  weatherCache.timestamp = now;
+  setWeatherCache(weatherData);
 
   console.log("✅ Fresh data cached at:", new Date().toISOString());
 
@@ -245,8 +297,7 @@ export async function getAllWeatherData(
 
 // Cache management functions
 export function clearWeatherCache(): void {
-  weatherCache.data = null;
-  weatherCache.timestamp = 0;
+  clearWeatherCacheStorage();
   console.log("🗑️ Weather cache cleared");
 }
 
@@ -257,13 +308,24 @@ export function getWeatherCacheStatus(): {
   expired: boolean;
 } {
   const now = Date.now();
-  const age = now - weatherCache.timestamp;
+  const cachedData = getWeatherCache();
+
+  if (!cachedData) {
+    return {
+      cached: false,
+      age: 0,
+      ttl: 10, // 10 minutes
+      expired: true,
+    };
+  }
+
+  const age = now - cachedData.timestamp;
 
   return {
-    cached: weatherCache.data !== null,
+    cached: cachedData.data !== null,
     age: Math.round(age / 1000 / 60), // Age in minutes
-    ttl: Math.round(weatherCache.ttl / 1000 / 60), // TTL in minutes
-    expired: age >= weatherCache.ttl,
+    ttl: Math.round(cachedData.ttl / 1000 / 60), // TTL in minutes
+    expired: age >= cachedData.ttl,
   };
 }
 
