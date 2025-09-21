@@ -5,6 +5,7 @@ export interface Executive {
   program: string;
   year: number;
   email: string;
+  image?: string;
 }
 
 export interface ExecutiveGroup {
@@ -22,7 +23,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20812409",
         program: "MARK",
         year: 2,
-        email: "hkwonab@connect.ust.hk"
+        email: "hkwonab@connect.ust.hk",
+        image: "/images/profile_img/KWON Hyekin.jpg"
       },
       {
         position: "External-Vice President",
@@ -30,7 +32,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20790314",
         program: "OM",
         year: 2,
-        email: "hkimbh@connect.ust.hk"
+        email: "hkimbh@connect.ust.hk",
+        image: "/images/profile_img/KIM Heeseung.jpg"
       },
       {
         position: "Internal-Vice President",
@@ -38,7 +41,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20744731",
         program: "MGMT",
         year: 2,
-        email: "skimbk@connect.ust.hk"
+        email: "skimbk@connect.ust.hk",
+        image: "/images/profile_img/KIM Suhyeong.jpg"
       }
     ]
   },
@@ -51,7 +55,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20815542",
         program: "MGMT",
         year: 2,
-        email: "jshinae@connect.ust.hk"
+        email: "jshinae@connect.ust.hk",
+        image: "/images/profile_img/SHIN Jun hyeong.jpg"
       },
       {
         position: "Internal Manager",
@@ -59,7 +64,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "21103532",
         program: "ACCT",
         year: 1,
-        email: "hleebi@connect.ust.hk"
+        email: "hleebi@connect.ust.hk",
+        image: "/images/profile_img/LEE Haelin.jpg"
       },
       {
         position: "Internal Operation Manager",
@@ -67,7 +73,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "21010096",
         program: "DASC",
         year: 2,
-        email: "ykweon@connect.ust.hk"
+        email: "ykweon@connect.ust.hk",
+        image: "/images/profile_img/KWEON Yerin.jpg"
       },
       {
         position: "External Operation Manager",
@@ -75,7 +82,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "21098268",
         program: "SCIENCE B",
         year: 1,
-        email: "ychoiaj@connect.ust.hk"
+        email: "ychoiaj@connect.ust.hk",
+        image: "/images/profile_img/CHOI Yoonsuh.jpg"
       },
       {
         position: "Financial Manager",
@@ -83,7 +91,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20900347",
         program: "ACCT",
         year: 3,
-        email: "dkimav@connect.ust.hk"
+        email: "dkimav@connect.ust.hk",
+        image: "/images/profile_img/KIM Dongeun.jpg"
       },
       {
         position: "Marketing Manager",
@@ -91,7 +100,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20828070",
         program: "MARK",
         year: 2,
-        email: "jskimaa@connect.ust.hk"
+        email: "jskimaa@connect.ust.hk",
+        image: "/images/profile_img/KIM Jin Sub.jpg"
       },
       {
         position: "IT Team Leader",
@@ -99,7 +109,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20673839",
         program: "MATH",
         year: 3,
-        email: "jyangca@connect.ust.hk"
+        email: "jyangca@connect.ust.hk",
+        image: "/images/profile_img/YANG Jiho.jpg"
       },
       {
         position: "IT Team Manager",
@@ -107,7 +118,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20737647",
         program: "ELEC",
         year: 3,
-        email: "schoaq@connect.ust.hk"
+        email: "schoaq@connect.ust.hk",
+        image: "/images/profile_img/CHO Sungjun.jpg"
       },
       {
         position: "IT Team Manager",
@@ -115,7 +127,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "20745266",
         program: "COMP",
         year: 3,
-        email: "syoonac@connect.ust.hk"
+        email: "syoonac@connect.ust.hk",
+        image: "/images/profile_img/YOON Sungbin.jpg"
       }
     ]
   },
@@ -128,7 +141,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "SBM",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/HONG Jungwoo.jpg"
       },
       {
         position: "Subcommittee",
@@ -136,7 +150,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "EVMT",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/LIM Gyumin.jpg"
       },
       {
         position: "Subcommittee",
@@ -144,7 +159,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "MARK",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/KO Kyungmin.jpg"
       },
       {
         position: "Subcommittee",
@@ -152,15 +168,17 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "MATH",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/KIM Taekyung.jpg"
       },
       {
         position: "Subcommittee",
-        name: "SHIN Hyunseong",
+        name: "SHIN Hyunsung",
         studentId: "",
         program: "COMP",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/SHIN Hyunsung.jpg"
       },
       {
         position: "Subcommittee",
@@ -168,7 +186,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "CIVL",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/EO Seoyeon.jpg"
       },
       {
         position: "Subcommittee",
@@ -176,7 +195,8 @@ export const executiveData: ExecutiveGroup[] = [
         studentId: "",
         program: "MARK",
         year: 0,
-        email: ""
+        email: "",
+        image: "/images/profile_img/KANG Jimin.jpg"
       }
     ]
   }
