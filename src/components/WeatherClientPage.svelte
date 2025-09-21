@@ -399,15 +399,6 @@
             <span class="mr-2">🌐</span>
             {lang === 'ko' ? '홍콩 천문대 공식 웹사이트' : 'Hong Kong Observatory Official Website'}
           </a>
-          
-          <div class="text-center text-sm text-gray-500 mt-4">
-            {lang === 'ko' ? '최종 업데이트:' : 'Last updated:'} {formatUpdateTime(
-              weatherData.currentWeather?.updateTime ||
-              weatherData.localForecast?.updateTime ||
-              weatherData.lastUpdate,
-              lang
-            )}
-          </div>
         </div>
       </div>
     </div>

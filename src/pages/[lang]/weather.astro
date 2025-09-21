@@ -14,5 +14,5 @@ const currentLang: "ko" | "en" = lang === "ko" || lang === "en" ? lang : "ko";
 
 <BaseLayout lang={currentLang}>
   <!-- Weather content is now rendered client-side with identical styling -->
-  <WeatherClientPage client:load lang={currentLang} />
+  <WeatherClientPage client:only="svelte" lang={currentLang} />
 </BaseLayout>
