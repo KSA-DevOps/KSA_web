@@ -40,12 +40,24 @@ const presidents = executiveData.find((group: any) => group.title.includes("íšŒì
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {presidents?.executives.map((member: any) => (
           <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            {member.image && (
+              <div class="aspect-w-1 aspect-h-1 h-64">
+                <img 
+                  src={member.image} 
+                  alt={member.name}
+                  class="w-full h-full object-cover object-center"
+                />
+              </div>
+            )}
             <div class="bg-gradient-to-br from-teal-500 to-blue-600 p-6 text-white">
               <h3 class="text-xl font-semibold mb-1">{member.position}</h3>
             </div>
             <div class="p-6">
               <h4 class="text-lg font-semibold text-gray-800 mb-2">{member.name}</h4>
               <p class="text-sm text-gray-500 mb-3">{member.program}</p>
+              {member.email && (
+                <p class="text-sm text-gray-600">{member.email}</p>
+              )}
             </div>
           </div>
         ))}
