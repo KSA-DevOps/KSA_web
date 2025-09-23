@@ -155,12 +155,12 @@ export const executiveData: ExecutiveGroup[] = [
       },
       {
         position: "Subcommittee",
-        name: "KO Kyungmin",
+        name: "KO Gyeongmin",
         studentId: "",
         program: "MARK",
         year: 0,
         email: "",
-        image: "/images/profile_img/KO Kyungmin.jpg"
+        image: "/images/profile_img/KO Gyeongmin.jpg"
       },
       {
         position: "Subcommittee",
