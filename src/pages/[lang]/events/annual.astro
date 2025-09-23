@@ -18,9 +18,9 @@ const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
 // Load news content
 const allNews = await getCollection('news');
 
-// Filter only event category news and sort by date desc (farther future first)
+// Filter only event category news with display: true and sort by date desc (farther future first)
 const eventNews = allNews
-  .filter(item => item.data.category === 'event')
+  .filter(item => item.data.category === 'event' && item.data.display === true)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // Helper: format full date per locale
