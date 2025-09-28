@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KSA Search Functionality Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: #f8fafc;
+            line-height: 1.6;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #1f2937;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .feature {
+            background: #f9fafb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #10b981;
+        }
+        .feature h3 {
+            margin-top: 0;
+            color: #059669;
+        }
+        .test-section {
+            background: #eff6ff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+        .test-section h3 {
+            margin-top: 0;
+            color: #1d4ed8;
+        }
+        code {
+            background: #f3f4f6;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9em;
+        }
+        .keyboard-hint {
+            background: #fef3c7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .search-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .search-example {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            text-align: center;
+        }
+        .search-example strong {
+            color: #059669;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 KSA Search Functionality Test Page</h1>
+
+        <div class="success">
+            ✅ <strong>Search functionality successfully implemented!</strong>
+        </div>
+
+        <div class="keyboard-hint">
+            <strong>💡 Quick Test:</strong> Press <code>Ctrl+K</code> (or <code>Cmd+K</code> on Mac) to open the search modal
+        </div>
+
+        <div class="feature">
+            <h3>🎯 Search Features Implemented</h3>
+            <ul>
+                <li><strong>Modal Search Interface</strong> - Clean, modern search modal</li>
+                <li><strong>Keyboard Shortcuts</strong> - Ctrl+K / Cmd+K to open search</li>
+                <li><strong>Real-time Search</strong> - Instant results as you type</li>
+                <li><strong>Multi-language Support</strong> - Korean and English content</li>
+                <li><strong>Category Filtering</strong> - Search by page type (events, news, etc.)</li>
+                <li><strong>Keyboard Navigation</strong> - Arrow keys to navigate results</li>
+                <li><strong>Search Analytics</strong> - Google Analytics event tracking</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🧪 Test These Search Queries</h3>
+            <div class="search-examples">
+                <div class="search-example">
+                    <strong>Korean:</strong><br>
+                    "학생회", "행사", "동아리"
+                </div>
+                <div class="search-example">
+                    <strong>English:</strong><br>
+                    "event", "club", "news"
+                </div>
+                <div class="search-example">
+                    <strong>Mixed:</strong><br>
+                    "KSA", "HKUST", "facebook"
+                </div>
+                <div class="search-example">
+                    <strong>Specific:</strong><br>
+                    "축구팀", "MT", "career"
+                </div>
+            </div>
+        </div>
+
+        <div class="feature">
+            <h3>📱 How to Access Search</h3>
+            <ul>
+                <li><strong>Desktop:</strong> Click the search button in the top navigation bar</li>
+                <li><strong>Mobile:</strong> Open the mobile menu and click the search option</li>
+                <li><strong>Keyboard:</strong> Press <code>Ctrl+K</code> or <code>Cmd+K</code> anywhere on the site</li>
+                <li><strong>Direct URL:</strong> Visit <code>/ko/search</code> or <code>/en/search</code></li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>🎮 Search Modal Controls</h3>
+            <ul>
+                <li><code>↑↓</code> Arrow keys - Navigate through search results</li>
+                <li><code>Enter</code> - Select highlighted result</li>
+                <li><code>Esc</code> - Close search modal</li>
+                <li><strong>Click outside</strong> - Close modal</li>
+                <li><strong>Type to search</strong> - Real-time results</li>
+            </ul>
+        </div>
+
+        <div class="feature">
+            <h3>🔍 What Can Be Searched</h3>
+            <ul>
+                <li><strong>Pages:</strong> About, Contact, Constitution, etc.</li>
+                <li><strong>Events:</strong> Annual events, Career talks, etc.</li>
+                <li><strong>News:</strong> Latest announcements and updates</li>
+                <li><strong>Clubs:</strong> Soccer team, Band, Basketball team, etc.</li>
+                <li><strong>Board:</strong> Career board, Suggestions board</li>
+                <li><strong>External Links:</strong> Facebook, Instagram pages</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>📊 Analytics Tracking</h3>
+            <p>The search functionality includes comprehensive Google Analytics tracking:</p>
+            <ul>
+                <li><strong>Search Opens:</strong> When users open search (button vs keyboard)</li>
+                <li><strong>Search Queries:</strong> What users are searching for</li>
+                <li><strong>Result Clicks:</strong> Which search results users click</li>
+                <li><strong>Search Performance:</strong> Popular searches and result effectiveness</li>
+            </ul>
+        </div>
+
+        <div class="success">
+            <p><strong>✨ Try it now!</strong> The search is fully functional and ready to use. You can search for any content on the KSA website in both Korean and English.</p>
+        </div>
+
+        <div style="text-align: center; margin-top: 30px; color: #6b7280;">
+            <p>Return to: <a href="/ko" style="color: #059669;">KSA Homepage (Korean)</a> | <a href="/en" style="color: #059669;">KSA Homepage (English)</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Test if search functionality is available
+        window.addEventListener('load', function() {
+            console.log('🔍 Search Test Page Loaded');
+
+            // Test keyboard shortcut
+            document.addEventListener('keydown', function(e) {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    console.log('✅ Search keyboard shortcut detected!');
+                }
+            });
+
+            console.log('💡 Press Ctrl+K or Cmd+K to test search functionality');
+        });
+    </script>
+</body>
+</html>

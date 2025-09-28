@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GA Simplified Tracking Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button, .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover, .btn:hover {
+            background: #0056b3;
+        }
+        input, select, textarea {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: block;
+            width: 200px;
+        }
+        .console-log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            font-family: monospace;
+            height: 150px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 5px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .time-display {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Analytics Simplified Tracking Test</h1>
+    <p>Only tracking: Click Events, Form Interactions, External Links, Time on Page</p>
+
+    <div class="console-log" id="console">
+        <div>Console output will appear here...</div>
+    </div>
+
+    <section>
+        <h2>1. Click Events (Buttons & CTAs)</h2>
+        <button id="test-btn-1" onclick="log('Button 1 clicked')">Test Button 1</button>
+        <button class="btn" onclick="log('Button 2 clicked')">Test Button 2</button>
+        <a href="#" role="button" onclick="log('Link as button clicked'); return false;">Link as Button</a>
+        <div class="btn" onclick="log('Div button clicked')">Div as Button</div>
+    </section>
+
+    <section>
+        <h2>2. Form Interactions</h2>
+        <form id="test-form" onsubmit="log('Form submitted'); return false;">
+            <input type="text" name="username" placeholder="Username">
+            <input type="email" name="email" placeholder="Email">
+            <select name="country" onchange="log('Dropdown changed: ' + this.value)">
+                <option>Select Country</option>
+                <option value="kr">Korea</option>
+                <option value="hk">Hong Kong</option>
+                <option value="us">USA</option>
+            </select>
+            <textarea name="message" placeholder="Message"></textarea>
+            <button type="submit">Submit Form</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>3. External Links</h2>
+        <a href="#internal" onclick="log('Internal link clicked'); return false;">Internal Link (not tracked)</a><br>
+        <a href="https://www.google.com" target="_blank" onclick="log('External: Google'); return false;">Google (External)</a><br>
+        <a href="https://www.github.com" target="_blank" onclick="log('External: GitHub'); return false;">GitHub (External)</a><br>
+        <a href="https://www.ust.hk" target="_blank" onclick="log('External: HKUST'); return false;">HKUST Website (External)</a>
+    </section>
+
+    <section>
+        <h2>4. Time on Page</h2>
+        <p>Time spent on page:</p>
+        <div class="time-display" id="time-display">0 seconds</div>
+        <p>GA tracks time automatically:</p>
+        <ul>
+            <li>Every 30 seconds while on page</li>
+            <li>Total time when leaving page</li>
+        </ul>
+    </section>
+
+    <script>
+        // Console log helper
+        function log(message) {
+            const consoleEl = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.textContent = `[${timestamp}] ${message}`;
+            consoleEl.appendChild(entry);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        // Time on page display
+        let secondsOnPage = 0;
+        setInterval(function() {
+            secondsOnPage++;
+            document.getElementById('time-display').textContent = secondsOnPage + ' seconds';
+
+            // Log every 30 seconds
+            if (secondsOnPage % 30 === 0) {
+                log(`Time milestone: ${secondsOnPage} seconds on page`);
+            }
+        }, 1000);
+
+        // Listen for GA events in console (override gtag temporarily)
+        const originalGtag = window.gtag;
+        if (typeof gtag !== 'undefined') {
+            window.gtag = function() {
+                if (originalGtag) {
+                    originalGtag.apply(this, arguments);
+                }
+                if (arguments[0] === 'event') {
+                    const eventData = arguments[2] || {};
+                    log(`GA Event: ${eventData.event_category || 'General'} - ${arguments[1]} - ${eventData.event_label || ''}`);
+                }
+            };
+        }
+
+        // Page load
+        window.addEventListener('load', function() {
+            log('Page loaded - GA tracking initialized');
+            if (typeof gtag !== 'undefined') {
+                log('✓ Google Analytics detected');
+            } else {
+                log('✗ Google Analytics not detected');
+            }
+        });
+
+        // Before unload
+        window.addEventListener('beforeunload', function() {
+            log(`Leaving page - Total time: ${secondsOnPage} seconds`);
+        });
+    </script>
+</body>
+</html>

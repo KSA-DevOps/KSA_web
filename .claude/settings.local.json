@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(npm install)",
+      "Bash(dir:*)",
+      "Bash(if exist \"C:\\Users\\User\\KSA_web\\src\\styles\\search.css\" del \"C:\\Users\\User\\KSA_web\\src\\styles\\search.css\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
