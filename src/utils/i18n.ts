@@ -421,6 +421,25 @@ export const translations: Translations = {
     "suggestion.contact.text": "즉시 도움이 필요하신가요?",
     "suggestion.contact.link": "직접 연락하기",
 
+    // Search
+    "search.placeholder": "검색어를 입력하세요...",
+    "search.button": "검색",
+    "search.title": "KSA 검색",
+    "search.no.results": "검색 결과가 없습니다",
+    "search.results.count": "총 {count}개의 결과를 찾았습니다",
+    "search.try.different": "다른 키워드로 검색해 보세요",
+    "search.popular.pages": "인기 페이지",
+    "search.tips": "검색 팁",
+    "search.shortcuts": "키보드 단축키:",
+    "search.open": "검색 열기",
+    "search.navigate": "결과 탐색",
+    "search.select": "선택",
+    "search.content": "검색 가능한 내용:",
+    "search.pages": "페이지 제목 및 내용",
+    "search.events": "행사 및 소식",
+    "search.clubs": "동아리 정보",
+    "search.boards": "게시판 내용",
+
     // Common
     "common.learn.more": "자세히 보기",
     "common.view.more": "더 보기",
@@ -855,6 +874,25 @@ export const translations: Translations = {
       "• We welcome all types of feedback and suggestions",
     "suggestion.contact.text": "Need immediate assistance?",
     "suggestion.contact.link": "Contact us directly",
+
+    // Search
+    "search.placeholder": "Search for pages, events, news...",
+    "search.button": "Search",
+    "search.title": "Search KSA",
+    "search.no.results": "No results found",
+    "search.results.count": "Found {count} result{plural}",
+    "search.try.different": "Try searching with different keywords",
+    "search.popular.pages": "Popular Pages",
+    "search.tips": "Search Tips",
+    "search.shortcuts": "Keyboard shortcuts:",
+    "search.open": "Open search",
+    "search.navigate": "Navigate results",
+    "search.select": "Select",
+    "search.content": "Searchable content:",
+    "search.pages": "Page titles and content",
+    "search.events": "Events and news",
+    "search.clubs": "Club information",
+    "search.boards": "Board content",
 
     // Common
     "common.learn.more": "Learn More",

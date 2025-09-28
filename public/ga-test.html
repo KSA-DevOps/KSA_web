@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analytics Event Tracking Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button, .btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover, .btn:hover {
+            background: #0056b3;
+        }
+        input, select, textarea {
+            padding: 8px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .console-log {
+            background: #000;
+            color: #0f0;
+            padding: 10px;
+            font-family: monospace;
+            height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        .long-content {
+            height: 2000px;
+            background: linear-gradient(to bottom, #fff, #e0e0e0);
+            padding: 20px;
+        }
+        video {
+            width: 100%;
+            max-width: 600px;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+        .modal.show {
+            display: block;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+        .overlay.show {
+            display: block;
+        }
+        .social-share {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            background: #4267B2;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .accordion-header {
+            background: #f0f0f0;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        .accordion-content {
+            padding: 15px;
+            display: none;
+            background: #fafafa;
+        }
+        .accordion-content.open {
+            display: block;
+        }
+        [data-track-hover] {
+            background: #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        [data-track-hover]:hover {
+            background: #ffeb3b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Analytics Enhanced Event Tracking Test</h1>
+
+    <div class="console-log" id="console">
+        <div>Console output will appear here...</div>
+    </div>
+
+    <section>
+        <h2>1. Button & Click Tracking</h2>
+        <button id="test-btn-1" onclick="log('Button 1 clicked')">Test Button 1</button>
+        <button class="btn" onclick="log('Button 2 clicked')">Test Button 2</button>
+        <a href="#" role="button" onclick="log('Link button clicked'); return false;">Link as Button</a>
+        <div class="btn" onclick="log('Div button clicked')">Div as Button</div>
+    </section>
+
+    <section>
+        <h2>2. Link Tracking</h2>
+        <a href="/internal-page" onclick="log('Internal link clicked'); return false;">Internal Link</a>
+        <a href="https://www.google.com" target="_blank" onclick="log('External link clicked'); return false;">External Link (Google)</a>
+        <a href="/downloads/document.pdf" onclick="log('PDF download clicked'); return false;">Download PDF</a>
+        <a href="/files/data.xlsx" onclick="log('Excel download clicked'); return false;">Download Excel</a>
+    </section>
+
+    <section>
+        <h2>3. Form Tracking</h2>
+        <form id="test-form" onsubmit="log('Form submitted'); return false;">
+            <input type="text" name="username" placeholder="Username">
+            <input type="email" name="email" placeholder="Email">
+            <select name="country">
+                <option>Select Country</option>
+                <option value="kr">Korea</option>
+                <option value="hk">Hong Kong</option>
+                <option value="us">USA</option>
+            </select>
+            <textarea name="message" placeholder="Message"></textarea>
+            <button type="submit">Submit Form</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>4. Search Tracking</h2>
+        <input type="search" class="search" placeholder="Search something..." oninput="log('Searching: ' + this.value)">
+    </section>
+
+    <section>
+        <h2>5. Media Tracking</h2>
+        <video id="test-video" controls>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <audio id="test-audio" controls>
+            <source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
+    <section>
+        <h2>6. Modal/Popup Tracking</h2>
+        <button onclick="openModal()">Open Modal</button>
+        <div class="overlay" id="overlay" onclick="closeModal()"></div>
+        <div class="modal" id="test-modal">
+            <h3>Test Modal</h3>
+            <p>This is a test modal for tracking.</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>7. Social Share Tracking</h2>
+        <a href="#" class="social-share" data-social="facebook" onclick="log('Facebook share'); return false;">Share on Facebook</a>
+        <a href="#" class="social-share" data-social="twitter" onclick="log('Twitter share'); return false;">Share on Twitter</a>
+        <a href="#" class="social-share" data-social="linkedin" onclick="log('LinkedIn share'); return false;">Share on LinkedIn</a>
+    </section>
+
+    <section>
+        <h2>8. Accordion/Tab Tracking</h2>
+        <div class="accordion-header" onclick="toggleAccordion(this)">Accordion Item 1</div>
+        <div class="accordion-content">Content for accordion item 1</div>
+
+        <div class="accordion-header" onclick="toggleAccordion(this)">Accordion Item 2</div>
+        <div class="accordion-content">Content for accordion item 2</div>
+    </section>
+
+    <section>
+        <h2>9. Hover Tracking</h2>
+        <div data-track-hover>Hover over this element for 2+ seconds to track</div>
+    </section>
+
+    <section>
+        <h2>10. Copy Text Tracking</h2>
+        <p>Select and copy this text to trigger copy event tracking. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    </section>
+
+    <section>
+        <h2>11. Custom Event Tracking</h2>
+        <button onclick="trackCustom()">Send Custom Event</button>
+        <button onclick="simulateError()">Trigger JS Error</button>
+    </section>
+
+    <section class="long-content">
+        <h2>12. Scroll Depth Tracking</h2>
+        <p>Scroll down to trigger scroll depth tracking at 25%, 50%, 75%, and 100%</p>
+        <div style="margin-top: 500px;">25% Scroll Point</div>
+        <div style="margin-top: 500px;">50% Scroll Point</div>
+        <div style="margin-top: 500px;">75% Scroll Point</div>
+        <div style="margin-top: 500px;">100% Scroll Point</div>
+    </section>
+
+    <script>
+        // Console log helper
+        function log(message) {
+            const console = document.getElementById('console');
+            const timestamp = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.textContent = `[${timestamp}] ${message}`;
+            console.appendChild(entry);
+            console.scrollTop = console.scrollHeight;
+        }
+
+        // Modal functions
+        function openModal() {
+            document.getElementById('test-modal').classList.add('show');
+            document.getElementById('overlay').classList.add('show');
+            log('Modal opened');
+        }
+
+        function closeModal() {
+            document.getElementById('test-modal').classList.remove('show');
+            document.getElementById('overlay').classList.remove('show');
+            log('Modal closed');
+        }
+
+        // Accordion function
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            content.classList.toggle('open');
+            log('Accordion toggled: ' + header.textContent);
+        }
+
+        // Custom tracking function
+        function trackCustom() {
+            if (window.trackCustomEvent) {
+                window.trackCustomEvent('Custom Category', 'custom_action', 'Custom Label', 100);
+                log('Custom event sent');
+            } else {
+                log('Custom tracking not available');
+            }
+        }
+
+        // Simulate error
+        function simulateError() {
+            log('Triggering JS error...');
+            throw new Error('Test error for GA tracking');
+        }
+
+        // Listen for GA events in console
+        const originalGtag = window.gtag;
+        if (originalGtag) {
+            window.gtag = function() {
+                originalGtag.apply(this, arguments);
+                if (arguments[0] === 'event') {
+                    log(`GA Event: ${arguments[1]} - ${JSON.stringify(arguments[2])}`);
+                }
+            };
+        }
+
+        // Page load
+        window.addEventListener('load', function() {
+            log('Page loaded - GA tracking initialized');
+
+            // Check if GA is loaded
+            if (typeof gtag !== 'undefined') {
+                log('Google Analytics detected and running');
+            } else {
+                log('WARNING: Google Analytics not detected');
+            }
+        });
+    </script>
+</body>
+</html>

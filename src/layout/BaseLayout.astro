@@ -5,6 +5,7 @@ import { Schema } from "astro-seo-schema";
 import Navbar from "@sections/Navbar.astro";
 import Footer from "@sections/Footer.astro";
 import "@styles/global.css";
+import "../assets/styles/search.css";
 
 export interface Props {
   title?: string;
@@ -28,6 +29,9 @@ const {
 
 const canonicalURL = canonical ? new URL(canonical, Astro.site) : Astro.url;
 const canonicalURLString = canonicalURL.toString();
+
+// Google Analytics configuration
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID;
 ---
 
 <!doctype html>
@@ -128,6 +132,28 @@ const canonicalURLString = canonicalURL.toString();
     />
     
     <ViewTransitions />
+
+    <!-- Google Analytics -->
+    {GA_MEASUREMENT_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+        <script define:vars={{ GA_MEASUREMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          // Basic configuration
+          gtag('config', GA_MEASUREMENT_ID, {
+            'page_title': document.title,
+            'page_path': window.location.pathname,
+            'send_page_view': true
+          });
+        </script>
+
+        <!-- Simplified Event Tracking Script -->
+        <script src="/ga-events.js" defer></script>
+      </>
+    )}
   </head>
   <body>
     <Navbar />

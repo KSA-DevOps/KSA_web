@@ -1,5 +1,6 @@
 ---
 import Button from "@ui/Button.astro";
+import SearchButton from "@ui/SearchButton.tsx";
 import WeatherWidget from "../WeatherWidget.svelte";
 import {
   getTranslation,
@@ -252,6 +253,11 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
 
                 <!-- Mobile-only buttons (hidden on desktop) -->
                 <div class="border-t border-gray-200 pt-4 xl:hidden">
+                  <!-- Search Button for Mobile -->
+                  <div class="mb-2">
+                    <SearchButton client:load lang={currentLang} isMobile={true} />
+                  </div>
+
                   <!-- Contact/Report Button for Mobile -->
                   <a
                     href={addLanguageToPath("/contact", currentLang)}
@@ -304,6 +310,9 @@ const simpleMenuItems: Array<{ text: string; href: string }> = [
 
           <!-- Right Side Buttons -->
           <div class="hidden flex-shrink-0 items-center gap-3 xl:flex">
+            <!-- Search Button -->
+            <SearchButton client:load lang={currentLang} />
+
             <Button
               href={addLanguageToPath("/contact", currentLang)}
               variant="primary"
