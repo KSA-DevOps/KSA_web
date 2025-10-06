@@ -28,6 +28,8 @@ const {
 
 const canonicalURL = canonical ? new URL(canonical, Astro.site) : Astro.url;
 const canonicalURLString = canonicalURL.toString();
+
+const GA_MEASUREMENT_ID = "G-KJWZKQD0BN";
 ---
 
 <!doctype html>
@@ -128,6 +130,28 @@ const canonicalURLString = canonicalURL.toString();
     />
     
     <ViewTransitions />
+
+
+    <!-- Google Analytics -->
+    {GA_MEASUREMENT_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}></script>
+        <script define:vars={{ GA_MEASUREMENT_ID }}>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', GA_MEASUREMENT_ID, {
+            'page_title': document.title,
+            'page_path': window.location.pathname,
+            'send_page_view': true
+          });
+        </script>
+
+        <!-- Simplified Event Tracking Script -->
+        <script src="/ga-events.js" defer></script>
+      </>
+    )}
   </head>
   <body>
     <Navbar />
