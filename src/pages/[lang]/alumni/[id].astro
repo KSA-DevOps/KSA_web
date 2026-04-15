@@ -1,0 +1,287 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getCollection, render } from "astro:content";
+import { getTranslation } from "@utils/i18n";
+import ImageModal from "@common/ImageModal.svelte";
+
+export async function getStaticPaths() {
+  const allAlumni = await getCollection('alumni');
+  const paths = [];
+  for (const item of allAlumni) {
+    paths.push({ params: { lang: 'ko', id: item.id } });
+    paths.push({ params: { lang: 'en', id: item.id } });
+  }
+  return paths;
+}
+
+const { lang, id } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+const allAlumni = await getCollection('alumni');
+const alumniItem = allAlumni.find(item => item.id === id);
+
+if (!alumniItem) {
+  throw new Error(`Alumni item with id ${id} not found`);
+}
+
+const { Content } = await render(alumniItem);
+
+// 마크다운 내용에서 h2 태그를 파싱하여 동적 목차 생성
+function generateTocFromMarkdown(content: string) {
+  const h2Regex = /^##\s+(.+)$/gm;
+  const matches = [...content.matchAll(h2Regex)];
+  
+  return matches.map((match, index) => {
+    const title = match[1].trim();
+    const id = title
+      .toLowerCase()
+      .replace(/[^a-z0-9가-힣\s]/g, '')
+      .replace(/\s+/g, '-');
+    
+    return {
+      id,
+      title,
+      index
+    };
+  });
+}
+
+// 마크다운 원본 내용 가져오기 (목차 생성용)
+const tocSections = generateTocFromMarkdown(alumniItem.body || '');
+const sections = tocSections;
+
+// 마크다운 내용에서 이미지 추출
+function extractImagesFromMarkdown(content: string) {
+  const imgRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+  const matches = [...content.matchAll(imgRegex)];
+  
+  return matches.map((match) => ({
+    src: match[2],
+    alt: match[1] || 'Image'
+  }));
+}
+
+// frontmatter의 images가 없으면 마크다운에서 추출
+const images = alumniItem.data.images || extractImagesFromMarkdown(alumniItem.body || '');
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+    <!-- Hero Section -->
+    <section class="relative py-20">
+      <div class="container mx-auto px-4 text-center pt-header">
+        <div class="max-w-4xl mx-auto">
+          <div class="flex items-center justify-center mb-6">
+            <span class="text-4xl mr-4">{alumniItem.data.icon || '📰'}</span>
+            <span class={`inline-block px-4 py-2 rounded-full text-sm font-medium text-white ${alumniItem.data.isNewsletter ? 'bg-indigo-500' : 'bg-teal-500'}`}>
+              {alumniItem.data.isNewsletter ? (currentLang === 'ko' ? '뉴스레터' : 'Newsletter') : (currentLang === 'ko' ? '소식' : 'Update')}
+            </span>
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight md:leading-snug">
+            {alumniItem.data.title}
+          </h1>
+          <p class="text-xl text-gray-600 mb-4">
+            {alumniItem.data.description}
+          </p>
+          <p class="text-gray-500">
+            {alumniItem.data.date.toLocaleDateString(currentLang === 'ko' ? 'ko-KR' : 'en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class={`grid gap-8 lg:gap-12 max-w-6xl mx-auto ${
+          sections && sections.length > 0 ? 'md:grid-cols-4' : 'md:grid-cols-1'
+        }`}>
+          {/* Table of Contents */}
+          {sections && sections.length > 0 && (
+            <div class="relative mt-10 rounded-lg border border-slate-300 border-dashed p-5 md:mt-0 md:border-none md:p-0 md:pb-24">
+              <nav class="sticky top-10 md:top-32">
+                <small class="font-semibold uppercase text-gray-600">
+                  {currentLang === 'ko' ? '목차' : 'On this page'}
+                </small>
+                <ul class="mt-2 space-y-2">
+                  {sections.map((section: { id: string; title: string; index: number }) => (
+                    <li>
+                      <a
+                        href={`#${section.id}`}
+                        class="block text-slate-400 transition-colors duration-200 hover:text-slate-600"
+                        data-toc-link
+                      >
+                        {section.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+          )}
+
+          {/* Main Content */}
+          <div class={`mx-auto md:pt-8 ${
+            sections && sections.length > 0 ? 'md:col-span-2 md:col-start-2' : 'md:col-span-1'
+          }`}>
+            <article class="prose prose-lg max-w-none">
+              <div class="markdown-content">
+                <!-- 이미지 그리드 (frontmatter 또는 마크다운에서 추출) -->
+                {images && images.length > 0 && (
+                  <div class={`grid gap-4 mb-8 ${
+                    images.length === 1 ? 'grid-cols-1' : 
+                    images.length === 2 ? 'grid-cols-1 md:grid-cols-2' : 
+                    'grid-cols-1 md:grid-cols-3'
+                  }`}>
+                    {images.map((image: any, index: number) => (
+                      <img 
+                        src={image.src} 
+                        alt={image.alt} 
+                        class="w-full rounded-lg shadow-md cursor-pointer hover:shadow-xl transition-shadow duration-200" 
+                        data-image-modal
+                        data-index={index}
+                        data-src={image.src}
+                        data-alt={image.alt}
+                      />
+                    ))}
+                  </div>
+                )}
+                
+                <Content />
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Back to Alumni Button -->
+    <section class="py-12 bg-white text-center pb-20">
+      <div class="container mx-auto px-4">
+        <a 
+          href={`/${currentLang}/alumni`}
+          class="inline-flex items-center px-6 py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+          {getTranslation("alumni.back", currentLang)}
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- Image Modal -->
+  <ImageModal client:load isOpen={false} images={[]} currentIndex={0} />
+
+  <script>
+    // Image Modal 기능
+    function initImageModal() {
+      const imageElements = document.querySelectorAll('[data-image-modal]');
+      
+      const imagesArray = Array.from(imageElements).map((img) => ({
+        src: img.getAttribute('data-src') || '',
+        alt: img.getAttribute('data-alt') || ''
+      }));
+      
+      imageElements.forEach((img) => {
+        img.addEventListener('click', () => {
+          const clickedIndex = parseInt(img.getAttribute('data-index') || '0', 10);
+          
+          if (imagesArray.length > 0) {
+            const event = new CustomEvent('openImageModal', {
+              detail: { images: imagesArray, index: clickedIndex }
+            });
+            document.dispatchEvent(event);
+          }
+        });
+      });
+    }
+
+    // TOC 관련 기능
+    let intersectionObserver: IntersectionObserver | null = null;
+
+    function safeInitTOC() {
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initTOC);
+      } else {
+        setTimeout(initTOC, 200);
+      }
+    }
+
+    function initTOC() {
+      const tocLinks = document.querySelectorAll("[data-toc-link]");
+      const sections = document.querySelectorAll("h2[id]");
+
+      if (!tocLinks.length || !sections.length) return;
+
+      tocLinks.forEach((link) =>
+        link.classList.remove("text-slate-600", "font-medium"),
+      );
+
+      intersectionObserver = new IntersectionObserver(
+        (entries) => {
+          let activeSection = null;
+
+          entries.forEach((entry) => {
+            if (entry.target instanceof HTMLElement && entry.isIntersecting) {
+              activeSection = entry.target;
+            }
+          });
+
+          if (activeSection) {
+            const sectionId = (activeSection as HTMLElement).getAttribute("id");
+            if (sectionId) {
+              document
+                .querySelector(`[data-toc-link][href="#${sectionId}"]`)
+                ?.classList.add("text-slate-600", "font-medium");
+            }
+          }
+        },
+        {
+          threshold: 0.3,
+          rootMargin: "-20% 0px -55% 0px",
+        },
+      );
+
+      sections.forEach((section) => intersectionObserver?.observe(section));
+    }
+
+    function cleanup() {
+      intersectionObserver?.disconnect();
+      intersectionObserver = null;
+    }
+
+    // h2 태그에 id 추가
+    function addIdsToHeadings() {
+      const h2Elements = document.querySelectorAll('h2');
+      h2Elements.forEach((h2) => {
+        if (!h2.id) {
+          const text = h2.textContent || '';
+          const id = text
+            .toLowerCase()
+            .replace(/[^a-z0-9가-힣\s]/g, '')
+            .replace(/\s+/g, '-');
+          h2.id = id;
+        }
+      });
+    }
+
+    // 페이지 로드 시 초기화
+    safeInitTOC();
+    initImageModal();
+    addIdsToHeadings();
+
+    // Astro 페이지 전환 시 초기화
+    document.addEventListener("astro:page-load", () => {
+      safeInitTOC();
+      initImageModal();
+      addIdsToHeadings();
+    });
+    document.addEventListener("astro:before-swap", cleanup);
+  </script>
+</BaseLayout>

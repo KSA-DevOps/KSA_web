@@ -1,0 +1,49 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+
+const calendarEmbedUrl = "https://calendar.google.com/calendar/embed?src=7d2f4f563d8226940d0c428ed4de7a7a05e65053b44270cdddee56af2f860f59%40group.calendar.google.com&ctz=Asia%2FHong_Kong";
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gray-50">
+    <section class="py-10 pt-32">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+          {getTranslation('nav.services.calendar', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          KSA 행사 캘린더를 통해 최신 소식을 놓치지 마세요.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-4 md:p-6">
+          <iframe
+            src={calendarEmbedUrl}
+            style="border: 0"
+            width="100%"
+            height="600"
+            frameborder="0"
+            scrolling="no"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+

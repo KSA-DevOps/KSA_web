@@ -1,0 +1,133 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+import { getTranslation } from "@utils/i18n";
+
+// Static paths for language routes
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'ko' } },
+    { params: { lang: 'en' } }
+  ];
+}
+
+// URL 파라미터에서 언어 추출
+const { lang } = Astro.params;
+const currentLang: 'ko' | 'en' = (lang === 'ko' || lang === 'en') ? lang : 'ko';
+---
+
+<BaseLayout lang={currentLang}>
+  <div class="min-h-screen bg-gray-50">
+    <section class="py-20 pt-32">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+          {getTranslation('nav.services.rental', currentLang)}
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          학생회 물품 대여 현황을 확인하실 수 있습니다.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8">
+          <div id="rental-data-container">
+            <p class="text-center text-gray-500">
+              {getTranslation('common.loading', currentLang)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script is:inline src="https://apis.google.com/js/api.js"></script>
+  <script is:inline>
+    const API_KEY = 'AIzaSyC0FeUawbCXVhYRMxOUN2OyUTQok9nC0Js';
+    const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+    const SPREADSHEET_ID = '1IHceP-B64SMxjZFhwnkZkwbNWa4q2XGtgLJE00fPU5Q';
+
+    function gapiLoaded() {
+      gapi.load('client', initializeGapiClient);
+    }
+
+    async function initializeGapiClient() {
+      await gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: [DISCOVERY_DOC],
+      });
+      fetchSheetData();
+    }
+
+    async function fetchSheetData() {
+      const container = document.getElementById('rental-data-container');
+      try {
+        const response = await gapi.client.sheets.spreadsheets.values.get({
+          spreadsheetId: SPREADSHEET_ID,
+          range: 'Sheet1!A1:D', // 데이터가 있는 범위까지 가져옵니다.
+        });
+        
+        const range = response.result;
+        if (!range || !range.values || range.values.length <= 1) {
+          container.innerHTML = '<p class="text-center text-gray-500">데이터가 없습니다.</p>';
+          return;
+        }
+
+        // 테이블 생성 로직
+        const table = document.createElement('table');
+        table.className = 'min-w-full divide-y divide-gray-200';
+
+        const thead = document.createElement('thead');
+        thead.className = 'bg-gray-50';
+        const headerRow = document.createElement('tr');
+        const headers = range.values[1]; // 두 번째 행을 헤더로 사용
+        headers.forEach(headerText => {
+          const th = document.createElement('th');
+          th.scope = 'col';
+          th.className = 'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider';
+          th.textContent = headerText;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        tbody.className = 'bg-white divide-y divide-gray-200';
+        const dataRows = range.values.slice(2); // 세 번째 행부터 데이터로 사용
+        dataRows.forEach(rowData => {
+          const tr = document.createElement('tr');
+          rowData.forEach(cellData => {
+            const td = document.createElement('td');
+            td.className = 'px-6 py-4 whitespace-nowrap text-sm text-gray-700';
+            td.textContent = cellData;
+            tr.appendChild(td);
+          });
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+
+        container.innerHTML = ''; // 기존 로딩 메시지 제거
+        container.appendChild(table);
+
+      } catch (err) {
+        console.error('Error fetching sheet data:', err);
+        container.innerHTML = `<p class="text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다: ${err.message}</p>`;
+      }
+    }
+    
+    // gapi 스크립트가 로드된 후 gapiLoaded 함수를 호출하도록 설정
+    // window.onload는 astro:page-load 이후에 실행되므로 gapi 로드를 보장합니다.
+    document.addEventListener('astro:page-load', () => {
+      // gapi.load가 호출될 수 있도록 gapi 객체가 있는지 확인
+      if (typeof gapi !== 'undefined') {
+        gapiLoaded();
+      } else {
+        // gapi가 아직 로드되지 않았다면, api.js 스크립트에 onload 콜백을 추가합니다.
+        const script = document.querySelector('script[src="https://apis.google.com/js/api.js"]');
+        if(script) {
+          script.onload = gapiLoaded;
+        }
+      }
+    });
+  </script>
+</BaseLayout>

@@ -13,6 +13,7 @@ export const translations: Translations = {
     "nav.events": "행사",
     "nav.board": "게시판",
     "nav.clubs": "동아리",
+    "nav.services": "서비스",
     "nav.weather": "홍콩날씨",
     "nav.report": "건의하기",
     "nav.login": "Login",
@@ -27,7 +28,7 @@ export const translations: Translations = {
     "nav.about.subcommittee": "소위원회",
 
     // Events Menu
-    "nav.events.annual": "연례행사",
+    "nav.events.annual": "15기 행사",
     "nav.events.career": "커리어",
     "nav.events.news": "소식",
     "nav.events.culture": "문화",
@@ -36,6 +37,10 @@ export const translations: Translations = {
     // Board Menu
     "nav.board.career": "채용정보 게시판",
     "nav.board.suggestions": "건의사항 게시판",
+
+    // Services Menu
+    "nav.services.rental": "물품 대여",
+    "nav.services.calendar": "행사 캘린더",
 
     // Clubs Menu
     "nav.clubs.coming": "Coming Soon",
@@ -60,8 +65,8 @@ export const translations: Translations = {
     "subcommittee.coming": "Coming Soon",
 
     // Events sub-pages
-    "events.annual.title": "연례행사",
-    "events.annual.subtitle": "Annual Events and Activities",
+    "events.annual.title": "KSA 15기 행사",
+    "events.annual.subtitle": "KSA 15th Batch Events",
     "events.career.title": "커리어",
     "events.career.subtitle": "Career Development Events",
     "events.culture.title": "문화",
@@ -433,6 +438,33 @@ export const translations: Translations = {
     "common.error": "오류가 발생했습니다",
     "common.success": "성공적으로 완료되었습니다",
     "common.copyright": "© HKUSTKSA 2025",
+
+    // News Tags
+    "news.tag.all": "전체",
+    "news.tag.announcement": "공지",
+    "news.tag.career": "커리어",
+    "news.tag.event": "행사",
+    "news.tag.introduction": "소개",
+    "news.tag.membership": "회원",
+    "news.tag.mentoring": "멘토링",
+    "news.tag.news": "소식",
+    "news.tag.benefit": "혜택",
+    "news.tag.partnership": "제휴",
+    "news.tag.sports": "스포츠",
+    "news.tag.election": "선거",
+    "news.tag.executive": "임원진",
+    "news.tag.welcome-party": "환영회",
+    "news.tag.co-purchase": "공동구매",
+    "news.tag.activity": "활동",
+    "news.tag.KSA": "KSA",
+    "news.tag.HKUST": "HKUST",
+    "news.tag.HKU": "HKU",
+
+    "nav.alumni": "Alumni",
+    "alumni.title": "Alumni News",
+    "alumni.subtitle": "HKUST 동문 소식과 뉴스레터",
+    "alumni.read_more": "자세히 보기",
+    "alumni.back": "뒤로",
   },
   en: {
     // Navigation
@@ -441,6 +473,7 @@ export const translations: Translations = {
     "nav.events": "Events",
     "nav.board": "Board",
     "nav.clubs": "Clubs",
+    "nav.services": "Services",
     "nav.weather": "HK Weather",
     "nav.report": "Contact",
     "nav.login": "Login",
@@ -455,7 +488,7 @@ export const translations: Translations = {
     "nav.about.subcommittee": "Subcommittee",
 
     // Events Menu
-    "nav.events.annual": "Annual Events",
+    "nav.events.annual": "KSA 15th Batch Event",
     "nav.events.career": "Career",
     "nav.events.news": "News",
     "nav.events.culture": "Culture",
@@ -464,6 +497,10 @@ export const translations: Translations = {
     // Board Menu
     "nav.board.career": "Career Information Board",
     "nav.board.suggestions": "Campus Suggestions",
+
+    // Services Menu
+    "nav.services.rental": "Rental Service",
+    "nav.services.calendar": "Events Calendar",
 
     // Clubs Menu
     "nav.clubs.coming": "Coming Soon",
@@ -868,6 +905,34 @@ export const translations: Translations = {
     "common.error": "An error occurred",
     "common.success": "Successfully completed",
     "common.copyright": "© HKUSTKSA 2025",
+
+    // News Tags
+    "news.tag.all": "All",
+    "news.tag.announcement": "Announcement",
+    "news.tag.career": "Career",
+    "news.tag.event": "Event",
+    "news.tag.introduction": "Introduction",
+    "news.tag.membership": "Membership",
+    "news.tag.mentoring": "Mentoring",
+    "news.tag.news": "News",
+    "news.tag.benefit": "Benefit",
+    "news.tag.partnership": "Partnership",
+    "news.tag.sports": "Sports",
+    "news.tag.election": "Election",
+    "news.tag.executive": "Executive",
+    "news.tag.welcome-party": "Welcome Party",
+    "news.tag.co-purchase": "Co-purchase",
+    "news.tag.activity": "Activity",
+    "news.tag.KSA": "KSA",
+    "news.tag.HKUST": "HKUST",
+    "news.tag.HKU": "HKU",
+
+    // Alumni
+    "nav.alumni": "Alumni",
+    "alumni.title": "Alumni News",
+    "alumni.subtitle": "Newsletters and updates from alumni",
+    "alumni.read_more": "Read More",
+    "alumni.back": "Back to List",
   },
 };
 

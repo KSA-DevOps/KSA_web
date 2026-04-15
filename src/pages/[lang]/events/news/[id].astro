@@ -93,7 +93,7 @@ const images = news.data.images || extractImagesFromMarkdown(news.body || '');
               {categoryNames[news.data.category as keyof typeof categoryNames]?.[currentLang] || news.data.category}
             </span>
           </div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6 leading-tight md:leading-snug">
             {news.data.title}
           </h1>
           <p class="text-xl text-gray-600 mb-4">
@@ -160,6 +160,7 @@ const images = news.data.images || extractImagesFromMarkdown(news.body || '');
                         alt={image.alt} 
                         class="w-full rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-200" 
                         data-image-modal
+                        data-index={index}
                         data-src={image.src}
                         data-alt={image.alt}
                       />
@@ -242,22 +243,25 @@ const images = news.data.images || extractImagesFromMarkdown(news.body || '');
   </div>
 
   <!-- Image Modal -->
-  <ImageModal client:load isOpen={false} imageSrc="" imageAlt="" />
+  <ImageModal client:load isOpen={false} images={[]} currentIndex={0} />
 
   <script>
     // Image Modal 기능
     function initImageModal() {
       const imageElements = document.querySelectorAll('[data-image-modal]');
       
+      const imagesArray = Array.from(imageElements).map((img) => ({
+        src: img.getAttribute('data-src') || '',
+        alt: img.getAttribute('data-alt') || ''
+      }));
+      
       imageElements.forEach((img) => {
         img.addEventListener('click', () => {
-          const src = img.getAttribute('data-src');
-          const alt = img.getAttribute('data-alt');
+          const clickedIndex = parseInt(img.getAttribute('data-index') || '0', 10);
           
-          if (src) {
-            // 커스텀 이벤트를 통해 모달 열기
+          if (imagesArray.length > 0) {
             const event = new CustomEvent('openImageModal', {
-              detail: { src, alt: alt || '' }
+              detail: { images: imagesArray, index: clickedIndex }
             });
             document.dispatchEvent(event);
           }

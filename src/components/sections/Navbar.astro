@@ -86,12 +86,35 @@ const ksaMenuItems = [
       },
     ],
   },
+  {
+    text: getTranslation("nav.services", currentLang),
+    href: "#", // 링크는 최상위 메뉴이므로 비워둡니다.
+    dropdown: [
+      {
+        header: "편의 서비스",
+        items: [
+          {
+            text: getTranslation("nav.services.rental", currentLang),
+            href: addLanguageToPath("/services/rental", currentLang),
+          },
+          {
+            text: getTranslation("nav.services.calendar", currentLang),
+            href: addLanguageToPath("/services/calendar", currentLang),
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 const simpleMenuItems: Array<{ text: string; href: string }> = [
   {
     text: getTranslation("nav.clubs", currentLang),
     href: addLanguageToPath("/clubs", currentLang),
+  },
+  {
+    text: getTranslation("nav.alumni", currentLang),
+    href: addLanguageToPath("/alumni", currentLang),
   },
 ];
 ---

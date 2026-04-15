@@ -58,4 +58,20 @@ const news = defineCollection({
   }),
 });
 
-export const collections = { articles, reference, spreadsheets, whitepapers, news };
+const alumni = defineCollection({
+  loader: glob({ pattern: ['**/*.md', '**/*.mdx', '**/*.mdoc'], base: "./src/content/alumni" }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.date(),
+    isNewsletter: z.boolean().optional(),
+    images: z.array(z.object({
+      src: z.string(),
+      alt: z.string(),
+    })).optional(),
+    icon: z.string().optional(),
+    display: z.boolean().default(true),
+  }),
+});
+
+export const collections = { articles, reference, spreadsheets, whitepapers, news, alumni };
